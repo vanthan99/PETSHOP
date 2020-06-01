@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh Sách Sản Phẩm Khuyến Mãi Chi Tiết</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="list-discountDetails">
+        <div class="alert alert-success" role="alert">
+            <span> Danh Sách Sản Phẩm Được Áp Dụng Đợt Khuyến Mãi : </span>
+            <span th:text="${discount.getName()}"></span>
+            <br>
+            <span>Ngày Bắt Đầu: </span>
+            <span th:text="${discount.getDateStart()}"></span>
+            <br>
+            <span>Ngày Kết Thúc: </span>
+            <span th:text="${discount.getDateEnd()}"></span>
+
+        </div>
+
+        <!--    Button Thêm Sản Phẩm Được Áp Dụng Khuyến Mãi-->
+        <div class="text-right">
+            <a th:href="@{'/admin/addDiscountDetail/discountId=' + ${discount.getId()}}" class="btn btn-success">
+                <span>Thêm Sản Phẩm</span>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col" class="text-left"><label>Ngày Áp Dụng</label></th>
+                <th scope="col" class="text-left"><label>Ngày Kết Thúc</label></th>
+                <th scope="col" class="text-left"><label>Tên Sản Phẩm</label></th>
+                <th scope="col" class="text-left"><label>Tên Khuyến Mãi</label></th>
+                <th scope="col" class="text-center"><label>Tỷ Lệ Khuyến Mãi</label></th>
+                <th scope="col" class="text-right"><label>Chỉnh Sửa|Xóa</label></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="discountDetail : ${discountDetails}">
+                <th scope="row"><label th:text="${discountDetail.getDiscount().getDateStart()}"></label></th>
+                <th scope="row"><label th:text="${discountDetail.getDiscount().getDateEnd()}"></label></th>
+                <th scope="row" class="text-left"><label class="username" th:text="${discountDetail.getProduct().getName()}"></label></th>
+                <th scope="row" class="text-left"><label class="username" th:text="${discountDetail.getDiscount().getName()}"></label></th>
+                <td class="text-center"><label class="fullname" th:text="${discountDetail.getRateDiscount()}"></label></td>
+                <td class="text-right">
+<!--                    <a th:href="@{'/admin/discountdetail/edit='+ ${discountDetail.getDiscountDetailIdentity()}}" class="btn btn-outline-info"><i-->
+<!--                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>-->
+<!--                    <a th:href="@{'/admin/discountdetail/delete='+ ${discountDetail.getDiscountDetailIdentity()}}"-->
+<!--                       onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');" class="btn btn-outline-danger"><i-->
+<!--                            class="fa fa-trash-o" aria-hidden="true"></i></a>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

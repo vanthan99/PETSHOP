@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Thêm Mới Nhà Cung Cấp</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{/admin/supplier/save}" th:object="${supplier}" method="post">
+        <table>
+            <tr>
+                <td><label>Tên Nhà Cung Cấp</label></td>
+                <td><label><input type="text" class="form-control" th:field="*{name}"></label></td>
+            </tr>
+            <tr>
+                <td><label>Địa Chỉ</label></td>
+                <td><textarea class="form-control" aria-label="With textarea" th:field="*{address}"></textarea></td>
+            </tr>
+            <tr>
+                <td><label>Số Điện Thoại</label></td>
+                <td><label><input type="text" class="form-control" th:field="*{phoneNumber}"></label></td>
+            </tr>
+            <tr>
+                <td><label>Giới Thiệu</label></td>
+                <td><textarea style="min-width: 700px;min-height: 300px;" class="form-control" aria-label="With textarea" th:field="*{description}"></textarea></td>
+            </tr>
+            <tr>
+                <td>
+                    <a onclick="return confirm('Bạn có muốn hủy?');" th:href="@{/admin/suppliers}" class="btn btn-primary">
+                        <span class="mr-2">Hủy</span>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-success">
+                        <span class="mr-2">Lưu</span>
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Loại Hàng</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--    Danh Sách Loại Hàng-->
+    <div class="list-categories">
+        <div class="list-categories">
+            <div class="alert alert-success" role="alert">
+                <p class="display-4">Quản Lý Loại Hàng</p>
+            </div>
+
+            <!--    Button Thêm mới Loại Hàng-->
+            <div class="text-right">
+                <a th:href="@{/admin/category/new}" class="btn btn-success">
+                    <span>Thêm Loại Hàng</span>
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-left"><label>Mã Loại Hàng</label></th>
+                    <th scope="col" class="text-center"><label>Tên Loại Hàng</label></th>
+                    <th scope="col" class="text-right"><label>Chỉnh Sửa|Xóa|Danh Sách</label></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <th scope="row" class="text-left"><label class="username" th:text="${category.getId()}"></label></th>
+                    <td class="text-center"><label class="fullname"  th:text="${category.getName()}"></label></td>
+                    <td class="text-right">
+                        <a th:href="@{'/admin/category/edit/'+ ${category.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a th:href="@{'/admin/category/delete/'+ ${category.getId()}}" onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');"  class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        <a th:href="@{'/admin/category/'+ ${category.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

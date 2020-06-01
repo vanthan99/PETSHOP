@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Quản Lý Khuyến Mãi</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--        Danh Sách Khuyến Mãi-->
+    <div id="list-discounts">
+        <div class="alert alert-success" role="alert">
+            <p class="display-4">Quản Lý Khuyến Mãi</p>
+        </div>
+
+<!--        button thêm đợt khuyến mãi-->
+        <div class="text-right">
+            <a th:href="@{'/admin/discount/new/'}" class="btn btn-success mb-2">
+                <span>Thêm Đợt Khuyến Mãi</span>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+        </div>
+
+<!--        bảng danh sách khuyến mãi -->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Mã Khuyến Mãi</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Ngày Bắt Đầu</th>
+                <th scope="col">Ngàt Kết Thúc</th>
+                <th scope="col">Ghi Chú</th>
+                <th scope="col">DS SP</th>
+                <th scope="col" class="text-right">Chỉnh Sửa|Xóa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="discount : ${discounts}">
+                <th scope="row" th:text="${discount.getId()}"></th>
+                <td th:text="${discount.getName()}"></td>
+                <td th:text="${discount.getDateStart()}"></td>
+                <td th:text="${discount.getDateEnd()}"></td>
+                <td th:text="${discount.getNote()}"></td>
+                <td>
+                    <a th:href="@{'/admin/listProductDiscount/discountId=   ' + ${discount.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                    </a>
+                </td>
+                <td class="text-right">
+                    <a th:href="@{'/admin/discount/edit/'+ ${discount.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a th:href="@{#}" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"  layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi Tiết Nhà Cung Cấp</title>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <hr>
+
+        <div class="jumbotron w-75 m-auto">
+            <h1 class="display-4" th:text="${supplier.getName()}"></h1>
+            <p class="lead" th:text="${supplier.getDescription()}"></p>
+            <hr class="my-4">
+            <p>Địa Chỉ: <span th:text="${supplier.getAddress()}"></span></p>
+            <p>Liên Hệ: <span th:text="${supplier.getPhoneNumber()}"></span></p>
+            <a class="btn btn-primary btn-lg" th:href="@{'/products/supId=' + ${supplier.getId()}}" role="button">Danh Sách Sản Phẩm</a>
+        </div>
+        <hr>
+    </div>
+</body>
+</html>

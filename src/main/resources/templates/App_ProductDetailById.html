@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chi Tiết Sản Phẩm</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <img th:src="'/images/' + ${product.getImagePath()}" th:alt="${product.getImagePath()}" class="img-fluid">
+            </div>
+            <div class="col-sm-6">
+                <h4 th:text="${product.getName()}"></h4>
+                <p>Thông Tin Chung</p>
+                <div>
+                    <p>Nhà Cung Cấp: <a th:text="${product.getSupplier().getName()}"></a></p>
+                    <p>Danh Mục: <a th:text="${product.getCategory().getName()}"></a></p>
+                    <p>Mô Tả: <span th:text="${product.getDescription()}"></span></p>
+                </div>
+                <p class="card-text text-danger"><b th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b></p>
+                <a href="#" class="btn btn-danger btn-lg">Đặt Hàng</a>
+            </div>
+        </div>
+        <hr>
+        <!--    danh sách sản phẩm tương tự-->
+<!--        SẼ BỔ SUNG SAU !!!!!!!!!!!-->
+
+    </div>
+</body>
+</html>

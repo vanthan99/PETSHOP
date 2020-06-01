@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"  layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Đơn Hàng</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="bill-manager">
+            <div class="alert alert-success" role="alert">
+                <p class="display-4">Quản Lý Hóa Đơn</p>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">
+                        <label class="username">Mã Đơn Hàng</label>
+                    </th>
+                    <th scope="col">
+                        <label class="fullname">Tên Người Dùng</label>
+                    </th>
+                    <th scope="col" class="phone">
+                        <label class="phone">Ngày Lập Hóa Đơn</label>
+                    </th>
+                    <th scope="col">
+                        <label class="address-of-delivery">Trạng Thái</label>
+                    </th>
+                    <th scope="col">
+                        <label class="personal-address">Ghi Chú</label>
+                    </th>
+                    <th scope="col" class="text-center">
+                        <label class="my-action">Xem | Xóa</label>
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bill : ${bills}">
+                    <th scope="row">
+                        <label class="username" th:title="${bill.getId()}" th:text="${bill.getId()}"></label>
+                    </th>
+                    <td><label class="fullname" th:title="${bill.getUser().getFullName()}"  th:text="${bill.getUser().getFullName()}"></label></td>
+                    <td><label class="phone"  th:title="${bill.getCreatedAt()}"  th:text="${bill.getCreatedAt()}"></label></td>
+                    <td><label class="address-of-delivery"  th:title="${bill.getStatus()}"  th:text="${bill.getStatus()}"></label></td>
+                    <td><label class="personal-address" data-toggle="tooltip" data-placement="bottom"
+                               th:title="${bill.getNote()}"   th:text="${bill.getNote()}"></label>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{'/admin/listBillDetail/billId='+ ${bill.getId()}}" class="btn btn-outline-info"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                        <a href="" class="btn btn-outline-danger"><i class="fa fa-lock" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

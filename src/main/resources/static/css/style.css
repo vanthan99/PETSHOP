@@ -1,0 +1,70 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#navbar img.img-fluid {
+    border-radius: 6px;
+}
+
+#navbar a.logo{
+    width: 74px;
+}
+
+#sidebar a{
+    text-decoration: none;
+    transition: 0.2s;
+    color: #343a40;
+}
+
+#sidebar a:hover{
+    background-color: #dc3545;
+    border-radius: 4px;
+    color: white;
+}
+
+#content{
+    min-height: 500px;
+    width: 100%;
+}
+
+#content ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#content .product{
+    width: 230px;
+    height: 343px;
+    margin-bottom: 20px;
+    margin-right: 16px;
+}
+#content .product .head{
+    height: 70%;
+    overflow: hidden;
+    position: relative;
+}
+#content .product .head img{
+    width: 100%;
+    height: 100%;
+}
+#content .product .head .dat-hang{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: 0.4s;
+}
+
+#content .product:hover .head .dat-hang{
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+

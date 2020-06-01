@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/*css danh sách user*/
+#list-user label.username {
+    width: 124px;
+}
+
+#list-user label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#list-user label.role {
+    width: 87px;
+}
+
+#list-user label.fullname {
+    width: 134px;
+}
+
+#list-user label.phone {
+    width: 88px;
+}
+
+#list-user label.address-of-delivery {
+    width: 141px;
+    /*animation: floatText 10s infinite linear;*/
+}
+/*label.address-of-delivery:hover {*/
+/*     -webkit-animation-play-state: paused;*/
+/*     -moz-animation-play-state: paused;*/
+/*     -o-animation-play-state: paused;*/
+/*     animation-play-state: paused;*/
+/* }*/
+/*@-webkit-keyframes floatText{*/
+/*    from {*/
+/*        text-indent: 100%;*/
+/*    }*/
+
+/*    to {*/
+/*        text-indent: -100%;*/
+/*    }*/
+/*}*/
+
+#list-user label.personal-address {
+    width: 108px;
+}
+
+#list-user label.my-action {
+    width: 94px;
+}
+
+/*css danh sách admin*/

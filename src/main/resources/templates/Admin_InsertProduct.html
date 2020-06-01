@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"  layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Sản Phẩm</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <form th:action="@{/admin/saveProduct}" th:object="${product}" method="post">
+            <table>
+                <tr>
+                    <td>Tên Sản Phẩm</td>
+                    <td><label><input type="text" class="form-control" th:field="*{name}"></label></td>
+                </tr>
+                <tr>
+                    <td>Danh Mục Sản Phẩm</td>
+                    <td><label>
+                        <select class="form-control" th:field="*{category}">
+                            <option th:each="category: ${categories}" th:value="${category.getId()}" th:utext="${category.getName()}"></option>
+                        </select>
+                    </label></td>
+                </tr>
+
+                <tr>
+                    <td>Nhà Cung Cấp</td>
+                    <td><label>
+                        <select class="form-control" th:field="*{supplier}">
+                            <option th:each="supplier: ${suppliers}" th:value="${supplier.getId()}" th:utext="${supplier.getName()}"></option>
+                        </select>
+                    </label></td>
+                </tr>
+
+                <tr>
+                    <td>Hình Ảnh</td>
+                    <td><label><input type="text" class="form-control" th:field="*{imagePath}"></label></td>
+                </tr>
+                <tr>
+                    <td>Mô Tả</td>
+                    <td><label><textarea style="min-width: 300px;min-height: 100px;" class="form-control" th:field="*{description}"></textarea></label></td>
+                </tr>
+
+                <tr>
+                    <td>Số Lượng</td>
+                    <td><label><input type="number" class="form-control"  th:field="*{quantity}"></label></td>
+                </tr>
+                <tr>
+                    <td>Giá</td>
+                    <td><label><input type="number" class="form-control"  th:field="*{price}"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a th:href="@{/admin/listProduct}" class="btn btn-secondary"><i class="fa fa-eraser" aria-hidden="true"></i></a>
+                        <button type="submit" class="btn btn-info"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

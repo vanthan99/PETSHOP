@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản Lý Nhà Cung Cấp</title>
+    <link rel="stylesheet" th:href="@{/css/suppliermanager.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <!--        Danh Sách Nhà Cung Cấp-->
+    <div class="alert alert-success" role="alert">
+        <p class="display-4">Quản Lý Nhà Cung Cấp</p>
+    </div>
+<!--    Button Thêm mới Nhà Cung Cấp-->
+    <div class="text-right">
+        <a th:href="@{/admin/addSupplier}" class="btn btn-success">
+            <span>Thêm Nhà Cung Cấp</span>
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="list-suppliers">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"><label class="id">Mã Nhà Cung Cấp</label></th>
+                <th scope="col"><label class="name">Tên</label></th>
+                <th scope="col"><label class="address">Địa Chỉ</label></th>
+                <th scope="col"><label class="phone-number">Số Điện Thoại</label></th>
+                <th scope="col"><label class="description">Giới Thiệu</label></th>
+                <th scope="col" class="text-right"><label class="my-action">Chỉnh Sửa|Xóa|Danh Sách</label></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="supplier : ${suppliers}">
+                <th scope="row"><label class="id" th:text="${supplier.getId()}"></label></th>
+                <td><label class="name" th:text="${supplier.getName()}"></label></td>
+                <td><label class="address" th:text="${supplier.getAddress()}"></label></td>
+                <td><label class="phone-number" th:text="${supplier.getPhoneNumber()}"></label></td>
+                <td><label class="description" th:text="${supplier.getDescription()}"></label></td>
+                <td class="my-action text-right">
+                    <a th:href="@{'/admin/supplier/edit/' + ${supplier.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/supplier/delete/' + ${supplier.getId()}}" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/supplier/???' + ${supplier.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

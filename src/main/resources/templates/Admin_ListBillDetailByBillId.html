@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"  layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Sách Sản Phẩm</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="alert alert-success" role="alert">
+            <p>Danh sách Sản Phẩm Trong trong đơn hàng: <span th:text="${bill.getId()}"></span></p>
+            <p>Tên Người Dùng: <span th:text="${bill.getUser().getFullName()}"></span></p>
+            <p>Ngày Lập Hóa Đơn: <span th:text="${bill.getCreatedAt()}"></span></p>
+            <p>Trạng Thái: <span th:text="${bill.getStatus()}"></span></p>
+            <p>Ghi Chú: <span th:text="${bill.getNote()}"></span></p>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">
+                    <label>Tên Sản Phẩm</label>
+                </th>
+                <th scope="col">
+                    <label>Số Lượng</label>
+                </th>
+                <th scope="col" class="phone">
+                    <label>Đơn Giá</label>
+                </th>
+                <th scope="col">
+                    <label>Tỷ Lệ Khuyến Mãi</label>
+                </th>
+                <th scope="col" class="text-center"><label class="my-action">Xóa</label></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="l : ${listBillDetail}">
+                <th scope="row">
+                    <label th:text="${l.getProduct().getName()}"></label>
+                </th>
+                <td><label th:text="${l.getQuantity()}"></label></td>
+                <td><label th:text="${l.getPrice()}"></label></td>
+                <td><label th:text="${l.getRateDiscount()}"></label></td>
+                <td class="text-center">
+                    <a href="" class="btn btn-outline-danger"><i class="fa fa-lock" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

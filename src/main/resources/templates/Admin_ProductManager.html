@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Product Manager</title>
+    <link rel="stylesheet" th:href="@{/css/productmanager.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="list-products">
+        <div class="alert alert-success" role="alert">
+            <p class="display-4">Quản Lý Sản Phẩm</p>
+        </div>
+
+        <!--    Button Thêm mới Sản Phẩm-->
+        <div class="text-right">
+            <a th:href="@{/admin/addProduct}" class="btn btn-success">
+                <span>Thêm Sản Phẩm</span>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col" class="text-left"><label class="id">ID</label></th>
+                <th scope="col"><label class="name">Tên</label></th>
+                <th scope="col"><label class="image">Hình Ảnh</label></th>
+                <th scope="col"><label class="supplier">Nhà Cung Cấp</label></th>
+                <th scope="col"><label class="category">Danh Mục</label></th>
+                <th scope="col"><label class="quantity">Số Lượng</label></th>
+                <th scope="col"><label class="nhap-hang">Nhập Hàng</label></th>
+                <th scope="col"><label class="action">Sửa|Xóa</label></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <th scope="row"><label class="id" th:text="${product.getId()}"></label></th>
+                <td><label class="name"  th:text="${product.getName()}"></label></td>
+                <td>
+                    <img class="img img-fluid" th:src="@{'/images/'+${product.getImagePath()}}">
+
+                </td>/
+<!--                <td><label class="image img-fluid"></label></td>-->
+                <td><label class="supplier"  th:text="${product.getSupplier().getName()}"></label></td>
+                <td><label class="category"  th:text="${product.getCategory().getName()}"></label></td>
+                <td><label class="quantity"  th:text="${product.getQuantity()}"></label></td>
+                <td><a class="btn btn-info nhap-hang" th:href="@{e}"><i class="fa fa-plus"></i></a></td>
+                <td class="text-right action">
+                    <a th:href="@{'/admin/editProduct='+ ${product.getId()}}" class="btn btn-outline-info"><i
+                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/deleteProduct='+ ${product.getId()}}"
+                       onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');" class="btn btn-outline-danger"><i
+                            class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

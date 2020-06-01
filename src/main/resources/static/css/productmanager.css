@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+label.nhap-hang {
+    width: 88px;
+}
+
+label.quantity {
+    width: 74px;
+}
+
+label.category {
+    width: 113px;
+}
+
+label.supplier {
+    width: 112px;
+}
+
+.image {
+    width: 160px;
+}
+
+label.name {
+    width: 233px;
+}
+
+label.id {
+    width: 19px;
+}
+
+label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+

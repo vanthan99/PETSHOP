@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản Lý Tài Khoản Người Dùng</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!--        chỉnh sửa loại hàng-->
+    <div class="alert alert-success" role="alert">
+        <p class="display-4">Chỉnh Sửa Loại Hàng</p>
+    </div>
+    <form method="post">
+        <table class="table w-50 mx-auto">
+            <tr>
+                <td><label>Mã Loại Hàng</label></td>
+                <td><label><input class="form-control" type="text" name="" value="1" readonly="readonly"></label></td>
+            </tr>
+
+            <tr>
+                <td><label>Tên Loại Hàng</label></td>
+                <td>
+                    <label>
+                        <select class="form-control" name="" id="">
+                            <option value="1" name="">Chó</option>
+                            <option value="1" name="">Thuốc</option>
+                            <option value="1" name="">Quần Áo Cho Chó</option>
+                            <option value="1" name="">Lồng</option>
+                        </select>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <button onclick="return confirm('Lưu Thành Công');" class="btn btn-success form-control w-25" type="submit">OK</button>
+                </td>
+
+            </tr>
+        </table>
+
+    </form>
+
+</div>
+</body>
+</html>
