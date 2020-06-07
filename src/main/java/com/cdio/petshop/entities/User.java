@@ -1,9 +1,8 @@
 package com.cdio.petshop.entities;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import sun.security.util.Password;
+
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,7 +15,7 @@ public class User {
     @Id
     private String username;
 
-    @Column(nullable = false,length = 20)
+    @Column(nullable = false,length = 60)
     private String password;
 
     @Column(length = 50)

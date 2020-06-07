@@ -25,6 +25,7 @@ public class AppController {
     @GetMapping("/")
     public String demo(Model model){
         model.addAttribute("products", productService.findAll());
+        model.addAttribute("categories",categoryService.findAll());
         return "App_index";
     }
 
@@ -63,4 +64,5 @@ public class AppController {
         model.addAttribute("products",supplierService.findById(id).getProducts());
         return "App_ListProductByCategoryOrSupplier";
     }
+
 }

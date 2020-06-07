@@ -37,12 +37,12 @@
                         </div>
                     </li>
                 </ul>
-                <span class="navbar-text">
-                    Xin Chào Trương Văn Thân
+                <span class="navbar-text ml-2 mr-5">
+                    Xin Chào :  [[${#httpServletRequest.remoteUser}]]
                 </span>
-                <span class="navbar-text ml-5">
-                    <a href="">Đăng Xuất</a>
-                </span>
+                <form th:action="@{/logout}" method="post" class="ml-2">
+                    <input type="submit" value="Đăng Xuất" class="btn btn-outline-warning btn-sm">
+                </form>
             </div>
         </div>
     </nav>

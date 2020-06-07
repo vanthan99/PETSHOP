@@ -40,8 +40,8 @@
             </thead>
             <tbody>
             <tr th:each="discountDetail : ${discountDetails}">
-                <th scope="row"><label th:text="${discountDetail.getDiscount().getDateStart()}"></label></th>
-                <th scope="row"><label th:text="${discountDetail.getDiscount().getDateEnd()}"></label></th>
+                <th scope="row"><label th:text="${#calendars.format(discountDetail.getDiscount().getDateStart(),'dd/MM/yyyy')}"></label></th>
+                <th scope="row"><label th:text="${#calendars.format(discountDetail.getDiscount().getDateEnd(),'dd/MM/yyyy')}"></label></th>
                 <th scope="row" class="text-left"><label class="username" th:text="${discountDetail.getProduct().getName()}"></label></th>
                 <th scope="row" class="text-left"><label class="username" th:text="${discountDetail.getDiscount().getName()}"></label></th>
                 <td class="text-center"><label class="fullname" th:text="${discountDetail.getRateDiscount()}"></label></td>
