@@ -10,25 +10,32 @@
     <hr>
     <h3 th:text="${title}"></h3>
     <div id="content">
-        <ul>
-            <li th:each="product : ${products}">
-                <div class="card product">
-                    <div class="head">
-                        <a th:href="@{'/product/id=' + ${product.getId()}}">
-                            <img th:src="@{'/images/' + ${product.getImagePath()}}" th:alt="${product.getImagePath()}">
-                            <div class="dat-hang">
-                                <span class="card-text">Click để xem chi tiết</span>
-                                <a class="btn btn-secondary btn-sm" href="#">Đặt Hàng</a>
-                            </div>
-                        </a>
+        <div th:if="${products.size() == 0}">
+            <span class="lead">Danh sách trống. Vui lòng quay lại sau!</span>
+            <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+
+        </div>
+        <div th:if="${products.size() > 0}">
+            <ul>
+                <li th:each="product : ${products}">
+                    <div class="card product">
+                        <div class="head">
+                            <a th:href="@{'/product/id=' + ${product.getId()}}">
+                                <img th:src="@{'/images/' + ${product.getImagePath()}}" th:alt="${product.getImagePath()}">
+                                <div class="dat-hang">
+                                    <span class="card-text">Click để xem chi tiết</span>
+                                    <a class="btn btn-secondary btn-sm" href="#">Đặt Hàng</a>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.getName()}"></h5>
+                            <p class="card-text text-danger"><b th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b></p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${product.getName()}"></h5>
-                        <p class="card-text text-danger"><b th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b></p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
     <hr>
 </div>

@@ -4,7 +4,7 @@
             <a href="" class="nav-link btn btn-outline-danger active"><i class="fa fa-bars"></i> Danh Mục</a>
         </li>
         <li class="nav-item" th:each="c : ${tet}">
-            <a class="nav-link" href="#" th:text="${c.getName()}"></a>
+            <a class="nav-link" th:href="@{'/products/catId=' + ${c.getId()}}" th:text="${c.getName()}"></a>
         </li>
     </ul>
 </div>
