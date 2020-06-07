@@ -6,7 +6,10 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div id="content">
+    <div id="content" class="mt-4">
+        <div class="alert alert-info text-center display-4" role="alert">
+            Tất cả sản phẩm
+        </div>
             <ul>
                 <li th:each="product : ${products}">
                     <div class="card product">
