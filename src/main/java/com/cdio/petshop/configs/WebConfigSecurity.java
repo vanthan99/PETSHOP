@@ -49,16 +49,17 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/product/*","/products/*","/supplier/*").permitAll()
-                .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/",true)
-                    .permitAll()
-                .and()
-                .logout().permitAll()
-                ;
+//                .antMatchers("/","/product/*","/products/*","/supplier/*").permitAll()
+               // .mvcMatchers("/admin/***").hasRole("ADMIN")
+
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/",true)
+                .permitAll()
+            .and()
+            .logout().permitAll()
+            ;
     }
 }

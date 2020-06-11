@@ -14,16 +14,16 @@
                             Sản Phẩm
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                            <a class="dropdown-item" th:href="@{/admin/listProduct}">Quản Lý Sản Phẩm</a>
-                            <a class="dropdown-item" th:href="@{/admin/categories}">Quản Lý Loại Hàng</a>
-                            <a class="dropdown-item" th:href="@{/admin/suppliers}">Quản Lý Nhà Cung Cấp</a>
+                            <a class="dropdown-item" th:href="@{/admin/product/index}">Quản Lý Sản Phẩm</a>
+                            <a class="dropdown-item" th:href="@{/admin/category/index}">Quản Lý Loại Hàng</a>
+                            <a class="dropdown-item" th:href="@{/admin/supplier/index}">Quản Lý Nhà Cung Cấp</a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/listBill}">Đơn Hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/discounts}">Khuyến Mãi</a>
+                        <a class="nav-link" th:href="@{/admin/discount/index}">Khuyến Mãi</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -31,10 +31,13 @@
                             Tài Khoản
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" th:href="@{/admin/accounts}">Quản Lý Tài Khoản</a>
+                            <a class="dropdown-item" th:href="@{/admin/user/index}">Quản Lý Tài Khoản</a>
                             <a class="dropdown-item" href="#">Quyền Tài Khoản</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Giao Diện Người Dùng</a>
                     </li>
                 </ul>
                 <span class="navbar-text ml-2 mr-5">

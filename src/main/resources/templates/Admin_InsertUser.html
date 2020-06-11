@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Mới Người Dùng</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <form th:action="@{/admin/user}" th:object="${user}" method="post">
+            <table>
+                <tr>
+                    <td><label>Tên Đăng Nhập</label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{username}"></label></td>
+                </tr>
+                <tr>
+                    <td><label>Mật Khẩu</label></td>
+                    <td><label><input type="password" class="form-control" th:field="*{password}"></label></td>
+                </tr>
+                <tr>
+                    <td><label>Loại Tài Khoản</label></td>
+                    <td><label>
+                        <select class="form-control" th:field="*{role}">
+                            <option th:each="r : ${roles}" th:value="${r.getId()}" th:text="${r.getName()}"></option>
+                        </select>
+                    </label></td>
+                </tr>
+                <tr>
+                    <td><label>Tên Đầy Đủ</label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{fullName}"></label></td>
+                </tr>
+                <tr>
+                    <td><label>SĐT</label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{phoneNumber}"></label></td>
+                </tr>
+
+                <tr>
+                    <td><label>Địa Chỉ Nơi Giao Hàng</label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{addressOfDelivery}"></label></td>
+                </tr>
+
+                <tr>
+                    <td><label>Địa Chỉ Nơi Ở</label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{personalAddress}"></label></td>
+                </tr>
+                <tr>
+                    <td><label>Trạng Thái</label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{status}"></label></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a onclick="return confirm('Bạn có muốn hủy?');" th:href="@{/admin/user/index}" class="btn btn-primary">
+                            <span class="mr-2">Hủy</span>
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success">
+                            <span class="mr-2">Lưu</span>
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

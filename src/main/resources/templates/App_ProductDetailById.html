@@ -6,24 +6,73 @@
 </head>
 <body>
     <div layout:fragment="content">
-        <hr>
-        <div class="row">
-            <div class="col-sm-6">
-                <img th:src="'/images/' + ${product.getImagePath()}" th:alt="${product.getImagePath()}" class="img-fluid">
-            </div>
-            <div class="col-sm-6">
-                <h4 th:text="${product.getName()}"></h4>
-                <p>Thông Tin Chung</p>
-                <div>
-                    <p>Nhà Cung Cấp: <a th:text="${product.getSupplier().getName()}"></a></p>
-                    <p>Danh Mục: <a th:text="${product.getCategory().getName()}"></a></p>
-                    <p>Mô Tả: <span th:text="${product.getDescription()}"></span></p>
+<!--        <hr>-->
+<!--        <div class="row">-->
+<!--            <div class="col-sm-6">-->
+<!--                <img th:src="'/images/' + ${product.getImagePath()}" th:alt="${product.getImagePath()}" class="img-fluid">-->
+<!--            </div>-->
+<!--            <div class="col-sm-6">-->
+<!--                <h4 th:text="${product.getName()}"></h4>-->
+<!--                <p>Thông Tin Chung</p>-->
+<!--                <div>-->
+<!--                    <p>Nhà Cung Cấp: <a th:text="${product.getSupplier().getName()}"></a></p>-->
+<!--                    <p>Danh Mục: <a th:text="${product.getCategory().getName()}"></a></p>-->
+<!--                    <p>Mô Tả: <span th:text="${product.getDescription()}"></span></p>-->
+<!--                </div>-->
+<!--                <p class="card-text text-danger"><b th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b></p>-->
+<!--                <a th:href="@{/cart/index}" class="btn btn-danger btn-lg">MUA NGAY</a>-->
+<!--                <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}" class="btn btn-outline-danger btn-lg">-->
+<!--                    <i class="fa fa-cart-arrow-down mr-2" aria-hidden="true"></i>-->
+<!--                    <span class="text-danger">THÊM VÀO GIỎ HÀNG</span>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <hr>-->
+
+        <!-- News jumbotron -->
+        <div class="jumbotron text-center hoverable p-4">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-4 offset-md-1 mx-3 my-3">
+
+                    <!-- Featured image -->
+                    <div class="view overlay">
+                        <img th:src="@{'/images/' + ${product.getImagePath()}}" class="img-fluid" alt="Sample image for first version of blog listing">
+<!--                        <a>-->
+<!--                            <div class="mask rgba-white-slight"></div>-->
+<!--                        </a>-->
+                    </div>
+
                 </div>
-                <p class="card-text text-danger"><b th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b></p>
-                <a href="#" class="btn btn-danger btn-lg">Đặt Hàng</a>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-7 text-md-left ml-3 mt-3">
+
+                    <h4 class="h4 mb-4" th:text="${product.getName()}"></h4>
+
+                    <p class="font-weight-normal"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;Mô Tả: <span class="font-weight-normal" th:text="${product.getDescription()}"></span></p>
+                    <p class="font-weight-normal"><i class="fa fa-tag" aria-hidden="true"></i>&nbsp;&nbsp;Danh Mục: <span class="font-weight-normal" th:text="${product.getCategory().getName()}"></span></p>
+                    <p class="font-weight-normal"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;Nhà cung cấp: <span class="font-weight-normal" th:text="${product.getSupplier().getName()}"></span></p>
+                    <p class="font-weight-normal"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Giá: <span class="text-danger" th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></span></p>
+
+                    <a th:href="@{/cart/index}" class="btn btn-danger">Mua ngay</a>
+                    <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}" class="btn btn-outline-danger">
+                        <i class="fa fa-cart-arrow-down mr-2" aria-hidden="true"></i>  Thêm vào giỏ hàng
+                    </a>
+
+                </div>
+                <!-- Grid column -->
+
             </div>
+            <!-- Grid row -->
+
         </div>
-        <hr>
+
+
         <!--    danh sách sản phẩm tương tự-->
 <!--        SẼ BỔ SUNG SAU !!!!!!!!!!!-->
 

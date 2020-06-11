@@ -36,8 +36,6 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String notes;
 
-    @Column
-    private Integer enabled;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false,foreignKey = @ForeignKey(name = "fk_user_role"))

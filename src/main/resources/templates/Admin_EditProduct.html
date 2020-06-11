@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Chỉnh sửa sản phẩm</title>
 </head>
 <body>
+<div layout:fragment="content">
+    <!--        Chỉnh Sửa Khuyến Mai-->
+    <form th:action="@{/admin/product}" th:object="${product}" method="post">
+        <table>
+            <tr>
+                <td><label>Mã SP</label></td>
+                <td><label><input readonly class="form-control" type="text" th:field="*{id}"></label></td>
+            </tr>
 
+            <tr>
+                <td><label>Tên SP</label></td>
+                <td><label><input class="form-control" type="text" th:field="*{name}"></label></td>
+            </tr>
+            <tr>
+                <td>Danh Mục Sản Phẩm</td>
+                <td><label>
+                    <select class="form-control" th:field="*{category}">
+                        <option th:each="category: ${categories}" th:value="${category.getId()}"
+                                th:utext="${category.getName()}"></option>
+                    </select>
+                </label></td>
+            </tr>
+
+            <tr>
+                <td>Nhà Cung Cấp</td>
+                <td><label>
+                    <select class="form-control" th:field="*{supplier}">
+                        <option th:each="supplier: ${suppliers}" th:value="${supplier.getId()}"
+                                th:utext="${supplier.getName()}"></option>
+                    </select>
+                </label></td>
+            </tr>
+            <tr>
+                <td><label>Hình ảnh</label></td>
+                <td><label><input class="form-control" type="text" th:field="*{imagePath}"></label></td>
+            </tr>
+            <tr>
+                <td>Mô Tả</td>
+                <td><label><textarea style="min-width: 300px;min-height: 100px;" class="form-control"
+                                     th:field="*{description}"></textarea></label></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Giá</label>
+                </td>
+                <td>
+                    <div class="form-inline">
+                        <label><input class="form-control" type="number" placeholder="VNĐ" th:field="*{price}"></label>
+                        <label>&nbsp;&nbsp;&nbsp;VNĐ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a onclick="return confirm('Bạn có muốn hủy?');" th:href="@{/admin/product/index}"
+                       class="btn btn-primary">
+                        <span class="mr-2">Hủy</span>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-success">
+                        <span class="mr-2">Lưu</span>
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
 </body>
 </html>

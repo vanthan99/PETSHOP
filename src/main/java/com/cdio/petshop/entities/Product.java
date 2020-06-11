@@ -26,9 +26,6 @@ public class Product {
     @Column
     private Integer price;
 
-    @Column
-    private Integer quantity;
-
     @Column(columnDefinition = "TEXT")
     private String description;
 

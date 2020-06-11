@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Chi Tiết Người Dùng </title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="jumbotron">
+            <h1 class="display-4">Thông tin người dùng chi tiết</h1>
+            <p class="lead">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Tên đăng nhâp: </span>
+                <span th:text="${user.getUsername()}"></span>
+            </p>
+            <p class="lead">
+                <i class="fa fa-tag" aria-hidden="true"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Loại tài khoản: </span>
+                <span th:text="${user.getRole().getName()}"></span>
+            </p>
+            <p class="lead">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Tên đầy đủ: </span>
+                <span th:text="${user.getFullName()}"></span>
+            </p>
+            <p class="lead">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Số điện thoại: </span>
+                <span th:text="${user.getPhoneNumber()}"></span>
+            </p>
+            <p class="lead">
+                <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Địa chỉ giao hàng: </span>
+                <span th:text="${user.getAddressOfDelivery()}"></span>
+            </p>
+            <p class="lead">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Địa chỉ nơi ở: </span>
+                <span th:text="${user.getPersonalAddress()}"></span>
+            </p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p class="lead">
+                <a class="btn btn-success btn-lg" th:href="@{/admin/user/index}" role="button">Quay lại</a>
+            </p>
+
+        </div>
+    </div>
+</body>
+</html>

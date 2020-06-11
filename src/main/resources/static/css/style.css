@@ -29,59 +29,61 @@ body{
     align-items: center;
 }
 #header #txtSearch{
-    width: 300px;
+    width: 180px;
 }
+
+
 #header .form-info-user{
     position: relative;
 }
-#header .form-info-user .form-logout{
-    position: absolute;
-    top: 57px;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.4s;
-    z-index: 100;
-}
-#header .form-info-user:hover .form-logout{
+
+#header .form-info-user:hover #action-more{
     opacity: 1;
     visibility: visible;
 }
-#header .form-info-user .form-logout ::before{
+
+#header #action-more{
+    position: absolute;
+    top: 56px;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+#action-more ::before{
+    content: "";
     position: absolute;
     top: -21px;
-    left: 73px;
-    content: "";
-    width: 20px;
-    height: 20px;
-    border: 11px solid #ffff0000;
-    border-bottom-color: var(--mautrang-nhat);
+    left: 63px;
+    width: 7px;
+    height: 8px;
+    border: 11px solid rgba(0, 0, 0, 0);
+    border-bottom-color: white;
 }
-#header .form-info-user .form-logout:hover ::before{
-    border-bottom-color: var(--danger);
-}
-#header .form-info-user .form-logout ul{
+#header #action-more ul{
     list-style: none;
     background-color:var(--mautrang-nhat);
-    width: 140px;
 }
-#header .form-info-user .form-logout ul li{
-    padding: 5px 15px;
+
+#header #action-more ul li{
+    transition: 0.4s;
 }
-#header .form-info-user .form-logout ul li:hover{
+
+#header #action-more ul li:hover{
     background-color: var(--danger);
 }
-#header .form-info-user .form-logout #btnLogout{
+
+#btnLogout{
     background-color: transparent;
     border: 0;
-    color: black;
     cursor: pointer;
     display: inline;
-    margin: 0;
     outline: none;
-    padding: 0;
     text-decoration: none;
 }
+/*end custom css form-info-user*/
+
+
 #header div.items{
     display: flex;
     justify-content: space-between;

@@ -38,15 +38,17 @@
             <tr th:each="discount : ${discounts}">
                 <th scope="row" th:text="${discount.getId()}"></th>
                 <td th:text="${discount.getName()}"></td>
-                <td th:text="${discount.getDateStart()}"></td>
-                <td th:text="${discount.getDateEnd()}"></td>
+<!--                <td th:text="${discount.getDateStart()}"></td>-->
+                <td th:text="${#calendars.format(discount.getDateStart(),'dd/MM/yyyy')}"></td>
+                <td th:text="${#calendars.format(discount.getDateEnd(),'dd/MM/yyyy')}"></td>
+<!--                <td th:text="${discount.getDateEnd()}"></td>-->
                 <td th:text="${discount.getNote()}"></td>
                 <td>
-                    <a th:href="@{'/admin/listProductDiscount/discountId=   ' + ${discount.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                    <a th:href="@{'/admin/listProductDiscount/discountId=' + ${discount.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                     </a>
                 </td>
                 <td class="text-right">
-                    <a th:href="@{'/admin/discount/edit/'+ ${discount.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/discount/edit/disId='+ ${discount.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     <a th:href="@{#}" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>

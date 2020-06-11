@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div id="cart" style="min-height: 400px;">
+
+
+        <h3 class="display-4 text-center">Giỏ Hàng</h3>
+
+
+        <div th:unless="${session.cart.size()}">
+            <p class="alert alert-warning">Giỏ Hàng Trống!</p>
+        </div>
+
+        <div th:if="${session.cart.size()}">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Sản Phẩm</th>
+                    <th scope="col">Tên Sản Phẩm</th>
+                    <th scope="col">Số Lượng</th>
+                    <th scope="col">Giá Tiền</th>
+                    <th scope="col">Xóa</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${session.cart}">
+                    <th>
+                        <img th:src="@{'/images/' + ${item.getProduct().getImagePath()}}" alt="">
+                    </th>
+                    <td><label th:text="${item.getProduct().getName()}"></label></td>
+                    <td><label th:text="${item.getQuantity()}"></label></td>
+                    <!--                    <td><label th:text="${item.getProduct().getPrice()}"></label></td>-->
+                    <td><label
+                            th:text="${#numbers.formatDecimal(item.getProduct().getPrice() * item.getQuantity(),0,'COMMA',0,'POINT') + ' VNĐ'}"></label>
+                    </td>
+                    <td>
+                        <a th:href="@{'/cart/remove/' + ${item.getProduct().getId() }}"
+                           onclick="return confirm('Bạn có muốn xóa?')" class="btn btn-danger">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="4"></th>
+                    <td>
+                        <label th:text="${total}"></label>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--        Tiếp tục mua sắm-->
+        <div class="container-fluid pb-4">
+            <div class="row justify-content-between">
+                <a th:href="@{/}" class="btn btn-success text-left">Tiếp tục mua hàng</a>
+                <a href="#" class="btn btn-danger text-right">Đặt hàng</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

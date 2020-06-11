@@ -4,19 +4,19 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Product Manager</title>
-    <link rel="stylesheet" th:href="@{/css/productmanager.css}">
+    <title>Danh sách sản phẩm</title>
+    <link rel="stylesheet" href="/css/productmanager.css">
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="list-products">
+    <div id="product_manager">
         <div class="alert alert-success" role="alert">
             <p class="display-4">Quản Lý Sản Phẩm</p>
         </div>
 
         <!--    Button Thêm mới Sản Phẩm-->
         <div class="text-right">
-            <a th:href="@{/admin/addProduct}" class="btn btn-success">
+            <a th:href="@{/admin/product/new}" class="btn btn-success">
                 <span>Thêm Sản Phẩm</span>
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </a>
@@ -24,33 +24,30 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col" class="text-left"><label class="id">ID</label></th>
-                <th scope="col"><label class="name">Tên</label></th>
-                <th scope="col"><label class="image">Hình Ảnh</label></th>
-                <th scope="col"><label class="supplier">Nhà Cung Cấp</label></th>
-                <th scope="col"><label class="category">Danh Mục</label></th>
-                <th scope="col"><label class="quantity">Số Lượng</label></th>
-                <th scope="col"><label class="nhap-hang">Nhập Hàng</label></th>
-                <th scope="col"><label class="action">Sửa|Xóa</label></th>
+                <th scope="col"><label>STT</label></th>
+                <th scope="col"><label>Tên</label></th>
+                <th scope="col"><label>Hình Ảnh</label></th>
+                <th scope="col"><label>Nhà Cung Cấp</label></th>
+                <th scope="col"><label>Danh Mục</label></th>
+                <th scope="col"><label>Giá</label></th>
+                <th scope="col" class="text-center"><label>Sửa|Xóa</label></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="product : ${products}">
-                <th scope="row"><label class="id" th:text="${product.getId()}"></label></th>
+            <tr th:each="product, stt : ${products}">
+                <th scope="row"><label class="index" th:text="${stt.index+1}"></label></th>
                 <td><label class="name"  th:text="${product.getName()}"></label></td>
                 <td>
-                    <img class="img img-fluid" th:src="@{'/images/'+${product.getImagePath()}}">
-
+                    <img class="image" style="width:132px;height: 153px;border-radius: 5px" th:src="@{'/images/'+${product.getImagePath()}}">
                 </td>/
 <!--                <td><label class="image img-fluid"></label></td>-->
                 <td><label class="supplier"  th:text="${product.getSupplier().getName()}"></label></td>
                 <td><label class="category"  th:text="${product.getCategory().getName()}"></label></td>
-                <td><label class="quantity"  th:text="${product.getQuantity()}"></label></td>
-                <td><a class="btn btn-info nhap-hang" th:href="@{e}"><i class="fa fa-plus"></i></a></td>
-                <td class="text-right action">
-                    <a th:href="@{'/admin/editProduct='+ ${product.getId()}}" class="btn btn-outline-info"><i
+                <td><label class="category" style="color:#dc3545;font-weight: bold"  th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></label></td>
+                <td class="text-center">
+                    <a th:href="@{'/admin/product/edit/productId='+ ${product.getId()}}" class="btn btn-outline-info"><i
                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a th:href="@{'/admin/deleteProduct='+ ${product.getId()}}"
+                    <a th:href="@{'/admin/product/delete/productId='+ ${product.getId()}}"
                        onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');" class="btn btn-outline-danger"><i
                             class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>

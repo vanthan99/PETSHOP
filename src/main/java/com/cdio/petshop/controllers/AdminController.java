@@ -45,157 +45,157 @@ public class AdminController {
         return "Admin_AccountManager";
     }
 
-    // Quản Lý Loại Hàng
-    @GetMapping("/categories")
-    public String viewListCategory(Model model){
-        model.addAttribute("categories",categoryService.findAll());
-        return "Admin_CategoryManager";
-    }
-    // return page add new a category
-    @GetMapping("/category/new")
-    public String viewInsertCategoryPage(Model model){
-        model.addAttribute("category",new Category());
-        return "Admin_InsertCategory";
-    }
+//    // Quản Lý Loại Hàng
+//    @GetMapping("/categories")
+//    public String viewListCategory(Model model){
+//        model.addAttribute("categories",categoryService.findAll());
+//        return "Admin_CategoryManager";
+//    }
+//    // return page add new a category
+//    @GetMapping("/category/new")
+//    public String viewInsertCategoryPage(Model model){
+//        model.addAttribute("category",new Category());
+//        return "Admin_InsertCategory";
+//    }
+//
+//    @GetMapping("/category/edit/{id}")
+//    public String viewInsertCategoryPage(Model model,@PathVariable(name = "id") Long id){
+//        model.addAttribute("category",categoryService.findById(id));
+//        return "Admin_EditCategory";
+//    }
+//
+//    @PostMapping("/category")
+//    public String insertCategory(@ModelAttribute(name = "category") Category category){
+//        categoryService.save(category);
+//        return "redirect:/admin/categories";
+//    }
+//
+//    @GetMapping("/category/delete/{id}")
+//    public String deleteCategory(@PathVariable(name = "id") Long id){
+//        categoryService.deleteById(id);
+//        return "redirect:/admin/categories";
+//    }
 
-    @GetMapping("/category/edit/{id}")
-    public String viewInsertCategoryPage(Model model,@PathVariable(name = "id") Long id){
-        model.addAttribute("category",categoryService.findById(id));
-        return "Admin_EditCategory";
-    }
-
-    @PostMapping("/category")
-    public String insertCategory(@ModelAttribute(name = "category") Category category){
-        categoryService.save(category);
-        return "redirect:/admin/categories";
-    }
-
-    @GetMapping("/category/delete/{id}")
-    public String deleteCategory(@PathVariable(name = "id") Long id){
-        categoryService.deleteById(id);
-        return "redirect:/admin/categories";
-    }
 
 
-
-    // Quản Lý Nhà Cung Cấp
-
-    @GetMapping("/suppliers")
-    public String viewListSupplier(Model model){
-        model.addAttribute("suppliers",supplierService.findAll());
-        return "Admin_SupplierManager";
-    }
-
-    @GetMapping("/supplier/edit/{id}")
-    public String getSupplierDetail(Model model, @PathVariable(name = "id") Long id){
-        model.addAttribute("supplier",supplierService.findById(id));
-        return "Admin_EditSupplier";
-    }
-
-    @GetMapping("/supplier/delete/{id}")
-    public String deleteSupplier(@PathVariable(name = "id") Long id){
-        supplierService.deleteById(id);
-        return "redirect:/admin/suppliers";
-    }
-
-    @PostMapping("/supplier/save")
-    public String saveSupplier(@ModelAttribute(name = "supplier") Supplier supplier){
-        supplierService.save(supplier);
-        return "redirect:/admin/suppliers";
-    }
-
-    @GetMapping("/addSupplier")
-    public String viewInsertSupplierPage(Model model){
-        model.addAttribute("supplier",new Supplier());
-        return "Admin_InsertSupplier";
-    }
+//    // Quản Lý Nhà Cung Cấp
+//
+//    @GetMapping("/suppliers")
+//    public String viewListSupplier(Model model){
+//        model.addAttribute("suppliers",supplierService.findAll());
+//        return "Admin_SupplierManager";
+//    }
+//
+//    @GetMapping("/supplier/edit/{id}")
+//    public String getSupplierDetail(Model model, @PathVariable(name = "id") Long id){
+//        model.addAttribute("supplier",supplierService.findById(id));
+//        return "Admin_EditSupplier";
+//    }
+//
+//    @GetMapping("/supplier/delete/{id}")
+//    public String deleteSupplier(@PathVariable(name = "id") Long id){
+//        supplierService.deleteById(id);
+//        return "redirect:/admin/suppliers";
+//    }
+//
+//    @PostMapping("/supplier/save")
+//    public String saveSupplier(@ModelAttribute(name = "supplier") Supplier supplier){
+//        supplierService.save(supplier);
+//        return "redirect:/admin/suppliers";
+//    }
+//
+//    @GetMapping("/addSupplier")
+//    public String viewInsertSupplierPage(Model model){
+//        model.addAttribute("supplier",new Supplier());
+//        return "Admin_InsertSupplier";
+//    }
 
     // Quản Lý Sản Phẩm
 
     // Hiển thị giao diện danh sách sản phẩm
-    @GetMapping("/listProduct")
-    public String viewListProduct(Model model){
-        model.addAttribute("products",productService.findAll());
-        model.addAttribute("img","hinhanh.jpg");
-        return "Admin_ProductManager";
-    }
+//    @GetMapping("/listProduct")
+//    public String viewListProduct(Model model){
+//        model.addAttribute("products",productService.findAll());
+//        model.addAttribute("img","hinhanh.jpg");
+//        return "Admin_ProductManager";
+//    }
 
     // Hiển thị giao diện thêm sản phẩm
-    @GetMapping("/addProduct")
-    public String viewInsertProductPage(Model model){
-        model.addAttribute("product",new Product());
-        model.addAttribute("suppliers", supplierService.findAll());
-        model.addAttribute("categories", categoryService.findAll());
-        return "Admin_InsertProduct";
-    }
+//    @GetMapping("/addProduct")
+//    public String viewInsertProductPage(Model model){
+//        model.addAttribute("product",new Product());
+//        model.addAttribute("suppliers", supplierService.findAll());
+//        model.addAttribute("categories", categoryService.findAll());
+//        return "Admin_InsertProduct";
+//    }
     //Lưu Sản Phẩm
-    @PostMapping("/saveProduct")
-    public String saveProduct(@ModelAttribute(name = "product") Product product){
-        productService.save(product);
-        return "redirect:/admin/listProduct";
-    }
+//    @PostMapping("/saveProduct")
+//    public String saveProduct(@ModelAttribute(name = "product") Product product){
+//        productService.save(product);
+//        return "redirect:/admin/listProduct";
+//    }
 
     //  hiển thị giao diện chỉnh sửa sản phẩn
-    @GetMapping("/product/{id}")
-    public String viewEditProductPage(Model model,@PathVariable(name = "id") Long id){
-        model.addAttribute("product",productService.findById(id));
-        return "Admin_EditProduct";
-    }
+//    @GetMapping("/product/{id}")
+//    public String viewEditProductPage(Model model,@PathVariable(name = "id") Long id){
+//        model.addAttribute("product",productService.findById(id));
+//        return "Admin_EditProduct";
+//    }
 
     // Chức năng xóa sản phẩm
-    @GetMapping("/deleteProduct={id}")
-    public String deleteProduct(@PathVariable(name = "id") Long id){
-        productService.deleteById(id);
-        return "redirect:/admin/listProduct";
-    }
+//    @GetMapping("/deleteProduct={id}")
+//    public String deleteProduct(@PathVariable(name = "id") Long id){
+//        productService.deleteById(id);
+//        return "redirect:/admin/listProduct";
+//    }
 
 
 
 
-    // Quản Lý Khuyến Mãi
-    @GetMapping("/discounts")
-    public String viewListDiscountPage(Model model){
-        model.addAttribute("discounts",discountService.findAll());
-        return "Admin_DiscountManager";
-    }
-
-    @PostMapping("/discount")
-    public String insertDiscount(@ModelAttribute(name = "discount") Discount discount){
-        discountService.save(discount);
-        return "redirect:/admin/discounts";
-    }
-
-    // hiển thị trang thêm mới khuyến mãi
-    @GetMapping("/discount/new")
-    public String viewInsertDiscountPage(Model model){
-
-        model.addAttribute("discount",new Discount());
-        return "Admin_InsertDiscount";
-    }
-
-    // hiển thị trang khuyến mãi
-    @GetMapping("/discount/edit/{id}")
-    public String viewEditDiscountPage(Model model, @PathVariable(name = "id") Long id){
-        model.addAttribute("discount",discountService.findById(id));
-        return "Admin_EditDiscount";
-    }
-
-    // Xóa Khuyến Mãi
-    @GetMapping("/discount/delete/{id}")
-    public String deleteDiscount(@PathVariable(name = "id") Long id){
-        discountService.deleteById(id);
-        return "redirect:/admin/discounts";
-    }
-
-    @GetMapping("/listProductDiscount/discountId={id}")
-    public String viewListDiscountDetailByDiscountIdPage(Model model,@PathVariable(name = "id") Long id){
-
-        // danh sách sản phẩm khuyến mãi theo discount ID
-        model.addAttribute("discountDetails",discountService.findById(id).getDiscountDetails());
-
-        model.addAttribute("discount",discountService.findById(id));
-        return "Admin_ListDiscountDetailByDiscountId";
-    }
+//    // Quản Lý Khuyến Mãi
+//    @GetMapping("/discounts")
+//    public String viewListDiscountPage(Model model){
+//        model.addAttribute("discounts",discountService.findAll());
+//        return "Admin_DiscountManager";
+//    }
+//
+//    @PostMapping("/discount")
+//    public String insertDiscount(@ModelAttribute(name = "discount") Discount discount){
+//        discountService.save(discount);
+//        return "redirect:/admin/discounts";
+//    }
+//
+//    // hiển thị trang thêm mới khuyến mãi
+//    @GetMapping("/discount/new")
+//    public String viewInsertDiscountPage(Model model){
+//
+//        model.addAttribute("discount",new Discount());
+//        return "Admin_InsertDiscount";
+//    }
+//
+//    // hiển thị trang khuyến mãi
+//    @GetMapping("/discount/edit/{id}")
+//    public String viewEditDiscountPage(Model model, @PathVariable(name = "id") Long id){
+//        model.addAttribute("discount",discountService.findById(id));
+//        return "Admin_EditDiscount";
+//    }
+//
+//    // Xóa Khuyến Mãi
+//    @GetMapping("/discount/delete/{id}")
+//    public String deleteDiscount(@PathVariable(name = "id") Long id){
+//        discountService.deleteById(id);
+//        return "redirect:/admin/discounts";
+//    }
+//
+//    @GetMapping("/listProductDiscount/discountId={id}")
+//    public String viewListDiscountDetailByDiscountIdPage(Model model,@PathVariable(name = "id") Long id){
+//
+//        // danh sách sản phẩm khuyến mãi theo discount ID
+//        model.addAttribute("discountDetails",discountService.findById(id).getDiscountDetails());
+//
+//        model.addAttribute("discount",discountService.findById(id));
+//        return "Admin_ListDiscountDetailByDiscountId";
+//    }
 
     /**
      * QUẢN LÝ CHI TIẾT KHUYẾN MÃI
@@ -295,7 +295,6 @@ public class AdminController {
         billService.deleteById(id);
         return "redirect:/admin/listBill";
     }
-
 
     /*
     * CHI TIẾT ĐƠN HÀNG

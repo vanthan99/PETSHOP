@@ -29,23 +29,27 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item form-info-user">
                         <!-- xin chào ... -->
-                        <a class="nav-link form-info-user" href="#">
+                        <a class="nav-link" href="#">
                             <div class="items">
                                 <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 <span class="">Xin Chào [[${#httpServletRequest.remoteUser}]]</span>
                             </div>
-                            <div class="form-logout">
-                                <ul>
-                                    <li>
-                                        <form th:action="@{/logout}" method="POST">
-                                            <button type="submit" id="btnLogout">Đăng Xuât</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
                         </a>
+
+                        <div id="action-more">
+                            <ul>
+                                <li>
+                                    <a href="" class="nav-link text-dark">Thông tin cá nhân</a>
+                                </li>
+                                <li>
+                                    <form th:action="@{/logout}" method="POST" class="nav-link">
+                                        <button type="submit" id="btnLogout">Đăng Xuât</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <!-- Kiểm tra đơn hàng -->
@@ -58,16 +62,21 @@
                     </li>
                     <li class="nav-item">
                         <!-- Giỏ Hàng -->
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/cart/index}">
                             <div class="items">
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 <span class="">Giỏ hàng</span>
+                                <span th:unless="${session.containsKey('cart')}">
+                                    <span th:text="${session.cart.size()}"></span>
+                                </span>
+
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <!--                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
+                    <li class="nav-item">
                         <!-- ADMIN -->
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/admin/product/index}">
                             <div class="items">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                                 <span class="">ADMIN</span>

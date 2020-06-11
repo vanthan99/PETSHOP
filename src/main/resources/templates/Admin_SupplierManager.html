@@ -13,7 +13,7 @@
     </div>
 <!--    Button Thêm mới Nhà Cung Cấp-->
     <div class="text-right">
-        <a th:href="@{/admin/addSupplier}" class="btn btn-success">
+        <a th:href="@{/admin/supplier/new}" class="btn btn-success">
             <span>Thêm Nhà Cung Cấp</span>
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
@@ -38,9 +38,9 @@
                 <td><label class="phone-number" th:text="${supplier.getPhoneNumber()}"></label></td>
                 <td><label class="description" th:text="${supplier.getDescription()}"></label></td>
                 <td class="my-action text-right">
-                    <a th:href="@{'/admin/supplier/edit/' + ${supplier.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a th:href="@{'/admin/supplier/delete/' + ${supplier.getId()}}" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                    <a th:href="@{'/admin/supplier/???' + ${supplier.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/supplier/edit/supId=' + ${supplier.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/supplier/delete/supId=' + ${supplier.getId()}}" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/supplier/product/supId=' + ${supplier.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </td>
             </tr>
             </tbody>

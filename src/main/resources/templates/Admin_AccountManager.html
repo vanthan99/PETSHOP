@@ -10,13 +10,24 @@
     <!--    Danh Sách Người Dùng-->
     <div id="list-user">
         <div class="alert alert-success" role="alert">
-            <p class="display-4">Quản Lý Tài Khoản Người Dùng</p>
+            <p class="display-4">Danh sách người dùng</p>
+        </div>
+
+        <!--    Button Thêm mới Loại Hàng-->
+        <div class="text-right">
+            <a th:href="@{/admin/user/new}" class="btn btn-success">
+                <span>Thêm người dùng</span>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
         </div>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">
                     <label class="username">Tên Đăng Nhập</label>
+                </th>
+                <th>
+                    <label>Loại Tài Khoản</label>
                 </th>
                 <th scope="col">
                     <label class="fullname">Họ Tên</label>
@@ -33,15 +44,17 @@
                 <th scope="col">
                     <label class="status">Trạng Thái</label>
                 </th>
-                <th scope="col" class="text-center"><label class="my-action">Xem | Khóa</label></th>
+                <th scope="col" class="text-center"><label class="my-action">Xem | Xóa</label></th>
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${listUsers}">
+            <tr th:each="user : ${users}">
                 <th scope="row">
                     <label class="username" th:title="${user.getUsername()}" th:text="${user.getUsername()}"></label>
                 </th>
+
+                <td><label th:text="${user.getRole().getName()}"></label></td>
                 <td><label class="fullname" th:title="${user.getFullName()}"  th:text="${user.getFullName()}"></label></td>
                 <td><label class="phone"  th:title="${user.getPhoneNumber()}"  th:text="${user.getPhoneNumber()}"></label></td>
                 <td><label class="address-of-delivery"  th:title="${user.getAddressOfDelivery()}"  th:text="${user.getAddressOfDelivery()}"></label></td>
@@ -50,43 +63,43 @@
                 </td>
                 <td><label class="status" th:title="${user.getStatus()}"   th:text="${user.getStatus()}"></label></td>
                 <td class="text-center">
-                    <a href="" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="" class="btn btn-outline-danger"><i class="fa fa-lock" aria-hidden="true"></i></a>
+                    <a th:href="@{'/admin/user/view/username=' + ${user.getUsername()}}" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
 
             </tbody>
         </table>
     </div>
-    <!--    Danh Sách Admin-->
-    <div id="list-admin">
-        <div class="alert alert-success" role="alert">
-            <p class="display-4">Quản Lý Tài Khoản Admin</p>
-        </div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col"> <label class="username">Tên Đăng Nhập</label></th>
-                <th scope="col"><label class="fullname">Họ Tên</label> </th>
-                <th scope="col" class="phone"><label class="phone">SĐT</label></th>
-                <th scope="col"><label class="personal-address">Địa Chỉ Nơi Ở</label></th>
-                <th scope="col" class="text-center"><label class="my-action">Xem | Xóa Quyền</label></th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr th:each="admin : ${listAdmins}">
-                    <th scope="row"><label class="username" th:title="${admin.getUsername()}"   th:text="${admin.getUsername()}"></label></th>
-                    <td><label class="fullname" th:title="${admin.getFullName()}"  th:text="${admin.getFullName()}"></label></td>
-                    <td><label class="phone" th:title="${admin.getPhoneNumber()}"    th:text="${admin.getPhoneNumber()}"></label></td>
-                    <td><label class="personal-address" data-toggle="tooltip" data-placement="bottom" th:title="${admin.getPersonalAddress()}"  th:text="${admin.getPersonalAddress()}"></label></td>
-                    <td class="text-center">
-                        <a href="" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a href="" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<!--    &lt;!&ndash;    Danh Sách Admin&ndash;&gt;-->
+<!--    <div id="list-admin">-->
+<!--        <div class="alert alert-success" role="alert">-->
+<!--            <p class="display-4">Quản Lý Tài Khoản Admin</p>-->
+<!--        </div>-->
+<!--        <table class="table table-striped">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col"> <label class="username">Tên Đăng Nhập</label></th>-->
+<!--                <th scope="col"><label class="fullname">Họ Tên</label> </th>-->
+<!--                <th scope="col" class="phone"><label class="phone">SĐT</label></th>-->
+<!--                <th scope="col"><label class="personal-address">Địa Chỉ Nơi Ở</label></th>-->
+<!--                <th scope="col" class="text-center"><label class="my-action">Xem | Xóa Quyền</label></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--                <tr th:each="admin : ${listAdmins}">-->
+<!--                    <th scope="row"><label class="username" th:title="${admin.getUsername()}"   th:text="${admin.getUsername()}"></label></th>-->
+<!--                    <td><label class="fullname" th:title="${admin.getFullName()}"  th:text="${admin.getFullName()}"></label></td>-->
+<!--                    <td><label class="phone" th:title="${admin.getPhoneNumber()}"    th:text="${admin.getPhoneNumber()}"></label></td>-->
+<!--                    <td><label class="personal-address" data-toggle="tooltip" data-placement="bottom" th:title="${admin.getPersonalAddress()}"  th:text="${admin.getPersonalAddress()}"></label></td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
+<!--                        <a href="" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
 </div>
 </body>
 </html>
