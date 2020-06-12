@@ -2,6 +2,7 @@ package com.cdio.petshop.controllers;
 
 import com.cdio.petshop.entities.Category;
 import com.cdio.petshop.entities.Product;
+import com.cdio.petshop.model.Item;
 import com.cdio.petshop.services.CategoryService;
 import com.cdio.petshop.services.ProductService;
 import com.cdio.petshop.services.SupplierService;
@@ -10,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -23,7 +28,13 @@ public class AppController {
     private SupplierService supplierService;
 
     @GetMapping("/")
-    public String demo(Model model){
+    public String demo(Model model, HttpSession session){
+        //  ngay lúc người dùng vào trang web. khởi tạo giỏ hàng có tên cart ngay lập tức;
+        if (session.getAttribute("cart") == null){
+            List<Item> cart = new ArrayList<>();
+            session.setAttribute("cart",cart);
+        }
+
         model.addAttribute("products", productService.findAll());
         model.addAttribute("categories",categoryService.findAll());
         return "App_index";

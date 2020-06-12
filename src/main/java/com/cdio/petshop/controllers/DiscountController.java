@@ -1,11 +1,17 @@
 package com.cdio.petshop.controllers;
 
 import com.cdio.petshop.entities.Discount;
+import com.cdio.petshop.entities.DiscountDetail;
+import com.cdio.petshop.entities.Product;
+import com.cdio.petshop.model.DiscountDetailDTO;
 import com.cdio.petshop.services.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/discount")
@@ -47,14 +53,10 @@ public class DiscountController {
         return "redirect:/admin/discount/index";
     }
 
-//    @GetMapping("/listProductDiscount/discountId={id}")
-//    public String viewListDiscountDetailByDiscountIdPage(Model model,@PathVariable(name = "id") Long id){
-//
-//        // danh sách sản phẩm khuyến mãi theo discount ID
-//        model.addAttribute("discountDetails",discountService.findById(id).getDiscountDetails());
-//
-//        model.addAttribute("discount",discountService.findById(id));
-//        return "Admin_ListDiscountDetailByDiscountId";
-//    }
-
+    // Danh sách sản phẩn theo từng khuyến mãi
+    @GetMapping("/product/disId={id}")
+    public String listProduct(Model model,@PathVariable(name = "id") Long id){
+        model.addAttribute("discountDetails",discountService.findById(id).getDiscountDetails());
+        return "Admin_ListProductByDiscountId";
+    }
 }

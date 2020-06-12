@@ -20,14 +20,27 @@ public class CartController {
     private ProductService productService;
 
     @GetMapping("/index")
-    public String showCartPage(){
+    public String showCartPage(Model model, HttpSession session){
+        if (session.getAttribute("cart") == null){
+            List<Item> cart = new ArrayList<>();
+            session.setAttribute("cart",cart);
+        }
+        else{
+            // tính tổng tiền trong giỏ hàng
+            List<Item> cart = (List<Item>) session.getAttribute("cart");
+            int total = 0;
+            for (Item item : cart){
+                total += item.getProduct().getPrice() * item.getQuantity();
+            }
+            model.addAttribute("total",total);
+        }
         return "Cart";
     }
 
     @GetMapping("/buy/productId={id}")
     public String buy(@PathVariable(name = "id") Long id, HttpSession session){
         if (session.getAttribute("cart") == null){
-            List<Item> cart = new ArrayList<>();
+            List<Item> cart = new ArrayList<Item>();
             cart.add(new Item(productService.findById(id),1));
             session.setAttribute("cart",cart);
         }
@@ -42,6 +55,7 @@ public class CartController {
                 cart.get(index).setQuantity(quantity);
             }
             session.setAttribute("cart",cart);
+
         }
         return "redirect:/cart/index";
     }

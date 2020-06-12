@@ -17,21 +17,32 @@
                             <a th:href="@{'/product/id=' + ${product.getId()}}">
                                 <img th:src="@{'/images/' + ${product.getImagePath()}}"
                                      th:alt="${product.getImagePath()}">
-                                <div class="dat-hang">
+                                <div class="dat-hang text-center">
                                     <span class="card-text">Click để xem chi tiết</span>
 <!--                                    <a class="btn btn-secondary btn-sm" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"> + </a>-->
                                 </div>
                             </a>
                         </div>
-                        <div class="card-body">
-<!--                            <div th:if="${product.discountDetails.size() > 0}">-->
-<!--                                <h5 class="card-title"-->
-<!--                                    th:text="${product.discountDetails.iterator().next().getRateDiscount()}"></h5>-->
-<!--                            </div>-->
+                        <div class="card-body cart-info">
+<!--                            kiểm tra khuyến mãi-->
+
+<!--                            end kiểm tra khuyến mãi-->
                             <h5 class="card-title" th:text="${product.getName()}"></h5>
-                            <p class="card-text text-danger"><b
-                                    th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b>
-                            </p>
+                            <div th:if="${product.getDiscountDetails().size()}">
+                                <s class="card-text font-weight-light"><b
+                                        th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b>
+                                </s>
+                            </div>
+                            <div th:unless="${product.getDiscountDetails().size()}">
+                                <p class="card-text text-danger"><b
+                                        th:text="${#numbers.formatDecimal(product.getPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></b>
+                                </p>
+                            </div>
+
+                            <div th:if="${product.getDiscountDetails().size()}">
+                                <span class="discount" th:text="${' - ' + #numbers.formatDecimal(product.getDiscountDetails().iterator().next().getRateDiscount() * 100,0,'COMMA',0,'POINT') + ' %'}"></span>
+                                <span class="price-discount" th:text="${#numbers.formatDecimal(product.getPrice() * (1 - product.getDiscountDetails().iterator().next().getRateDiscount()),0,'COMMA',0,'POINT') + ' VNĐ'}"></span>
+                            </div>
                         </div>
                     </div>
                 </li>

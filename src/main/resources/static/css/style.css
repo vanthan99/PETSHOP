@@ -172,3 +172,24 @@ body{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+#content .product .cart-info{
+    position: relative;
+}
+#content .product .cart-info .discount{
+    position: absolute;
+    bottom: 13px;
+    right: 10px;
+    background: var(--danger);
+    border-radius: 50%;
+    padding: 13px;
+
+}
+#content .product .cart-info .price-discount{
+    position: absolute;
+    bottom: 1px;
+    left: 19px;
+    font-weight: bold;
+    color: var(--danger);
+}
+
+
