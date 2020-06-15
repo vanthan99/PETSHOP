@@ -25,11 +25,22 @@
                         <a class="nav-link" href="#">
                             <div class="items">
                                 <i class="fa fa-ticket" aria-hidden="true"></i>
-                                <span class="">Chương Trình Khuyến Mãi</span>
+                                <span>Chương Trình Khuyến Mãi</span>
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item form-info-user">
+<!--                 Nếu chưa có đăng nhập. hiển thị đăng nhập-->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/login}">
+                            <div class="items">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                <span>Đăng Nhập</span>
+                            </div>
+                        </a>
+                    </li>
+
+<!--                    Trường hợp đã login vào hệ thông. hiện thị thông tin tên-->
+                    <li class="nav-item form-info-user" sec:authorize="isAuthenticated()">
                         <!-- xin chào ... -->
                         <a class="nav-link" href="#">
                             <div class="items">
@@ -51,7 +62,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <!-- Kiểm tra đơn hàng -->
                         <a class="nav-link" href="#">
                             <div class="items">
@@ -76,8 +87,8 @@
                             </span>
                         </a>
                     </li>
-                    <!--                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAuthority('admin')">
+<!--                                            <li class="nav-item">-->
                         <!-- ADMIN -->
                         <a class="nav-link" th:href="@{/admin/product/index}">
                             <div class="items">

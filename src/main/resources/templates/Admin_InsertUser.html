@@ -11,11 +11,11 @@
             <table>
                 <tr>
                     <td><label>Tên Đăng Nhập</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{username}"></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{username}" required></label></td>
                 </tr>
                 <tr>
                     <td><label>Mật Khẩu</label></td>
-                    <td><label><input type="password" class="form-control" th:field="*{password}"></label></td>
+                    <td><label><input type="password" class="form-control" th:field="*{password}" required></label></td>
                 </tr>
                 <tr>
                     <td><label>Loại Tài Khoản</label></td>
@@ -27,16 +27,16 @@
                 </tr>
                 <tr>
                     <td><label>Tên Đầy Đủ</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{fullName}"></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{fullName}" required></label></td>
                 </tr>
                 <tr>
                     <td><label>SĐT</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{phoneNumber}"></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{phoneNumber}"  required maxlength="10" pattern="[0]{1}[0-9]{9}" title="Số điện thoại phải bắt đầu bằng 0 và gồm 10 ký tự"></label></td>
                 </tr>
 
                 <tr>
                     <td><label>Địa Chỉ Nơi Giao Hàng</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{addressOfDelivery}"></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{addressOfDelivery}" required></label></td>
                 </tr>
 
                 <tr>
@@ -55,7 +55,7 @@
                         </a>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có lưu?');">
                             <span class="mr-2">Lưu</span>
                             <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         </button>

@@ -24,7 +24,13 @@ public class Product {
     private String imagePath;
 
     @Column
-    private Integer price;
+    private Integer unitPrice;
+
+    @Column
+    private Integer promotionPrice;
+
+    @Column(length = 10)
+    private String unit;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -42,8 +48,4 @@ public class Product {
     // liên kết với bảng BillDetail
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<BillDetail> billDetails;
-
-    // liên kết với bảng discountDetail
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private Set<DiscountDetail> discountDetails;
 }

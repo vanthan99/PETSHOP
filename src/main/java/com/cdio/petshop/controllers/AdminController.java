@@ -1,7 +1,6 @@
 package com.cdio.petshop.controllers;
 
 import com.cdio.petshop.entities.*;
-import com.cdio.petshop.model.DiscountDetailDTO;
 import com.cdio.petshop.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,6 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private DiscountService discountService;
-
-    @Autowired
-    private DiscountDetailService discountDetailService;
 
     @Autowired
     private BillDetailService billDetailService;
@@ -112,13 +105,6 @@ public class AdminController {
 
     // Quản Lý Sản Phẩm
 
-    // Hiển thị giao diện danh sách sản phẩm
-//    @GetMapping("/listProduct")
-//    public String viewListProduct(Model model){
-//        model.addAttribute("products",productService.findAll());
-//        model.addAttribute("img","hinhanh.jpg");
-//        return "Admin_ProductManager";
-//    }
 
     // Hiển thị giao diện thêm sản phẩm
 //    @GetMapping("/addProduct")
@@ -203,19 +189,19 @@ public class AdminController {
      */
 
     // Hiển Thị trang thêm mới sản phẩm khuyến mãi dựa trên DiscountId
-    @GetMapping("/addDiscountDetail/discountId={id}")
-    public String viewInsertDiscountDetailByDiscountIdPage(Model model, @PathVariable(name = "id") Long id){
-        DiscountDetailDTO discountDetailDTO = new DiscountDetailDTO();
-        discountDetailDTO.setDiscount(discountService.findById(id));
-
-        model.addAttribute("discountDetailDTO",discountDetailDTO);
-        model.addAttribute("products",productService.findAll());
+//    @GetMapping("/addDiscountDetail/discountId={id}")
+//    public String viewInsertDiscountDetailByDiscountIdPage(Model model, @PathVariable(name = "id") Long id){
+//        DiscountDetailDTO discountDetailDTO = new DiscountDetailDTO();
+//        discountDetailDTO.setDiscount(discountService.findById(id));
+//
+//        model.addAttribute("discountDetailDTO",discountDetailDTO);
+//        model.addAttribute("products",productService.findAll());
 
 //        model.addAttribute("product",new Product()); // để lấy ra được product ID sang @PostMapping xử lý
 //        model.addAttribute("products",productService.findAll());
 //        model.addAttribute("discountDetail", new DiscountDetail()); // để lấy ra được rateDiscount sang cho @PostMapping save để xử lý
-        return "Admin_InsertDiscountDetailByDiscountId";
-    }
+//        return "Admin_InsertDiscountDetailByDiscountId";
+//    }
 
     // hiển thị trang nhập thông tin khuyến mãi chi tiết
 //    @GetMapping("/addDiscountDetail")
@@ -228,34 +214,34 @@ public class AdminController {
 
 
     // hiển thị danh sách khuyến mãi chi tiết
-    @GetMapping("/listDiscountDetail/discountId={id}")
-    public String viewListDiscountDetailPage(Model model){
-        model.addAttribute("discountDetails",discountDetailService.findAll());
-        return "Admin_ListDiscountDetailByDiscountId";
-    }
+//    @GetMapping("/listDiscountDetail/discountId={id}")
+//    public String viewListDiscountDetailPage(Model model){
+//        model.addAttribute("discountDetails",discountDetailService.findAll());
+//        return "Admin_ListDiscountDetailByDiscountId";
+//    }
 
 
     //lưu chi tiết khuyến mãi
-    @PostMapping("/saveDiscountDetail/discountId={id}")
-    public String saveDiscountDetail(@PathVariable(name = "id") Long id,@ModelAttribute(name = "discountDetailDTO") DiscountDetailDTO discountDetailDTO) {
-        DiscountDetail discountDetail = new DiscountDetail();
-
-        //Lấy giá trị cho khóa composite.
-        DiscountDetailIdentity discountDetailIdentity = new DiscountDetailIdentity();
-        discountDetailIdentity.setProductId(discountDetailDTO.getProduct().getId());
-        discountDetailIdentity.setDiscountId(id);
-
-        // set gía trị cho khóa chính
-        discountDetail.setDiscountDetailIdentity(discountDetailIdentity);
-
-        // set rateDiscount cho  discountDetail.
-        discountDetail.setRateDiscount(discountDetailDTO.getRateDiscount());
-
-        discountDetail.setDiscount(discountDetailDTO.getDiscount());
-        discountDetail.setProduct(discountDetailDTO.getProduct());
-        discountDetailService.save(discountDetail);
-        return "Admin_DiscountManager";
-    }
+//    @PostMapping("/saveDiscountDetail/discountId={id}")
+//    public String saveDiscountDetail(@PathVariable(name = "id") Long id,@ModelAttribute(name = "discountDetailDTO") DiscountDetailDTO discountDetailDTO) {
+//        DiscountDetail discountDetail = new DiscountDetail();
+//
+//        //Lấy giá trị cho khóa composite.
+//        DiscountDetailIdentity discountDetailIdentity = new DiscountDetailIdentity();
+//        discountDetailIdentity.setProductId(discountDetailDTO.getProduct().getId());
+//        discountDetailIdentity.setDiscountId(id);
+//
+//        // set gía trị cho khóa chính
+//        discountDetail.setDiscountDetailIdentity(discountDetailIdentity);
+//
+//        // set rateDiscount cho  discountDetail.
+//        discountDetail.setRateDiscount(discountDetailDTO.getRateDiscount());
+//
+//        discountDetail.setDiscount(discountDetailDTO.getDiscount());
+//        discountDetail.setProduct(discountDetailDTO.getProduct());
+//        discountDetailService.save(discountDetail);
+//        return "Admin_DiscountManager";
+//    }
 
         // Tạo đối tượng DiscountDetail và set data
 //        DiscountDetail discountDetail = new DiscountDetail();

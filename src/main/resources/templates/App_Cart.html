@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div id="cart" style="min-height: 400px;">
+        <h3 class="display-4 text-center">Giỏ Hàng</h3>
+        <div th:if="${session.containsKey('cart')}">
+            <div th:unless="${session.cart.size()}">
+                <p class="alert alert-warning">Giỏ Hàng Trống!</p>
+            </div>
+            <div th:if="${session.cart.size()}">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">Sản Phẩm</th>
+                        <th scope="col">Tên Sản Phẩm</th>
+                        <th scope="col">ĐVT</th>
+                        <th scope="col">Số Lượng</th>
+                        <th scope="col">Giá Tiền</th>
+                        <th scope="col" class="text-center">Xóa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${session.cart}" class="text-center">
+                        <th style="width: 20%;">
+                            <img class="img-fluid" th:src="@{'/images/' + ${item.getProduct().getImagePath()}}" alt="">
+                        </th>
+<!--                        tên sản phẩm-->
+                        <td style="width: 25%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"><label class="font-weight-bold text-info" th:text="${item.getProduct().getName()}"></label></td>
+
+<!--                        đơn vị tính-->
+                        <td style="width: 10%;"><label class="font-weight-bold text-dark" th:text="${item.getProduct().getUnit()}"></label></td>
+
+<!--                        số lượng-->
+                        <td style="width: 10%;"><label th:text="${item.getQuantity()}"></label></td>
+<!--                        <td style="width: 15%;"><input class="form-control" type="number" th:value="${item.getQuantity()}"></td>-->
+
+<!--                        giá tiền-->
+                        <td style="width: 20%;">
+<!--                            Kiểm Tra nếu sản phẩm có khuyến mãi thì lấy (số lượng * giá khuyến mãi)-->
+                            <div th:if="${item.getProduct().getPromotionPrice()}">
+                                <label th:text="${#numbers.formatDecimal(item.getProduct().getPromotionPrice() * item.getQuantity(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                            </div>
+<!--                            Ngược lại. nếu sản phẩm không có khuyến mãi thì lấy (số lượng * giá niêm yết)-->
+                            <div th:unless="${item.getProduct().getPromotionPrice()}">
+                                <label th:text="${#numbers.formatDecimal(item.getProduct().getUnitPrice() * item.getQuantity(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                            </div>
+                        </td>
+<!--                        xóa or chỉnh sửa-->
+                        <td style="width: 15%;" class="text-center">
+<!--                            xóa-->
+                            <a th:href="@{'/cart/remove/' + ${item.getProduct().getId() }}"
+                               onclick="return confirm('Bạn có muốn xóa?')" class="btn btn-outline-dark">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+<!--                            chỉnh sửa-->
+                            <a th:href="@{'/cart/edit/productId=' + ${item.getProduct().getId()}}" class="btn btn-outline-info">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="5" class="text-right">
+                            <label>Tổng tiền: </label>
+                        </th>
+                        <td>
+                            <label class="text-danger font-weight-bold" th:text="${#numbers.formatDecimal(total,0,'COMMA',0,'POINT') + ' VNĐ'}"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <textarea class="form-control" placeholder="Ghi chú ..." rows="3"></textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+<!--            end kiểm tra giỏ -->
+        </div>
+
+<!--        begin button tiếp tục mua hàng or đặt hàng or xóa giỏ hàng-->
+        <div class="container-fluid pb-4">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <a th:href="@{/}" class="btn btn-success"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Tiếp tục mua hàng</a>
+                    <a href="#" class="btn btn-danger"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Đặt hàng</a>
+                    <a th:href="@{/cart/removeAll}" onclick="return confirm('Bạn có muốn xóa giỏ hàng?');" class="btn btn-primary"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Xóa Giỏ Hàng</a>
+                </div>
+
+            </div>
+        </div>
+<!--        end button tiếp tục mua hàng or đặt hàng-->
+
+    </div>
+</div>
+</body>
+</html>

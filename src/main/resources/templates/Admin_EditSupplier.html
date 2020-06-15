@@ -15,16 +15,16 @@
                 </tr>
                 <tr>
                     <td><label>Tên Nhà Cung Cấp</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{name}"></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{name}" required></label></td>
                 </tr>
                 <tr>
                     <td><label>Địa Chỉ</label></td>
 <!--                    <td><label><input type="text" th:field="*{address}"></label></td>-->
-                    <td><textarea class="form-control" aria-label="With textarea" th:field="*{address}"></textarea></td>
+                    <td><textarea class="form-control" aria-label="With textarea" th:field="*{address}" required></textarea></td>
                 </tr>
                 <tr>
                     <td><label>Số Điện Thoại</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{phoneNumber}"></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{phoneNumber}" required maxlength="10" pattern="[0]{1}[0-9]{9}" title="Số điện thoại phải bắt đầu bằng 0 và gồm 10 ký tự"></label></td>
                 </tr>
                 <tr>
                     <td><label>Giới Thiệu</label></td>
@@ -40,7 +40,7 @@
                         </a>
                     </td>
                     <td>
-                       <button type="submit" class="btn btn-success">
+                       <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có muốn lưu?');">
                            <span class="mr-2">Lưu</span>
                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
                        </button>

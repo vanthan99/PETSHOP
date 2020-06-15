@@ -7,17 +7,18 @@
 </head>
 <body>
     <div layout:fragment="content">
-        <form th:action="@{/admin/saveProduct}" th:object="${product}" method="post">
+        <form th:action="@{/admin/product}" th:object="${product}" method="post">
             <table>
                 <tr>
-                    <td>Tên Sản Phẩm</td>
-                    <td><label><input type="text" class="form-control" th:field="*{name}"></label></td>
+                    <td><label>Tên SP</label></td>
+                    <td><label><input class="form-control" type="text" th:field="*{name}" required></label></td>
                 </tr>
                 <tr>
                     <td>Danh Mục Sản Phẩm</td>
                     <td><label>
                         <select class="form-control" th:field="*{category}">
-                            <option th:each="category: ${categories}" th:value="${category.getId()}" th:utext="${category.getName()}"></option>
+                            <option th:each="category: ${categories}" th:value="${category.getId()}"
+                                    th:utext="${category.getName()}"></option>
                         </select>
                     </label></td>
                 </tr>
@@ -26,33 +27,63 @@
                     <td>Nhà Cung Cấp</td>
                     <td><label>
                         <select class="form-control" th:field="*{supplier}">
-                            <option th:each="supplier: ${suppliers}" th:value="${supplier.getId()}" th:utext="${supplier.getName()}"></option>
+                            <option th:each="supplier: ${suppliers}" th:value="${supplier.getId()}"
+                                    th:utext="${supplier.getName()}"></option>
                         </select>
                     </label></td>
                 </tr>
-
                 <tr>
-                    <td>Hình Ảnh</td>
-                    <td><label><input type="text" class="form-control" th:field="*{imagePath}"></label></td>
+                    <td><label>Hình ảnh</label></td>
+                    <td><label><input class="form-control" type="text" th:field="*{imagePath}"></label></td>
                 </tr>
                 <tr>
                     <td>Mô Tả</td>
-                    <td><label><textarea style="min-width: 300px;min-height: 100px;" class="form-control" th:field="*{description}"></textarea></label></td>
+                    <td><label><textarea style="min-width: 300px;min-height: 100px;" class="form-control"
+                                         th:field="*{description}"></textarea></label></td>
                 </tr>
 
                 <tr>
-                    <td>Số Lượng</td>
-                    <td><label><input type="number" class="form-control"  th:field="*{quantity}"></label></td>
+                    <td>
+                        <label>Giá Niêm Yết: </label>
+                    </td>
+                    <td>
+                        <div class="form-inline">
+                            <label><input class="form-control" type="number" placeholder="VNĐ" th:field="*{unitPrice}" required></label>
+                            <label>&nbsp;&nbsp;&nbsp;đ</label>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Giá</td>
-                    <td><label><input type="number" class="form-control"  th:field="*{price}"></label></td>
+                    <td>
+                        <label>Giá Khuyến Mãi: </label>
+                    </td>
+                    <td>
+                        <div class="form-inline">
+                            <label><input class="form-control" type="number" placeholder="VNĐ" th:field="*{promotionPrice}"></label>
+                            <label>&nbsp;&nbsp;&nbsp;VNĐ</label>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <a th:href="@{/admin/listProduct}" class="btn btn-secondary"><i class="fa fa-eraser" aria-hidden="true"></i></a>
-                        <button type="submit" class="btn btn-info"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                    <td>Đơn Vị Tính</td>
+                    <td>
+                        <input type="text" th:field="*{unit}" class="form-control">
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <a onclick="return confirm('Bạn có muốn hủy?');" th:href="@{/admin/product/index}"
+                           class="btn btn-primary">
+                            <span class="mr-2">Hủy</span>
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có muốn lưu?');">
+                            <span class="mr-2">Lưu</span>
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </button>
                     </td>
                 </tr>
             </table>

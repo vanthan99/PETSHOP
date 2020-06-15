@@ -119,77 +119,192 @@ body{
 /*end sidebar*/
 
 /*begin content*/
-#content{
-    min-height: 500px;
-    width: 100%;
+/*#content{*/
+/*    min-height: 500px;*/
+/*    width: 100%;*/
+/*}*/
+
+/*#content ul{*/
+/*    width: 100%;*/
+/*    list-style: none;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*}*/
+
+/*#content .product{*/
+/*    width: 230px;*/
+/*    height: 343px;*/
+/*    margin-bottom: 20px;*/
+/*    margin-right: 16px;*/
+/*}*/
+/*#content .product .head{*/
+/*    height: 70%;*/
+/*    overflow: hidden;*/
+/*    position: relative;*/
+/*}*/
+
+/*#content .product .head a{*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*#content .product .head img{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+/*!*hiệu ứng zoom hình ảnh khi hover*!*/
+/*#content .product .head{*/
+/*    overflow: hidden;*/
+/*}*/
+/*#content .product .head img{*/
+/*    transition: 0.6s;*/
+/*}*/
+/*#content .product .head:hover img{*/
+/*    transform: scale(1.2);*/
+/*}*/
+/*!*hết*!*/
+/*#content .product .head .dat-hang{*/
+/*    width: 100%;*/
+/*    height: 50px;*/
+/*    line-height: 50px;*/
+/*    position: absolute;*/
+/*    bottom: -60px;*/
+/*    left: 0;*/
+/*    background-color: rgba(0, 0, 0, 0.6);*/
+/*    transition: 0.4s;*/
+/*}*/
+/*#content .product .head .dat-hang span{*/
+/*    color: var(--mautrang-nhat);*/
+/*}*/
+
+/*#content .product:hover .head .dat-hang{*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    background-color: rgba(0, 0, 0, 0.4);*/
+/*}*/
+
+/*#content .product .cart-info{*/
+/*    position: relative;*/
+/*}*/
+/*#content .product .cart-info .discount{*/
+/*    position: absolute;*/
+/*    bottom: 13px;*/
+/*    right: 10px;*/
+/*    background: var(--danger);*/
+/*    border-radius: 50%;*/
+/*    padding: 13px;*/
+
+/*}*/
+/*#content .product .cart-info .price-discount{*/
+/*    position: absolute;*/
+/*    bottom: 1px;*/
+/*    left: 19px;*/
+/*    font-weight: bold;*/
+/*    color: var(--danger);*/
+/*}*/
+
+.my_card {
+    height: 380px;
+
 }
 
-#content ul{
+.my_card .card-header {
     width: 100%;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#content .product{
-    width: 230px;
-    height: 343px;
-    margin-bottom: 20px;
-    margin-right: 16px;
-}
-#content .product .head{
-    height: 70%;
+    height: 66%;
     overflow: hidden;
+    display: block;
     position: relative;
+    margin: 0;
+    padding: 0;
 }
 
-#content .product .head a{
-    text-decoration: none;
-}
-
-#content .product .head img{
+.my_card .card-header .card-img {
     width: 100%;
     height: 100%;
-}
-#content .product .head .dat-hang{
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    position: absolute;
-    bottom: -60px;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    transition: 0.4s;
-}
-#content .product .head .dat-hang span{
-    color: var(--mautrang-nhat);
+    transition: 0.9s;
 }
 
-#content .product:hover .head .dat-hang{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+.my_card .card-header .card-img:hover {
+    transform: scale(1.1);
 }
 
-#content .product .cart-info{
+.my_card .card-header a.add-to-card {
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+    /*color: #17a2b8ed;*/
+    transition: 0.6s;
+    opacity: 0;
+    /*border: 1px solid #17a2b8ed;*/
+    /*border-radius: 4px;*/
+    /*padding: 5px;*/
+}
+
+.my_card .card-header a.add-to-card i {
+    /*font-size: 30px;*/
+}
+
+.my_card .card-header a.add-to-card:hover {
+    /*background-color: #17a2b8ed;*/
+}
+
+.my_card .card-header a.add-to-card:hover i {
+
+}
+
+.my_card .card-header:hover a.add-to-card {
+    bottom: 25px;
+    opacity: 1;
+}
+
+.my_card .body {
+    overflow: hidden;
+    height: 34%;
     position: relative;
 }
-#content .product .cart-info .discount{
-    position: absolute;
-    bottom: 13px;
-    right: 10px;
-    background: var(--danger);
-    border-radius: 50%;
-    padding: 13px;
+
+.my_card .body a.name {
+    text-decoration: none;
+    color: black;
+    transition: 0.4s;
+    font-size: 17px;
+    display: block;
+}
+
+.my_card .body a.name:hover {
+    text-decoration: none;
+    color: coral;
+}
+
+.my_card .body p.category {
+    text-transform: uppercase;
+    font-size: 15px;
+}
+.my_card .body .unitPrice{
 
 }
-#content .product .cart-info .price-discount{
+.my_card .body .unitPrice{
+
+}
+.my_card .body .saleoff{
     position: absolute;
-    bottom: 1px;
-    left: 19px;
-    font-weight: bold;
-    color: var(--danger);
+    right: 3px;
+    bottom: 88px;
+    background-image: url(/images/icon-saleoff.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 45px;
+    width: 45px;
+    padding-bottom: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+.my_card .body .saleoff span{
+    display: block;
+    position: relative;
+    bottom: -6px;
+    right: -8px;
 }
 
 

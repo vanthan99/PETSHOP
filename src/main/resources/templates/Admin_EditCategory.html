@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <td><label>Tên Loại Sản Phẩm</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{name}"></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{name}" required></label></td>
                 </tr>
                 <tr>
                     <td>
@@ -24,7 +24,7 @@
                         </a>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có muốn lưu?');">
                             <span class="mr-2">Lưu</span>
                             <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         </button>

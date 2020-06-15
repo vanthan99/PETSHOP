@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa giỏ hàng</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <form th:action="@{/cart/}" th:object="${item}" method="post">
+            <table>
+                <tr>
+                    <td>Số Lượng: </td>
+                    <td>
+                        <input type="number" class="form-control" th:field="*{quantity}">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit" class="btn btn-success">OK</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

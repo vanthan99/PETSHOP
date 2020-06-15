@@ -5,9 +5,7 @@ import com.cdio.petshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -30,11 +28,19 @@ public class CartController {
             List<Item> cart = (List<Item>) session.getAttribute("cart");
             int total = 0;
             for (Item item : cart){
-                total += item.getProduct().getPrice() * item.getQuantity();
+                // trường hợp nếu sản phẩm không có khuyến mãi
+                if (item.getProduct().getPromotionPrice() == null){
+                    total += item.getProduct().getUnitPrice() * item.getQuantity();
+                }
+                // Trường hợp sản phẩm có khuyến mãi
+                else {
+                    total += item.getProduct().getPromotionPrice() * item.getQuantity();
+                }
+
             }
             model.addAttribute("total",total);
         }
-        return "Cart";
+        return "App_Cart";
     }
 
     @GetMapping("/buy/productId={id}")
@@ -60,12 +66,38 @@ public class CartController {
         return "redirect:/cart/index";
     }
 
+    @GetMapping("/edit/productId={id}")
+    public String editCart(Model model, @PathVariable(name = "id") Long id,HttpSession session){
+        List<Item> cart = (List<Item>) session.getAttribute("cart");
+        for (Item item : cart){
+            if (item.getProduct().getId().equals(id)){
+                model.addAttribute("item",item);
+            }
+        }
+        return "App_EditCart";
+    }
+
+    @PostMapping
+    public String post(@ModelAttribute("item") Item item, HttpSession session){
+        List<Item> cart = (List<Item>) session.getAttribute("cart");
+        cart.add(item);
+        session.setAttribute("cart", cart);
+        return "redirect:/cart/index";
+    }
+
     @GetMapping(value = "remove/{id}")
     public String remove(@PathVariable("id") Long id, HttpSession session) {
         List<Item> cart = (List<Item>) session.getAttribute("cart");
         int index = this.exists(id, cart);
         cart.remove(index);
         session.setAttribute("cart", cart);
+        return "redirect:/cart/index";
+    }
+
+    @GetMapping(value = "removeAll")
+    public String removeAll(HttpSession session){
+        List<Item> cart = new ArrayList<>();
+        session.setAttribute("cart",cart);
         return "redirect:/cart/index";
     }
 
