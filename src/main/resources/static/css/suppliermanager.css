@@ -1,27 +1,6 @@
 *{margin: 0;padding: 0}
-
-label.description {
-    width: 126px;
-}
-
-label.phone-number {
-    width: 115px;
-}
-
-label.address {
-    width: 217px;
-}
-
-label.name {
-    width: 125px;
-}
-
-label.id {
-    width: 139px;
-}
-
-.list-suppliers label {
-    white-space: nowrap;
+label{
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }

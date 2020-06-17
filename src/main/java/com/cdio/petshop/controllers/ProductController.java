@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/product")
@@ -41,8 +42,9 @@ public class ProductController {
 
     //Lưu Sản Phẩm
     @PostMapping
-    public String saveProduct(@ModelAttribute(name = "product") Product product){
+    public String saveProduct(@ModelAttribute(name = "product") Product product, RedirectAttributes redirectAttributes){
         productService.save(product);
+        redirectAttributes.addFlashAttribute("message","Thông Báo: Lưu sản phẩm thành công");
         return "redirect:/admin/product/index";
     }
 
@@ -57,8 +59,9 @@ public class ProductController {
 
     // Chức năng xóa sản phẩm
     @GetMapping("/delete/productId={id}")
-    public String deleteProduct(@PathVariable(name = "id") Long id){
+    public String deleteProduct(@PathVariable(name = "id") Long id,RedirectAttributes redirectAttributes){
         productService.deleteById(id);
+        redirectAttributes.addFlashAttribute("message","Thông Báo: Xóa sản phẩm thành công!");
         return "redirect:/admin/product/index";
     }
 

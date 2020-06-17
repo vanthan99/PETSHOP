@@ -22,7 +22,7 @@
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item">
                         <!-- Chương Trình Khuyến Mãi -->
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/discounts}">
                             <div class="items">
                                 <i class="fa fa-ticket" aria-hidden="true"></i>
                                 <span>Chương Trình Khuyến Mãi</span>
@@ -78,13 +78,13 @@
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 <span class="">Giỏ hàng</span>
                             </div>
-                            <span th:if="${session.containsKey('cart')}">
-                                    <span class="btn-danger btn btn-sm"
-                                          style="border-radius: 50%;
-                                          position: absolute;
-                                           top: 0;
-                                           right: 97px;font-size: 8px;" th:text="${session.cart.size()}"></span>
-                            </span>
+<!--                            <span th:if="${session.containsKey('cart')}">-->
+<!--                                    <span class="btn-danger btn btn-sm"-->
+<!--                                          style="border-radius: 50%;-->
+<!--                                          position: absolute;-->
+<!--                                           top: 0;-->
+<!--                                           right: 97px;font-size: 8px;" th:text="${session.cart.size()}"></span>-->
+<!--                            </span>-->
                         </a>
                     </li>
                     <li class="nav-item" sec:authorize="hasAuthority('admin')">

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo tài khoản</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url(/images/login_background1.jpg);
+            background-size: cover;
+        }
+
+        .title {
+            font-family: segoe ui light,serif;
+            font-size: 40px;
+            color: white;
+        }
+
+        #register-box form input,
+        textarea {
+            background: none !important;
+            font-size: 17px !important;
+            color: white !important;
+        }
+
+        #register-box {
+            border-radius: 20px !important;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        ::placeholder {
+            color: white !important;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="row mt-3 justify-content-center">
+        <!-- box register -->
+        <div id="register-box" class="col-sm-4 col-9">
+            <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return checkPassword();">
+                <!-- logo -->
+                <div class="row mt-2 justify-content-center">
+                    <div class="col-sm-4 col-4">
+                        <img style="border-radius: 8px;" class="img-fluid" src="/images/logo.jpg" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 class="text-center title">Tạo tài khoản</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <span class="text-white">Nhập thông tin tài khoản</span>
+                    </div>
+                </div>
+<!--                thông báo kết quả tạo tài khoản-->
+                <div th:if="${message}" th:text="${message}" th:class="${class}"></div>
+
+                <!-- username -->
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <input th:field="*{username}" class="form-control text-white" type="text" placeholder="Tên đăng nhập" required pattern="[^\s]+" title="Tên đăng nhập không chứa ký tự trắng">
+                    </div>
+                </div>
+                <!-- password -->
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <input th:field="*{password}" id="pass1" class="form-control" type="password" placeholder="Mật khẩu" required>
+                    </div>
+                </div>
+                <!-- confirm password -->
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <input class="form-control" id="pass2" type="password" placeholder="Nhập lại mật khẩu" required>
+                    </div>
+                </div>
+                <!-- fullname-->
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <input  th:field="*{fullName}" class="form-control" type="text" placeholder="Tên" required>
+                    </div>
+                </div>
+                <!-- địa chỉ -->
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <textarea th:field="*{personalAddress}" class="form-control" placeholder="Địa chỉ" rows="3" required></textarea>
+                    </div>
+                </div>
+                <!-- SĐT -->
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <input  th:field="*{phoneNumber}" class="form-control" type="text" placeholder="Điện Thoại"  required maxlength="10" pattern="[0]{1}[0-9]{9}" title="Số điện thoại phải bắt đầu bằng 0 và gồm 10 ký tự">
+                    </div>
+                </div>
+                <!-- tạo tài khoản -->
+                <div class="row mt-3">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-info btn-block">TẠO TÀI KHOẢN</button>
+                    </div>
+                </div>
+                <!-- Đăng nhập -->
+                <div class="row mt-2 mb-2">
+                    <div class="col-sm-12 text-right">
+                        <a th:href="@{/login}" class="text-info text-decoration-none">Đăng nhập</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function checkPassword() {
+        const firstPassword = document.getElementById("pass1").value;
+        const secondPassword = document.getElementById("pass2").value;
+
+        if (firstPassword !== secondPassword){
+            alert('Mật khẩu không trùng khớp.\nVui lòng nhập lại');
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

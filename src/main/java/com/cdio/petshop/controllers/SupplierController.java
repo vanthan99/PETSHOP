@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/admin/supplier")
@@ -25,15 +26,16 @@ public class SupplierController {
         return "Admin_EditSupplier";
     }
 
-    @GetMapping("/delete/supId={id}")
-    public String deleteSupplier(@PathVariable(name = "id") Long id){
-        supplierService.deleteById(id);
-        return "redirect:/admin/supplier/index";
-    }
+//    @GetMapping("/delete/supId={id}")
+//    public String deleteSupplier(@PathVariable(name = "id") Long id){
+//        supplierService.deleteById(id);
+//        return "redirect:/admin/supplier/index";
+//    }
 
     @PostMapping
-    public String saveSupplier(@ModelAttribute(name = "supplier") Supplier supplier){
+    public String saveSupplier(@ModelAttribute(name = "supplier") Supplier supplier, RedirectAttributes redirectAttributes){
         supplierService.save(supplier);
+        redirectAttributes.addFlashAttribute("message","Thông Báo: Lưu thành công!");
         return "redirect:/admin/supplier/index";
     }
 

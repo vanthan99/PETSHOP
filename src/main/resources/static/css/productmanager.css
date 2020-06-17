@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
 }
-#product_manager label{
+#product_manager label,a{
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }

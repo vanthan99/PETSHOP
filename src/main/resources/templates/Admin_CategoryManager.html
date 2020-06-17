@@ -15,18 +15,19 @@
             </div>
 
             <!--    Button Thêm mới Loại Hàng-->
-            <div class="text-right">
+            <div class="text-right mb-3">
                 <a th:href="@{/admin/category/new}" class="btn btn-success">
                     <span>Thêm Loại Hàng</span>
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </a>
             </div>
+            <div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col" class="text-left"><label>Mã Loại Hàng</label></th>
                     <th scope="col" class="text-center"><label>Tên Loại Hàng</label></th>
-                    <th scope="col" class="text-right"><label>Chỉnh Sửa|Xóa|Danh Sách</label></th>
+                    <th scope="col" class="text-right"><label>Chỉnh Sửa|Danh Sách</label></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,7 +36,7 @@
                     <td class="text-center"><label class="fullname"  th:text="${category.getName()}"></label></td>
                     <td class="text-right">
                         <a th:href="@{'/admin/category/edit/catId='+ ${category.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                        <a th:href="@{'/admin/category/delete/catId='+ ${category.getId()}}" onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');"  class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+<!--                        <a th:href="@{'/admin/category/delete/catId='+ ${category.getId()}}" onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');"  class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>-->
                         <a th:href="@{'/admin/category/product/catId='+ ${category.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                     </td>
                 </tr>

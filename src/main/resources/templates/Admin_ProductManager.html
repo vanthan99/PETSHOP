@@ -10,17 +10,18 @@
 <body>
 <div layout:fragment="content">
     <div id="product_manager">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-info" role="alert">
             <p class="display-4">Quản Lý Sản Phẩm</p>
         </div>
 
         <!--    Button Thêm mới Sản Phẩm-->
-        <div class="text-right">
+        <div class="text-right mb-2">
             <a th:href="@{/admin/product/new}" class="btn btn-success">
                 <span>Thêm Sản Phẩm</span>
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </a>
         </div>
+        <div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -30,8 +31,8 @@
                 <th scope="col"><label>Nhà Cung Cấp</label></th>
                 <th scope="col"><label>Danh Mục</label></th>
                 <th scope="col"><label>Giá Niêm Yết</label></th>
-                <th scope="col"><label>Giá Khuyến Mãi</label></th>
-                <th scope="col"><label>Đơn Vị Tính</label></th>
+                <th scope="col"><label>Giá KM</label></th>
+                <th scope="col"><label>Đơn Vị</label></th>
                 <th scope="col" class="text-center"><label>Sửa|Xóa</label></th>
             </tr>
             </thead>
@@ -40,36 +41,36 @@
 <!--                số thứ tự-->
                 <th scope="row"><label th:text="${stt.index+1}"></label></th>
 <!--                tên sản phẩm-->
-                <td><label th:text="${product.getName()}"></label></td>
+                <td><a th:href="@{'/product/id=' + ${product.getId()}}" class="text-info" style="width: 160px;" th:text="${product.getName()}" th:title="${product.getName()}"></a></td>
 <!--                hình ảnh-->
                 <td>
                     <img style="width:132px;height: 153px;border-radius: 5px" th:src="@{'/images/'+${product.getImagePath()}}">
                 </td>/
 <!--                nhà cung cấp-->
-                <td><label th:text="${product.getSupplier().getName()}"></label></td>
+                <td><label style="width: 100px;" th:text="${product.getSupplier().getName()}" th:title="${product.getSupplier().getName()}"></label></td>
 <!--                danh mục-->
                 <td><label th:text="${product.getCategory().getName()}"></label></td>
 <!--                giá niêm yết-->
-                <td><label style="color:#dc3545;font-weight: bold"  th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}"></label></td>
+                <td><label class="text-danger font-weight-bold"  th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
 <!--                giá khuyến mãi-->
                 <td>
 <!--                    kiểm tra nếu sản phẩm có khuyến mãi thì hiển thị ra-->
                     <div th:if="${product.getPromotionPrice()}">
-                        <label style="color:#dc3545;font-weight: bold"  th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' VNĐ'}">
+                        <label class="text-danger font-weight-bold"  th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}">
                         </label>
                     </div>
 <!--                    Trường hợp sản phẩm không có khuyến mãi thì hiển thị "Không khuyến mãi"-->
                     <div th:unless="${product.getPromotionPrice()}">
-                        <label style="color:#dc3545;font-weight: bold">Không khuyến mãi</label>
+                        <label class="text-danger font-weight-bold">Không</label>
                     </div>
                 </td>
 <!--                đơn vị tính-->
                 <td><label th:text="${product.getUnit()}"></label></td>
                 <td class="text-center">
-                    <a th:href="@{'/admin/product/edit/productId='+ ${product.getId()}}" class="btn btn-outline-info"><i
+                    <a th:href="@{'/admin/product/edit/productId='+ ${product.getId()}}" class="btn btn-outline-info" title="Chỉnh sửa"><i
                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     <a th:href="@{'/admin/product/delete/productId='+ ${product.getId()}}"
-                       onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');" class="btn btn-outline-danger"><i
+                       onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');" class="btn btn-outline-danger" title="Xóa"><i
                             class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>

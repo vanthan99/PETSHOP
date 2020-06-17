@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Danh Sách Sản Phẩm Theo Loại</title>
+
 </head>
 <body>
 <div layout:fragment="content">
-    <hr>
-    <h3 th:text="${title}"></h3>
     <div id="content">
+        <hr>
+        <h2 class="mona_title" th:text="${title}"></h2>
+
         <div th:unless="${products.size()}">
             <span class="lead">Danh sách trống. Vui lòng quay lại sau!</span>
             <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>

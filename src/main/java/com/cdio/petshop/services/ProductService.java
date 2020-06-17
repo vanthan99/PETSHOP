@@ -19,7 +19,7 @@ public class ProductService {
     }
 
     public List<Product> findAll(){
-        return productRepository.findAll();
+        return productRepository.findAll(Sort.by("name"));
     }
 
     public void deleteById(Long id){

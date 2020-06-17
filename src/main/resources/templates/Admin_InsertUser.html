@@ -11,7 +11,7 @@
             <table>
                 <tr>
                     <td><label>Tên Đăng Nhập</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{username}" required></label></td>
+                    <td><label><input type="text" class="form-control" th:field="*{username}" required pattern="[^\s]+" title="Tên đăng nhập không chứa ký tự trắng"></label></td>
                 </tr>
                 <tr>
                     <td><label>Mật Khẩu</label></td>

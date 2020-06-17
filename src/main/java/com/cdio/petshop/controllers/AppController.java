@@ -55,9 +55,9 @@ public class AppController {
     // hiển thị danh sách sản phẩm theo category ID
     @GetMapping("/products/catId={id}")
     public String viewListProductByCategoryIdPage(Model model,@PathVariable(name = "id") Long id){
-        model.addAttribute("title","Danh Sách Sản Phẩm Thuộc Danh Mục " + categoryService.findById(id).getName());
+        model.addAttribute("title", categoryService.findById(id).getName());
         model.addAttribute("products", categoryService.findById(id).getProducts());
-        model.addAttribute("category",categoryService.findById(id));
+//        model.addAttribute("category",categoryService.findById(id));
         return "App_ListProductByCategoryOrSupplier";
     }
 
@@ -76,4 +76,18 @@ public class AppController {
         return "App_ListProductByCategoryOrSupplier";
     }
 
+    // hiển thị danh sách khuyến mãi
+    @GetMapping("/discounts")
+    public String viewListDiscountProduct(Model model){
+//        tìm kiếm những sản phẩm có khuyến mãi rồi đưa vào danh sách products
+        ArrayList<Product> products = new ArrayList<>();
+        for (Product product : productService.findAll()){
+            if (product.getPromotionPrice() != null){
+                products.add(product);
+            }
+        }
+        model.addAttribute("products",products);
+        model.addAttribute("title","Danh Sách sản phẩm hiện đang được khuyến mãi");
+        return "App_ListProductByCategoryOrSupplier";
+    }
 }

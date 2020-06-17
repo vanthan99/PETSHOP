@@ -8,39 +8,46 @@
 <body>
 <div layout:fragment="content">
     <!--        Danh Sách Nhà Cung Cấp-->
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-info" role="alert">
         <p class="display-4">Quản Lý Nhà Cung Cấp</p>
     </div>
 <!--    Button Thêm mới Nhà Cung Cấp-->
-    <div class="text-right">
+    <div class="text-right mb-2">
         <a th:href="@{/admin/supplier/new}" class="btn btn-success">
             <span>Thêm Nhà Cung Cấp</span>
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
     </div>
+    <div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
     <div class="list-suppliers">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col"><label class="id">STT</label></th>
-                <th scope="col"><label class="name">Tên</label></th>
-                <th scope="col"><label class="address">Địa Chỉ</label></th>
-                <th scope="col"><label class="phone-number">Số Điện Thoại</label></th>
-                <th scope="col"><label class="description">Giới Thiệu</label></th>
-                <th scope="col" class="text-right"><label class="my-action">Chỉnh Sửa|Xóa|Danh Sách</label></th>
+                <th scope="col"><label>STT</label></th>
+                <th scope="col"><label>Tên</label></th>
+                <th scope="col"><label>Địa Chỉ</label></th>
+                <th scope="col"><label>Số Điện Thoại</label></th>
+                <th scope="col"><label>Giới Thiệu</label></th>
+                <th scope="col" class="text-right"><label>Sửa|Danh Sách</label></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="supplier : ${suppliers}">
-                <th scope="row"><label class="id" th:text="${supplier.getId()}"></label></th>
-                <td><label class="name" th:text="${supplier.getName()}"></label></td>
-                <td><label class="address" th:text="${supplier.getAddress()}"></label></td>
-                <td><label class="phone-number" th:text="${supplier.getPhoneNumber()}"></label></td>
-                <td><label class="description" th:text="${supplier.getDescription()}"></label></td>
-                <td class="my-action text-right">
-                    <a th:href="@{'/admin/supplier/edit/supId=' + ${supplier.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a th:href="@{'/admin/supplier/delete/supId=' + ${supplier.getId()}}" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                    <a th:href="@{'/admin/supplier/product/supId=' + ${supplier.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+<!--                STT-->
+                <th scope="row"><label th:text="${supplier.getId()}"></label></th>
+<!--                tên nhà cung cấp-->
+                <td><label style="width: 130px;" th:text="${supplier.getName()}" th:title="${supplier.getName()}"></label></td>
+<!--                địa chỉ nhà cung cấp-->
+                <td><label style="width: 215px;" th:text="${supplier.getAddress()}" th:title="${supplier.getAddress()}"></label></td>
+<!--                SĐT nhà cung cấp-->
+                <td><label th:text="${supplier.getPhoneNumber()}"></label></td>
+<!--                giới thiệu-->
+                <td><label style="width: 220px;" th:text="${supplier.getDescription()}" th:title="${supplier.getDescription()}"></label></td>
+<!--                các chức năng-->
+                <td class="text-right">
+                    <a th:href="@{'/admin/supplier/edit/supId=' + ${supplier.getId()}}" class="btn btn-outline-info" title="Chỉnh sửa"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+<!--                    <a th:href="@{'/admin/supplier/delete/supId=' + ${supplier.getId()}}" class="btn btn-outline-danger" title="Xóa"><i class="fa fa-trash-o" aria-hidden="true"></i></a>-->
+                    <a th:href="@{'/admin/supplier/product/supId=' + ${supplier.getId()}}" class="btn btn-outline-primary" title="Xem dánh sách sản phẩm"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </td>
             </tr>
             </tbody>

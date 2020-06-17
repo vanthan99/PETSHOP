@@ -118,91 +118,6 @@ body{
 }
 /*end sidebar*/
 
-/*begin content*/
-/*#content{*/
-/*    min-height: 500px;*/
-/*    width: 100%;*/
-/*}*/
-
-/*#content ul{*/
-/*    width: 100%;*/
-/*    list-style: none;*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*}*/
-
-/*#content .product{*/
-/*    width: 230px;*/
-/*    height: 343px;*/
-/*    margin-bottom: 20px;*/
-/*    margin-right: 16px;*/
-/*}*/
-/*#content .product .head{*/
-/*    height: 70%;*/
-/*    overflow: hidden;*/
-/*    position: relative;*/
-/*}*/
-
-/*#content .product .head a{*/
-/*    text-decoration: none;*/
-/*}*/
-
-/*#content .product .head img{*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*}*/
-/*!*hiệu ứng zoom hình ảnh khi hover*!*/
-/*#content .product .head{*/
-/*    overflow: hidden;*/
-/*}*/
-/*#content .product .head img{*/
-/*    transition: 0.6s;*/
-/*}*/
-/*#content .product .head:hover img{*/
-/*    transform: scale(1.2);*/
-/*}*/
-/*!*hết*!*/
-/*#content .product .head .dat-hang{*/
-/*    width: 100%;*/
-/*    height: 50px;*/
-/*    line-height: 50px;*/
-/*    position: absolute;*/
-/*    bottom: -60px;*/
-/*    left: 0;*/
-/*    background-color: rgba(0, 0, 0, 0.6);*/
-/*    transition: 0.4s;*/
-/*}*/
-/*#content .product .head .dat-hang span{*/
-/*    color: var(--mautrang-nhat);*/
-/*}*/
-
-/*#content .product:hover .head .dat-hang{*/
-/*    position: absolute;*/
-/*    bottom: 0;*/
-/*    left: 0;*/
-/*    background-color: rgba(0, 0, 0, 0.4);*/
-/*}*/
-
-/*#content .product .cart-info{*/
-/*    position: relative;*/
-/*}*/
-/*#content .product .cart-info .discount{*/
-/*    position: absolute;*/
-/*    bottom: 13px;*/
-/*    right: 10px;*/
-/*    background: var(--danger);*/
-/*    border-radius: 50%;*/
-/*    padding: 13px;*/
-
-/*}*/
-/*#content .product .cart-info .price-discount{*/
-/*    position: absolute;*/
-/*    bottom: 1px;*/
-/*    left: 19px;*/
-/*    font-weight: bold;*/
-/*    color: var(--danger);*/
-/*}*/
-
 .my_card {
     height: 380px;
 
@@ -305,6 +220,29 @@ body{
     position: relative;
     bottom: -6px;
     right: -8px;
+}
+
+.mona_title {
+    color: #3c3451;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 32px;
+    margin-bottom: 16px;
+    padding-bottom: 25px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    clear: both;
+    font-family: 'Josefin Sans', serif;
+}
+.mona_title:after {
+    content: "";
+    display: block;
+    background: url(http://mauweb.monamedia.net/dogcatshop/wp-content/uploads/2018/04/sleigh-bell.svg) no-repeat;
+    width: 100px;
+    height: 62px;
+    margin: 10px auto 0;
+    background-size: 100px 62px;
 }
 
 

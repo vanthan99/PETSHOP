@@ -4,6 +4,7 @@ import com.cdio.petshop.entities.Role;
 import com.cdio.petshop.entities.User;
 import com.cdio.petshop.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class UserService {
     }
 
     public List<User> findAll(){
-        return userRepository.findAll();
+        return userRepository.findAll(Sort.by("role"));
     }
 
     public void deleteById(String username){
