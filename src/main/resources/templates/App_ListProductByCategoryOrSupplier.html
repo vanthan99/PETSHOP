@@ -26,7 +26,7 @@
                                 <a th:href="@{'/product/id=' + ${product.getId()}}" class="card-a-img">
                                     <img th:src="@{'/images/' + ${product.getImagePath()}}" alt="" class="card-img">
                                 </a>
-                                <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}" class="add-to-card btn btn-outline-danger">
+                                <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}" class="add-to-card btn btn-outline-danger"   title="Thêm vào giỏ hàng">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                 </a>
                             </div>

@@ -1,7 +1,7 @@
 <div th:fragment="header" xmlns:th="http://www.thymeleaf.org">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">ADMIN QUẢN LÝ</a>
+            <img class="navbar-brand" src="/images/logo.jpg" style="height: 50px;border-radius: 10px;" alt="logo">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
                         <a class="nav-link" th:href="@{/admin/product/index}">Sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/category/index}">Danh mục</a>
+                        <a class="nav-link" th:href="@{/admin/category/index}">Loại hàng</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/supplier/index}">Nhà cung cấp</a>
@@ -32,7 +32,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Xin Chào :  [[${#httpServletRequest.remoteUser}]]
+                            Xin Chào ADMIN :  [[${#httpServletRequest.remoteUser}]]
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">Thông tin</a>

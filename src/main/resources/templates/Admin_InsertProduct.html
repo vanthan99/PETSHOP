@@ -1,93 +1,117 @@
 <!DOCTYPE html>
-<html lang="en"  layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Thêm Sản Phẩm</title>
+<!--    <style>-->
+<!--        body{-->
+<!--            background-image: -webkit-linear-gradient(left,#86B8C1,#D6BED8);-->
+<!--        }-->
+<!--    </style>-->
 </head>
 <body>
-    <div layout:fragment="content">
-        <form th:action="@{/admin/product}" th:object="${product}" method="post">
-            <table>
-                <tr>
-                    <td><label>Tên SP</label></td>
-                    <td><label><input class="form-control" type="text" th:field="*{name}" required></label></td>
-                </tr>
-                <tr>
-                    <td>Danh Mục Sản Phẩm</td>
-                    <td><label>
-                        <select class="form-control" th:field="*{category}">
-                            <option th:each="category: ${categories}" th:value="${category.getId()}"
-                                    th:utext="${category.getName()}"></option>
-                        </select>
-                    </label></td>
-                </tr>
-
-                <tr>
-                    <td>Nhà Cung Cấp</td>
-                    <td><label>
-                        <select class="form-control" th:field="*{supplier}">
-                            <option th:each="supplier: ${suppliers}" th:value="${supplier.getId()}"
-                                    th:utext="${supplier.getName()}"></option>
-                        </select>
-                    </label></td>
-                </tr>
-                <tr>
-                    <td><label>Hình ảnh</label></td>
-                    <td><label><input class="form-control" type="text" th:field="*{imagePath}"></label></td>
-                </tr>
-                <tr>
-                    <td>Mô Tả</td>
-                    <td><label><textarea style="min-width: 300px;min-height: 100px;" class="form-control"
-                                         th:field="*{description}"></textarea></label></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label>Giá Niêm Yết: </label>
-                    </td>
-                    <td>
-                        <div class="form-inline">
-                            <label><input class="form-control" type="number" placeholder="VNĐ" th:field="*{unitPrice}" required></label>
-                            <label>&nbsp;&nbsp;&nbsp;đ</label>
+<div layout:fragment="content">
+    <div id="insert_product">
+        <div class="row justify-content-center mb-2 pt-1">
+            <div id="block" class="col-sm-6 col-11">
+                <h3 class="mona_title text-white mt-2">Thêm sản phẩm</h3>
+                <form th:action="@{/admin/product}" th:object="${product}" method="post">
+                    <!--tên sản phẩm-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead  text-white">Tên sản phẩm</div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="*{name}" required>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Giá Khuyến Mãi: </label>
-                    </td>
-                    <td>
-                        <div class="form-inline">
-                            <label><input class="form-control" type="number" placeholder="VNĐ" th:field="*{promotionPrice}"></label>
-                            <label>&nbsp;&nbsp;&nbsp;VNĐ</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Đơn Vị Tính</td>
-                    <td>
-                        <input type="text" th:field="*{unit}" class="form-control">
-                    </td>
-                </tr>
+                    </div>
 
-                <tr>
-                    <td>
-                        <a onclick="return confirm('Bạn có muốn hủy?');" th:href="@{/admin/product/index}"
-                           class="btn btn-primary">
-                            <span class="mr-2">Hủy</span>
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có muốn lưu?');">
-                            <span class="mr-2">Lưu</span>
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+                    <!--Loại hàng-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Loại hàng</div>
+                        <div class="col-sm-8">
+                            <select class="form-control" th:field="*{category}">
+                                <option class="bg-dark" th:each="category: ${categories}" th:value="${category.getId()}"
+                                        th:utext="${category.getName()}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--nhà cung cấp-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Nhà cung cấp</div>
+                        <div class="col-sm-8">
+                            <select class="form-control" th:field="*{supplier}">
+                                <option class="bg-dark" th:each="supplier: ${suppliers}" th:value="${supplier.getId()}"
+                                        th:utext="${supplier.getName()}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--hình ảnh-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Hình ảnh
+                        </div>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" th:field="*{imagePath}">
+                        </div>
+                    </div>
+
+                    <!--mô tả-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Mô tả</div>
+                        <div class="col-sm-8">
+                        <textarea class="form-control" cols="30" rows="5" aria-label="With textarea"
+                                  th:field="*{description}"
+                                  required></textarea>
+                        </div>
+                    </div>
+
+                    <!--giá niêm yết-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Giá niêm yết
+                        </div>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="number" placeholder="VNĐ" th:field="*{unitPrice}"
+                                   required>
+                        </div>
+                    </div>
+
+                    <!--giá khuyến mãi-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Giá khuyến mãi
+                        </div>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="number" placeholder="VNĐ" th:field="*{promotionPrice}">
+                        </div>
+                    </div>
+
+                    <!--đơn vị tính-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Đơn vị tính
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="*{unit}" required>
+                        </div>
+                    </div>
+
+                    <!--chức năng-->
+                    <div class="row mt-2 pb-2 justify-content-center">
+                        <div class="col-sm-3 col-5">
+                            <a th:href="@{/admin/product/index}" class="btn btn-secondary text-center">
+                                <span class="mr-2">Hủy</span>
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-3 col-5">
+                            <button type="submit" class="btn btn-info">
+                                <span class="mr-2">Lưu</span>
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 </body>
 </html>

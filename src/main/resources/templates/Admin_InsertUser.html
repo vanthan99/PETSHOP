@@ -6,63 +6,81 @@
     <title>Thêm Mới Người Dùng</title>
 </head>
 <body>
-    <div layout:fragment="content">
-        <form th:action="@{/admin/user}" th:object="${user}" method="post">
-            <table>
-                <tr>
-                    <td><label>Tên Đăng Nhập</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{username}" required pattern="[^\s]+" title="Tên đăng nhập không chứa ký tự trắng"></label></td>
-                </tr>
-                <tr>
-                    <td><label>Mật Khẩu</label></td>
-                    <td><label><input type="password" class="form-control" th:field="*{password}" required></label></td>
-                </tr>
-                <tr>
-                    <td><label>Loại Tài Khoản</label></td>
-                    <td><label>
-                        <select class="form-control" th:field="*{role}">
-                            <option th:each="r : ${roles}" th:value="${r.getId()}" th:text="${r.getName()}"></option>
-                        </select>
-                    </label></td>
-                </tr>
-                <tr>
-                    <td><label>Tên Đầy Đủ</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{fullName}" required></label></td>
-                </tr>
-                <tr>
-                    <td><label>SĐT</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{phoneNumber}"  required maxlength="10" pattern="[0]{1}[0-9]{9}" title="Số điện thoại phải bắt đầu bằng 0 và gồm 10 ký tự"></label></td>
-                </tr>
+<div layout:fragment="content">
+    <div>
+        <div class="row justify-content-center mb-2 pt-1">
+            <div id="block" class="col-sm-6 col-11">
+                <h3 class="mona_title text-white mt-2">Thêm người dùng</h3>
+                <form th:action="@{/admin/user}" th:object="${user}" method="post">
+                    <!--tên Đăng nhập-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead  text-white">Tên đăng nhập</div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="*{username}" required pattern="[^\s]+"
+                                   title="Tên đăng nhập không chứa ký tự trắng">
+                        </div>
+                    </div>
+                    <!--                         mật khẩu-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead  text-white">Mật khẩu</div>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" th:field="*{password}" required>
+                        </div>
+                    </div>
 
-                <tr>
-                    <td><label>Địa Chỉ Nơi Giao Hàng</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{addressOfDelivery}" required></label></td>
-                </tr>
-
-                <tr>
-                    <td><label>Địa Chỉ Nơi Ở</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{personalAddress}"></label></td>
-                </tr>
-                <tr>
-                    <td><label>Trạng Thái</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{status}"></label></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a onclick="return confirm('Bạn có muốn hủy?');" th:href="@{/admin/user/index}" class="btn btn-primary">
-                            <span class="mr-2">Hủy</span>
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có lưu?');">
-                            <span class="mr-2">Lưu</span>
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+                    <!--Loại tài khoản-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead text-white">Loại tài khoản</div>
+                        <div class="col-sm-8">
+                            <select class="form-control" th:field="*{role}">
+                                <option th:each="r : ${roles}" th:value="${r.getId()}"
+                                        th:text="${r.getName()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--                        tên đầy đủ-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead  text-white">Tên đầy đủ</div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="*{fullName}" required>
+                        </div>
+                    </div>
+                    <!--                        địa chỉ-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead  text-white">Địa chỉ</div>
+                        <div class="col-sm-8">
+                                <textarea class="form-control" cols="30" rows="5" aria-label="With textarea"
+                                          th:field="*{address}"
+                                          required></textarea>
+                        </div>
+                    </div>
+                    <!--                        số điện thoại-->
+                    <div class="row mt-2">
+                        <div class="col-sm-4 lead  text-white">Số điện thoại</div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="*{phoneNumber}" required maxlength="10"
+                                   pattern="[0]{1}[0-9]{9}" title="Số điện thoại phải bắt đầu bằng 0 và gồm 10 ký tự">
+                        </div>
+                    </div>
+                    <!--chức năng-->
+                    <div class="row mt-2 pb-2 justify-content-center">
+                        <div class="col-sm-3 col-5">
+                            <a th:href="@{/admin/user/index}" class="btn btn-secondary text-center">
+                                <span class="mr-2">Hủy</span>
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-3 col-5">
+                            <button type="submit" class="btn btn-info">
+                                <span class="mr-2">Lưu</span>
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 </body>
 </html>

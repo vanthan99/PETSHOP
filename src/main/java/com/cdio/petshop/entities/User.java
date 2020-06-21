@@ -25,10 +25,7 @@ public class User {
     private String phoneNumber;
 
     @Column
-    private String addressOfDelivery;
-
-    @Column
-    private String personalAddress;
+    private String address;
 
     @Column
     private String status;

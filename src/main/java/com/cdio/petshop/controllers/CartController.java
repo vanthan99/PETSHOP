@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -79,9 +80,24 @@ public class CartController {
 
     @PostMapping
     public String post(@ModelAttribute("item") Item item, HttpSession session){
-        List<Item> cart = (List<Item>) session.getAttribute("cart");
-        cart.add(item);
-        session.setAttribute("cart", cart);
+        if (session.getAttribute("cart") == null){
+            List<Item> cart = new ArrayList<>();
+            cart.add(item);
+            session.setAttribute("cart",cart);
+        }
+        else {
+            List<Item> cart = (List<Item>) session.getAttribute("cart");
+            int index = this.exists(item.getProduct().getId(),cart);
+            if (index == -1){
+                cart.add(item);
+            }
+            else {
+                int quantity = cart.get(index).getQuantity() + item.getQuantity();
+                cart.get(index).setQuantity(quantity);
+            }
+
+            session.setAttribute("cart",cart);
+        }
         return "redirect:/cart/index";
     }
 
@@ -95,12 +111,14 @@ public class CartController {
     }
 
     @GetMapping(value = "removeAll")
-    public String removeAll(HttpSession session){
+    public String removeAll(HttpSession session, RedirectAttributes redirectAttributes){
         List<Item> cart = new ArrayList<>();
         session.setAttribute("cart",cart);
+        redirectAttributes.addFlashAttribute("message","Xóa giỏ hàng thành công!");
         return "redirect:/cart/index";
     }
 
+//    kiểm tra xem trong giỏ hàng có sản phẩm có mã id hay chưa
     private int exists(Long id, List<Item> cart) {
         for (int i = 0; i < cart.size(); i++) {
             if (cart.get(i).getProduct().getId().equals(id)) {

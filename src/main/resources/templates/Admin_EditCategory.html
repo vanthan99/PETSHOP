@@ -6,32 +6,37 @@
 </head>
 <body>
     <div layout:fragment="content">
-        <form th:action="@{/admin/category}" th:object="${category}" method="post">
-            <table>
-                <tr>
-                    <td><label>Mã Loại Sản Phẩm</label></td>
-                    <td><label><input type="text" class="form-control" readonly th:field="*{id}"></label></td>
-                </tr>
-                <tr>
-                    <td><label>Tên Loại Sản Phẩm</label></td>
-                    <td><label><input type="text" class="form-control" th:field="*{name}" required></label></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a onclick="return confirm('Bạn có muốn hủy?');" th:href="@{/admin/category/index}" class="btn btn-primary">
-                            <span class="mr-2">Hủy</span>
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có muốn lưu?');">
-                            <span class="mr-2">Lưu</span>
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+        <div style="min-height: 290px;">
+            <div class="row justify-content-center mb-2 pt-1">
+                <div id="block" class="col-sm-6 col-11">
+                    <h3 class="mona_title text-white mt-2">Chỉnh sửa loại hàng</h3>
+                    <form th:action="@{/admin/category}" th:object="${category}" method="post">
+                        <input type="hidden" readonly th:field="*{id}">
+                        <div class="row mt-2">
+                            <div class="col-sm-4 lead  text-white">Tên loại hàng</div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" th:field="*{name}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2 pb-2 justify-content-center">
+                            <div class="col-sm-3 col-5">
+                                <a th:href="@{/admin/category/index}" class="btn btn-secondary text-center">
+                                    <span class="mr-2">Hủy</span>
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="col-sm-3 col-5">
+                                <button type="submit" class="btn btn-info">
+                                    <span class="mr-2">Lưu</span>
+                                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -8,17 +8,17 @@ body{
 :root{
     --mauden: #010101;
     --danger:#dc3545;
-    --mautrang-dam: #F1F0F1;
+    --mautrang-dam: #FAFAFB;
     --mautrang-nhat: #FFFFFF;
 }
 /*begin header*/
 #header{
     background-color: var(--mautrang-dam);
 }
-#header .nav-link .items i,span{
-    color: var(--mauden);
-    font-weight: 600;
-}
+/*#header .nav-link .items i,span{*/
+/*    color: var(--mauden);*/
+/*    font-weight: 600;*/
+/*}*/
 #header img.logo{
     width: 115px;
     height: 57px;
@@ -120,7 +120,6 @@ body{
 
 .my_card {
     height: 380px;
-
 }
 
 .my_card .card-header {
@@ -222,6 +221,10 @@ body{
     right: -8px;
 }
 
+/*
+style tên đề mục + hình ảnh
+ví dụ: quản lý sản sản phẩm,  thêm sản phẩm, thêm nhà cung cấp ...
+*/
 .mona_title {
     color: #3c3451;
     font-size: 32px;
@@ -244,5 +247,28 @@ body{
     margin: 10px auto 0;
     background-size: 100px 62px;
 }
+
+/*
+ khối nền bao quanh chức năng thêm sửa xóa của admin
+*/
+
+#block input,textarea,select{
+    background: none !important;
+    font-size: 17px !important;
+    color: white !important;
+}
+#block select option{
+    background-color:rgba(0, 0, 0, 0.7) !important;
+}
+#block{
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    border-radius: 10px !important;
+}
+
+#block .form-control:valid{
+    background: none !important;
+}
+
+
 
 

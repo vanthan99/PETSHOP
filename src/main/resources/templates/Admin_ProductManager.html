@@ -10,9 +10,8 @@
 <body>
 <div layout:fragment="content">
     <div id="product_manager">
-        <div class="alert alert-info" role="alert">
-            <p class="display-4">Quản Lý Sản Phẩm</p>
-        </div>
+            <h3 class="mona_title mt-3">Quản Lý Sản Phẩm</h3>
+
 
         <!--    Button Thêm mới Sản Phẩm-->
         <div class="text-right mb-2">
@@ -41,11 +40,11 @@
 <!--                số thứ tự-->
                 <th scope="row"><label th:text="${stt.index+1}"></label></th>
 <!--                tên sản phẩm-->
-                <td><a th:href="@{'/product/id=' + ${product.getId()}}" class="text-info" style="width: 160px;" th:text="${product.getName()}" th:title="${product.getName()}"></a></td>
+                <td><a th:href="@{'/product/id=' + ${product.getId()}}" class="text-dark" style="width: 160px;" th:text="${product.getName()}" th:title="${product.getName()}"></a></td>
 <!--                hình ảnh-->
                 <td>
                     <img style="width:132px;height: 153px;border-radius: 5px" th:src="@{'/images/'+${product.getImagePath()}}">
-                </td>/
+                </td>
 <!--                nhà cung cấp-->
                 <td><label style="width: 100px;" th:text="${product.getSupplier().getName()}" th:title="${product.getSupplier().getName()}"></label></td>
 <!--                danh mục-->

@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/user")
@@ -45,11 +46,21 @@ public class UserController {
 
 
     @PostMapping
-    public String save(@ModelAttribute(name = "user") User user,Model model){
+    public String save(@ModelAttribute(name = "user") User user, Model model, RedirectAttributes redirectAttributes){
         // kiểm tra username đó có tồn tại trong hệ thống hay chưa
             user.setPassword(passwordGenerator(user.getPassword()));
             userService.save(user);
+            redirectAttributes.addFlashAttribute("message","Thêm người dùng thành công!");
+            redirectAttributes.addFlashAttribute("class","alert alert-success");
             return "redirect:/admin/user/index";
+    }
+
+    @GetMapping("/delete/username={username}")
+    public String deleteUser(@PathVariable(name = "username") String username,RedirectAttributes redirectAttributes){
+        userService.deleteById(username);
+        redirectAttributes.addFlashAttribute("message","Thêm người dùng có tên đăng nhập: " + username + " thành công!");
+        redirectAttributes.addFlashAttribute("class","alert alert-success");
+        return "redirect:/admin/user/index";
     }
 
     // mã hóa mật khẩu.

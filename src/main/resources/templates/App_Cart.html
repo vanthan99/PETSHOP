@@ -8,10 +8,11 @@
 <body>
 <div layout:fragment="content">
     <div id="cart" style="min-height: 400px;">
-        <h3 class="display-4 text-center">Giỏ Hàng</h3>
+        <h3 class="mona_title">Giỏ Hàng</h3>
+        <div th:if="${message}" th:text="${message}" class="alert alert-info w-50 mx-auto text-center"></div>
         <div th:if="${session.containsKey('cart')}">
             <div th:unless="${session.cart.size()}">
-                <p class="alert alert-warning">Giỏ Hàng Trống!</p>
+                <p class="alert alert-danger w-50 mx-auto text-center">Không có sản phẩm nào trong giỏ hàng!</p>
             </div>
             <div th:if="${session.cart.size()}">
                 <table class="table table-bordered">
@@ -31,7 +32,7 @@
                             <img class="img-fluid" th:src="@{'/images/' + ${item.getProduct().getImagePath()}}" alt="">
                         </th>
 <!--                        tên sản phẩm-->
-                        <td style="width: 25%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"><label class="font-weight-bold text-info" th:text="${item.getProduct().getName()}"></label></td>
+                        <td style="width: 25%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"><a th:href="@{'/product/id=' + ${item.getProduct().getId()}}" class="font-weight-bold text-info" th:text="${item.getProduct().getName()}"></a></td>
 
 <!--                        đơn vị tính-->
                         <td style="width: 10%;"><label class="font-weight-bold text-dark" th:text="${item.getProduct().getUnit()}"></label></td>
@@ -54,8 +55,7 @@
 <!--                        xóa or chỉnh sửa-->
                         <td style="width: 15%;" class="text-center">
 <!--                            xóa-->
-                            <a th:href="@{'/cart/remove/' + ${item.getProduct().getId() }}"
-                               onclick="return confirm('Bạn có muốn xóa?')" class="btn btn-outline-dark">
+                            <a th:href="@{'/cart/remove/' + ${item.getProduct().getId() }}" class="btn btn-outline-dark">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </a>
 <!--                            chỉnh sửa-->
@@ -88,8 +88,11 @@
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <a th:href="@{/}" class="btn btn-success"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Tiếp tục mua hàng</a>
-                    <a href="#" class="btn btn-danger"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Đặt hàng</a>
-                    <a th:href="@{/cart/removeAll}" onclick="return confirm('Bạn có muốn xóa giỏ hàng?');" class="btn btn-primary"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Xóa Giỏ Hàng</a>
+
+<!--                    kiểm tra xem giỏ hàng có trống? nếu trống thì ẩn chức năng "đặt hàng" và "xóa giỏ hàng"-->
+                        <a th:if="${session.cart.size()}" href="#" class="btn btn-danger"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Đặt hàng</a>
+                        <a th:if="${session.cart.size()}" th:href="@{/cart/removeAll}" onclick="return confirm('Cảnh báo: Toàn bộ sản phẩm trong giỏ hàng hiện tại sẽ bị xoá đi');" class="btn btn-primary"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Xóa Giỏ Hàng</a>
+
                 </div>
 
             </div>

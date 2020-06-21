@@ -4,13 +4,12 @@
 <head>
     <title>PET SHOP</title>
 </head>
+
 <body>
 <div layout:fragment="content">
-    <div id="content" class="mt-4">
-        <h2 class="mona_title">Tất cả sản phẩm</h2>
-
-        <hr>
-        <div class="container">
+    <div class="container">
+        <div id="content" class="mt-4">
+            <h2 class="mona_title">Tất cả sản phẩm</h2>
             <div class="row">
                 <div class="col-sm-3 col-6 pt-4" th:each="product : ${products}">
                     <div class="my_card shadow">
@@ -18,27 +17,32 @@
                             <a th:href="@{'/product/id=' + ${product.getId()}}" class="card-a-img">
                                 <img th:src="@{'/images/' + ${product.getImagePath()}}" alt="" class="card-img">
                             </a>
-                            <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}" class="add-to-card btn btn-outline-danger">
+                            <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
+                               class="add-to-card btn btn-outline-danger" title="Thêm vào giỏ hàng">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                             </a>
                         </div>
                         <div class="body text-center">
                             <p class="text-muted category pt-2" th:text="${product.getCategory().getName()}"></p>
-                            <a th:href="@{'/product/id=' + ${product.getId()}}" class="font-weight-light name" th:text="${product.getName()}"></a>
+                            <a th:href="@{'/product/id=' + ${product.getId()}}" class="font-weight-light name"
+                               th:text="${product.getName()}"></a>
                             <!-- kiểm tra khuyến mãi -->
 
-<!--                        Trường hợp sản phẩm có khuyến mãi-->
+                            <!--                        Trường hợp sản phẩm có khuyến mãi-->
                             <div th:if="${product.getPromotionPrice()}">
-                                <small><s class="unitPrice" th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></s></small>
-                                <span class="promotionPrice text-danger" th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
+                                <small><s class="unitPrice"
+                                          th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></s></small>
+                                <span class="promotionPrice text-danger"
+                                      th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
                                 <div class="saleoff">
                                     <span th:text="${'-' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + '%'}"></span>
                                 </div>
                             </div>
 
-<!--                         Trường hợp sản phẩm không có khuyến mãi-->
+                            <!--                         Trường hợp sản phẩm không có khuyến mãi-->
                             <div th:unless="${product.getPromotionPrice()}">
-                                <span class="unitPrice text-danger" th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
+                                <span class="unitPrice text-danger"
+                                      th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
                             </div>
                         </div>
                     </div>
@@ -47,42 +51,42 @@
         </div>
 
         <hr>
-<!--            <ul>-->
-<!--                <li th:each="product : ${products}">-->
-<!--                    <div class="card product shadow">-->
-<!--                        <div class="head">-->
-<!--                            <a th:href="@{'/product/id=' + ${product.getId()}}">-->
-<!--                                <img th:src="@{'/images/' + ${product.getImagePath()}}"-->
-<!--                                     th:alt="${product.getImagePath()}">-->
-<!--                                <div class="dat-hang text-center">-->
-<!--                                    <span class="card-text">Click để xem chi tiết</span>-->
-<!--&lt;!&ndash;                                    <a class="btn btn-secondary btn-sm" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"> + </a>&ndash;&gt;-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                        <div class="card-body cart-info">-->
+        <!--            <ul>-->
+        <!--                <li th:each="product : ${products}">-->
+        <!--                    <div class="card product shadow">-->
+        <!--                        <div class="head">-->
+        <!--                            <a th:href="@{'/product/id=' + ${product.getId()}}">-->
+        <!--                                <img th:src="@{'/images/' + ${product.getImagePath()}}"-->
+        <!--                                     th:alt="${product.getImagePath()}">-->
+        <!--                                <div class="dat-hang text-center">-->
+        <!--                                    <span class="card-text">Click để xem chi tiết</span>-->
+        <!--&lt;!&ndash;                                    <a class="btn btn-secondary btn-sm" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"> + </a>&ndash;&gt;-->
+        <!--                                </div>-->
+        <!--                            </a>-->
+        <!--                        </div>-->
+        <!--                        <div class="card-body cart-info">-->
 
-<!--&lt;!&ndash;                            <h5 class="card-title text-center font-weight-light" th:text="${product.getCategory().getName()}"></h5>&ndash;&gt;-->
-<!--                            <h5 class="card-title font-weight-light" th:text="${product.getName()}"></h5>-->
+        <!--&lt;!&ndash;                            <h5 class="card-title text-center font-weight-light" th:text="${product.getCategory().getName()}"></h5>&ndash;&gt;-->
+        <!--                            <h5 class="card-title font-weight-light" th:text="${product.getName()}"></h5>-->
 
-<!--&lt;!&ndash;                            Trường hợp sản phẩm có khuyến mãi. Hiển thị ra giá niêm yết bị gạch chân và hiển thị giá khuyến mãi&ndash;&gt;-->
-<!--                            <div th:if="${product.getPromotionPrice()}">-->
-<!--                                <s class="card-text font-weight-light">-->
-<!--                                    <b th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></b>-->
-<!--                                </s>-->
-<!--                                <p class="cart-text font-weight-bold text-danger" th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></p>-->
-<!--                                <p class="cart-text font-weight-bold text-danger" th:text="${' -' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + ' %'}"></p>-->
-<!--                            </div>-->
-<!--&lt;!&ndash;                            Trường hợp sản phẩm không có có khuyến mãi. hiển thị ra mỗi giá niêm yết không bị gạch chân&ndash;&gt;-->
-<!--                            <div th:unless="${product.getPromotionPrice()}">-->
-<!--                                <p class="card-text text-danger"><b-->
-<!--                                        th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></b>-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </li>-->
-<!--            </ul>-->
+        <!--&lt;!&ndash;                            Trường hợp sản phẩm có khuyến mãi. Hiển thị ra giá niêm yết bị gạch chân và hiển thị giá khuyến mãi&ndash;&gt;-->
+        <!--                            <div th:if="${product.getPromotionPrice()}">-->
+        <!--                                <s class="card-text font-weight-light">-->
+        <!--                                    <b th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></b>-->
+        <!--                                </s>-->
+        <!--                                <p class="cart-text font-weight-bold text-danger" th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></p>-->
+        <!--                                <p class="cart-text font-weight-bold text-danger" th:text="${' -' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + ' %'}"></p>-->
+        <!--                            </div>-->
+        <!--&lt;!&ndash;                            Trường hợp sản phẩm không có có khuyến mãi. hiển thị ra mỗi giá niêm yết không bị gạch chân&ndash;&gt;-->
+        <!--                            <div th:unless="${product.getPromotionPrice()}">-->
+        <!--                                <p class="card-text text-danger"><b-->
+        <!--                                        th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></b>-->
+        <!--                                </p>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </li>-->
+        <!--            </ul>-->
     </div>
 </div>
 </body>

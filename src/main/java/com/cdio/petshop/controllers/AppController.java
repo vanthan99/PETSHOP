@@ -47,6 +47,11 @@ public class AppController {
 
         // danh sách sản phẩm tương tự
         Product product = productService.findById(id);
+        Item item = new Item();
+        item.setProduct(product);
+        item.setQuantity(1);
+        model.addAttribute("item",item);
+
         Category category = product.getCategory();
         model.addAttribute("products", category.getProducts());
         return "App_ProductDetailById";
@@ -89,5 +94,12 @@ public class AppController {
         model.addAttribute("products",products);
         model.addAttribute("title","Danh Sách sản phẩm hiện đang được khuyến mãi");
         return "App_ListProductByCategoryOrSupplier";
+    }
+
+
+    //demo
+    @GetMapping("/demo")
+    public String demo(){
+        return "App_Demo";
     }
 }

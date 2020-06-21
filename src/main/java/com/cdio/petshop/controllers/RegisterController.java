@@ -50,7 +50,6 @@ public class RegisterController {
         else {
             Role role = roleService.findById((long) 1); // role user-customer.
             user.setRole(role);
-            user.setAddressOfDelivery(user.getPersonalAddress()); // Lấy địa chỉ nơi ở làm địa chỉ giao hàng
             user.setPassword(passwordGenerator(user.getPassword())); // mã hóa mật khẩu
             userService.save(user);
             redirectAttributes.addFlashAttribute("message","Đăng ký thành công. Nhấn vào đăng nhập để tiếp tục mua sắm!");

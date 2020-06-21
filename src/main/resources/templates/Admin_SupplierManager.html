@@ -3,14 +3,12 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Quản Lý Nhà Cung Cấp</title>
-    <link rel="stylesheet" th:href="@{/css/suppliermanager.css}">
+    <link rel="stylesheet" href="/css/productmanager.css">
 </head>
 <body>
 <div layout:fragment="content">
     <!--        Danh Sách Nhà Cung Cấp-->
-    <div class="alert alert-info" role="alert">
-        <p class="display-4">Quản Lý Nhà Cung Cấp</p>
-    </div>
+    <h3 class="mona_title mt-3">Quản lý nhà cung cấp</h3>
 <!--    Button Thêm mới Nhà Cung Cấp-->
     <div class="text-right mb-2">
         <a th:href="@{/admin/supplier/new}" class="btn btn-success">
