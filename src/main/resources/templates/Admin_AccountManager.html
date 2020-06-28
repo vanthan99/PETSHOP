@@ -58,9 +58,9 @@
                 <td><label style="width: 100px;" th:title="${user.getStatus()}" th:text="${user.getStatus()}"></label>
                 </td>
                 <td class="text-center">
-                    <a th:href="@{'/admin/user/view/username=' + ${user.getUsername()}}" class="btn btn-outline-info"><i
+                    <a title="Xem thông tin chi tiết" th:href="@{'/admin/user/view/username=' + ${user.getUsername()}}" class="btn btn-outline-info"><i
                             class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a onclick="return confirm('Bạn có muốn xóa?');"
+                    <a title="Xóa tài khoản" onclick="return confirm('Bạn có muốn xóa?');"
                        th:href="@{'/admin/user/delete/username='+${user.getUsername()}}" class="btn btn-outline-danger"><i
                             class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>

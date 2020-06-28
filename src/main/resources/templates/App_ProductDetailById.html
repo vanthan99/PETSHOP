@@ -55,11 +55,14 @@
                 <div class="row">
                     <form class="form-inline" th:action="@{/cart}" th:object="${item}" method="post">
                         <div class="col-md-4 col-4">
+                            <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                            &nbsp;Chọn số lượng: </div>
+                        <div class="col-md-4 col-4">
                             <input type="number" th:field="*{quantity}" class="form-control mr-3" value="5" min="1"
                                    max="20" required>
                             <input type="hidden" th:field="*{product}">
                         </div>
-                        <button type="submit" class="btn btn-outline-danger">
+                        <button type="submit" class="btn btn-outline-danger mt-1">
                             <i class="fa fa-cart-arrow-down mr-2" aria-hidden="true"></i> Thêm vào giỏ hàng
                         </button>
                     </form>

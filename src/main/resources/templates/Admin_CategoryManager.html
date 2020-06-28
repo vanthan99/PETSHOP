@@ -34,9 +34,9 @@
                     <th scope="row" class="text-left"><label class="username" th:text="${category.getId()}"></label></th>
                     <td class="text-center"><label class="fullname"  th:text="${category.getName()}"></label></td>
                     <td class="text-right">
-                        <a th:href="@{'/admin/category/edit/catId='+ ${category.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a title="Chỉnh sửa" th:href="@{'/admin/category/edit/catId='+ ${category.getId()}}" class="btn btn-outline-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 <!--                        <a th:href="@{'/admin/category/delete/catId='+ ${category.getId()}}" onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');"  class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>-->
-                        <a th:href="@{'/admin/category/product/catId='+ ${category.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                        <a title="Xem danh sách sản phẩm" th:href="@{'/admin/category/product/catId='+ ${category.getId()}}" class="btn btn-outline-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                     </td>
                 </tr>
 

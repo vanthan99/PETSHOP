@@ -63,7 +63,7 @@
                     <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
                     <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
                     <td>
-                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                        <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -96,7 +96,7 @@
                     <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
                     <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
                     <td>
-                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                        <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -129,7 +129,7 @@
                     <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
                     <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
                     <td>
-                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                        <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -162,7 +162,7 @@
                     <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
                     <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
                     <td>
-                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                        <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -195,7 +195,7 @@
                     <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
                     <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
                     <td>
-                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                        <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -228,7 +228,7 @@
                     <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
                     <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
                     <td>
-                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                        <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -237,7 +237,6 @@
             </table>
         </div>
     </div>
-
 </div>
 </body>
 </html>
