@@ -1,5 +1,6 @@
 package com.cdio.petshop.controllers;
 
+import com.cdio.petshop.entities.Bill;
 import com.cdio.petshop.model.Item;
 import com.cdio.petshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +26,26 @@ public class CartController {
             session.setAttribute("cart",cart);
         }
         else{
-            // tính tổng tiền trong giỏ hàng
-            List<Item> cart = (List<Item>) session.getAttribute("cart");
-            int total = 0;
-            for (Item item : cart){
-                // trường hợp nếu sản phẩm không có khuyến mãi
-                if (item.getProduct().getPromotionPrice() == null){
-                    total += item.getProduct().getUnitPrice() * item.getQuantity();
-                }
-                // Trường hợp sản phẩm có khuyến mãi
-                else {
-                    total += item.getProduct().getPromotionPrice() * item.getQuantity();
-                }
-
-            }
-            model.addAttribute("total",total);
+            model.addAttribute("total",getTotalMoney(session));
+            model.addAttribute("bill",new Bill());
         }
         return "App_Cart";
+    }
+
+    private int getTotalMoney(HttpSession session) {
+        List<Item> cart = (List<Item>) session.getAttribute("cart");
+        int total = 0;
+        for (Item item : cart){
+            // trường hợp nếu sản phẩm không có khuyến mãi
+            if (item.getProduct().getPromotionPrice() == null){
+                total += item.getProduct().getUnitPrice() * item.getQuantity();
+            }
+            // Trường hợp sản phẩm có khuyến mãi
+            else {
+                total += item.getProduct().getPromotionPrice() * item.getQuantity();
+            }
+        }
+        return total;
     }
 
     @GetMapping("/buy/productId={id}")

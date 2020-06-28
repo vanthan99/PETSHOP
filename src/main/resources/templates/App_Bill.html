@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"  layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kiểm tra đơn hàng</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <h3 class="mona_title">Danh sách đơn hàng của bạn</h3>
+        <div class="row justify-content-center text-dark font-weight-bold mt-3" th:each="bill : ${bills}">
+            <div class="col-sm-12">
+                <div class="row container">
+                    <div class="alert alert-info">
+                                <p class="lead" th:text="${'Mã đơn hàng: ' + bill.getId()}"></p>
+                                <p class="lead" th:text="${'Ngày Đặt Hàng: ' + #calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></p>
+                                <p class="lead" th:text="${'Tình trạng đơn hàng: ' + bill.getBillStatus().getStatus()}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="row" th:each="billdetail : ${bill.getBillDetails()}">
+                    <div class="col-sm-1">
+                        <img class="img-fluid" style="border-radius: 10px;" th:src="@{'/images/' + ${billdetail.getProduct().getImagePath()}}" alt="">
+                    </div>
+                    <div class="col-sm-11">
+                        <div class="row">
+                            <div th:text="${'Tên sản phẩm: ' + billdetail.getProduct().getName()}"></div>
+                        </div>
+                        <div class="row">
+                            <div th:text="${'Đơn giá: ' + #numbers.formatDecimal(billdetail.getPrice(),0,'COMMA',0,'POINT') + ' đ'}"></div>
+                        </div>
+                        <div class="row">
+                            <div th:text="${'Số lượng: ' + billdetail.getQuantity()}"></div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="row justify-content-center mt-2" th:each="bill : ${bills}">
+            <div class="col-sm-2 col-2 text-dark font-weight-bold" th:text="${bill.getId()}"></div>
+            <div class="col-sm-3 col-4" th:text="${#calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></div>
+            <div class="col-sm-3 col-4" th:text="${bill.getBillStatus().getStatus()}"></div>
+<!--            <div class="col-sm-12 border">-->
+<!--&lt;!&ndash;                Chi tiết sản phẩm trong giỏ hàng&ndash;&gt;-->
+<!--                <div class="row border">-->
+<!--                    <p class="text-muted">Chi Tiết</p>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                chi tiết các sản phẩm có trong giỏ hàng&ndash;&gt;-->
+<!--                <div class="row">-->
+<!--&lt;!&ndash;                    Hình ảnh&ndash;&gt;-->
+<!--                    <div class="col-sm-1">-->
+<!--                        <img class="img-fluid" th:src="${'/images/'+${bill.getBillDetails().iterator().next().getProduct().getImagePath()}}">-->
+<!--                    </div>-->
+<!--&lt;!&ndash;                    Tên sản phẩm&ndash;&gt;-->
+<!--                    <div class="col-sm-3 text-muted" th:text="billdetail.getProduct().getName()">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <h3 class="lead">(*) Để biết thông tin chính xác về tình trạng đơn hàng, Quý khách vui lòng liên hệ CSKH - 0365843463 hoặc Fanpage để được giải đáp</h3>
+    </div>
+</body>
+</html>

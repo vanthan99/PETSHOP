@@ -45,18 +45,19 @@
                         <a class="nav-link text-dark font-weight-bold" href="#">
                             <div class="items">
                                 <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <span class="">Xin Chào [[${#httpServletRequest.remoteUser}]]</span>
+<!--                                <span class="">Xin Chào [[${#httpServletRequest.remoteUser}]]</span>-->
+                                <span class="">Xin Chào <span th:text="${#authentication.getName()}"></span></span>
                             </div>
                         </a>
 
                         <div id="action-more">
                             <ul>
                                 <li>
-                                    <a href="" class="nav-link text-dark">Thông tin cá nhân</a>
+                                    <a th:href="@{/user/info}" class="nav-link text-dark">Thông tin cá nhân</a>
                                 </li>
                                 <li>
                                     <form th:action="@{/logout}" method="POST" class="nav-link">
-                                        <button type="submit" id="btnLogout">Đăng Xuât</button>
+                                        <button type="submit" id="btnLogout" class="text-dark">Đăng Xuât</button>
                                     </form>
                                 </li>
                             </ul>
@@ -64,7 +65,7 @@
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <!-- Kiểm tra đơn hàng -->
-                        <a class="nav-link text-dark font-weight-bold" href="#">
+                        <a class="nav-link text-dark font-weight-bold" th:href="@{/bill}">
                             <div class="items">
                                 <i class="fa fa-truck" aria-hidden="true"></i>
                                 <span class="">Kiểm tra đơn hàng</span>

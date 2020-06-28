@@ -3,6 +3,7 @@ package com.cdio.petshop.services;
 import com.cdio.petshop.entities.Bill;
 import com.cdio.petshop.repositories.BillRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class BillService {
     }
 
     public List<Bill> findAll(){
-        return billRepository.findAll();
+        return billRepository.findAll(Sort.by("createdAt").descending());
     }
 
     public void deleteById(Long id){

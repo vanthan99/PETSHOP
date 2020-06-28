@@ -1,60 +1,243 @@
-<!DOCTYPE html>
-<html lang="en"  layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<!DOCTYPE html >
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Quản Lý Đơn Hàng</title>
+    <title>Quản lý hóa đơn</title>
 </head>
 <body>
-    <div layout:fragment="content">
-        <div class="bill-manager">
-            <div class="alert alert-success" role="alert">
-                <p class="display-4">Quản Lý Hóa Đơn</p>
-            </div>
+<div layout:fragment="content">
+    <h3 class="mona_title mt-3">Quản Lý Đơn hàng</h3>
+    <div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+<!--        tất cả-->
+        <li class="nav-item">
+            <a class="btn btn-outline-danger active font-weight-bold" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Tất cả</a>
+        </li>
+<!--        đơn hàng chờ xác nhận-->
+        <li class="nav-item">
+            <a class="ml-3 btn btn-outline-danger font-weight-bold" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Đơn chờ xác nhận</a>
+        </li>
+<!--        đơn hàng đã xác nhận-->
+        <li class="nav-item">
+            <a class="ml-3 btn btn-outline-danger font-weight-bold" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Đơn đã xác nhận</a>
+        </li>
+
+<!--        đơn hàng đang giao-->
+        <li class="nav-item">
+            <a class="ml-3 btn btn-outline-danger font-weight-bold" id="pills-danggiao-tab" data-toggle="pill" href="#pills-danggiao" role="tab" aria-controls="pills-danggiao" aria-selected="false">Đơn đang giao</a>
+        </li>
+
+<!--        đơn hàng đã giao-->
+        <li class="nav-item">
+            <a class="ml-3 btn btn-outline-danger font-weight-bold" id="pills-dagiao-tab" data-toggle="pill" href="#pills-dagiao" role="tab" aria-controls="pills-dagiao" aria-selected="false">Đơn đã giao</a>
+        </li>
+<!--        đơn hàng đã hủy-->
+
+        <li class="nav-item">
+            <a class="ml-3 btn btn-outline-danger font-weight-bold" id="pills-dahuy-tab" data-toggle="pill" href="#pills-dahuy" role="tab" aria-controls="pills-dahuy" aria-selected="false">Đơn đã hủy</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+<!--        tất cả -->
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">
-                        <label class="username">Mã Đơn Hàng</label>
-                    </th>
-                    <th scope="col">
-                        <label class="fullname">Tên Người Dùng</label>
-                    </th>
-                    <th scope="col" class="phone">
-                        <label class="phone">Ngày Lập Hóa Đơn</label>
-                    </th>
-                    <th scope="col">
-                        <label class="address-of-delivery">Trạng Thái</label>
-                    </th>
-                    <th scope="col">
-                        <label class="personal-address">Ghi Chú</label>
-                    </th>
-                    <th scope="col" class="text-center">
-                        <label class="my-action">Xem | Xóa</label>
-                    </th>
-
+                    <th scope="col"><label>Mã đơn</label></th>
+                    <th scope="col"><label>Mã KH</label></th>
+                    <th scope="col"><label>Tên KH</label></th>
+                    <th scope="col"><label>Ngày Đăt Hàng</label></th>
+                    <th scope="col"><label>Ghi chú</label></th>
+                    <th scope="col"><label>Trạng thái</label></th>
+                    <th scope="col"><label>Tổng tiền</label></th>
+                    <th scope="col"><label>Hàng động</label></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="bill : ${bills}">
-                    <th scope="row">
-                        <label class="username" th:title="${bill.getId()}" th:text="${bill.getId()}"></label>
-                    </th>
-                    <td><label class="fullname" th:title="${bill.getUser().getFullName()}"  th:text="${bill.getUser().getFullName()}"></label></td>
-                    <td><label class="phone"  th:title="${bill.getCreatedAt()}"  th:text="${bill.getCreatedAt()}"></label></td>
-                    <td><label class="address-of-delivery"  th:title="${bill.getStatus()}"  th:text="${bill.getStatus()}"></label></td>
-                    <td><label class="personal-address" data-toggle="tooltip" data-placement="bottom"
-                               th:title="${bill.getNote()}"   th:text="${bill.getNote()}"></label>
-                    </td>
-                    <td class="text-center">
-                        <a th:href="@{'/admin/listBillDetail/billId='+ ${bill.getId()}}" class="btn btn-outline-info"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
-                        <a href="" class="btn btn-outline-danger"><i class="fa fa-lock" aria-hidden="true"></i></a>
+                    <th scope="col"><label th:text="${bill.getId()}"></label></th>
+                    <td><label th:text="${bill.getUser().getUsername()}"></label></td>
+                    <td><label th:text="${bill.getUser().getFullName()}"></label></td>
+                    <td><label th:text="${#calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></label></td>
+                    <td><label th:text="${bill.getNote()}"></label></td>
+                    <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
+                    <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
+                    <td>
+                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                        </a>
                     </td>
                 </tr>
-
+                </tbody>
+            </table>
+        </div>
+<!--        đơn hàng chờ xác nhận-->
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><label>Mã đơn</label></th>
+                    <th scope="col"><label>Mã KH</label></th>
+                    <th scope="col"><label>Tên KH</label></th>
+                    <th scope="col"><label>Ngày Đăt Hàng</label></th>
+                    <th scope="col"><label>Ghi chú</label></th>
+                    <th scope="col"><label>Trạng thái</label></th>
+                    <th scope="col"><label>Tổng tiền</label></th>
+                    <th scope="col"><label>Hàng động</label></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bill : ${bills1}">
+                    <th scope="col"><label th:text="${bill.getId()}"></label></th>
+                    <td><label th:text="${bill.getUser().getUsername()}"></label></td>
+                    <td><label th:text="${bill.getUser().getFullName()}"></label></td>
+                    <td><label th:text="${#calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></label></td>
+                    <td><label th:text="${bill.getNote()}"></label></td>
+                    <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
+                    <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
+                    <td>
+                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<!--        đơn hàng đã xác nhận-->
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><label>Mã đơn</label></th>
+                    <th scope="col"><label>Mã KH</label></th>
+                    <th scope="col"><label>Tên KH</label></th>
+                    <th scope="col"><label>Ngày Đăt Hàng</label></th>
+                    <th scope="col"><label>Ghi chú</label></th>
+                    <th scope="col"><label>Trạng thái</label></th>
+                    <th scope="col"><label>Tổng tiền</label></th>
+                    <th scope="col"><label>Hàng động</label></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bill : ${bills2}">
+                    <th scope="col"><label th:text="${bill.getId()}"></label></th>
+                    <td><label th:text="${bill.getUser().getUsername()}"></label></td>
+                    <td><label th:text="${bill.getUser().getFullName()}"></label></td>
+                    <td><label th:text="${#calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></label></td>
+                    <td><label th:text="${bill.getNote()}"></label></td>
+                    <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
+                    <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
+                    <td>
+                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<!--        đơn hàng đang giao-->
+        <div class="tab-pane fade" id="pills-danggiao" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><label>Mã đơn</label></th>
+                    <th scope="col"><label>Mã KH</label></th>
+                    <th scope="col"><label>Tên KH</label></th>
+                    <th scope="col"><label>Ngày Đăt Hàng</label></th>
+                    <th scope="col"><label>Ghi chú</label></th>
+                    <th scope="col"><label>Trạng thái</label></th>
+                    <th scope="col"><label>Tổng tiền</label></th>
+                    <th scope="col"><label>Hàng động</label></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bill : ${bills3}">
+                    <th scope="col"><label th:text="${bill.getId()}"></label></th>
+                    <td><label th:text="${bill.getUser().getUsername()}"></label></td>
+                    <td><label th:text="${bill.getUser().getFullName()}"></label></td>
+                    <td><label th:text="${#calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></label></td>
+                    <td><label th:text="${bill.getNote()}"></label></td>
+                    <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
+                    <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
+                    <td>
+                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<!--        đơn hàng đã giao-->
+        <div class="tab-pane fade" id="pills-dagiao" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><label>Mã đơn</label></th>
+                    <th scope="col"><label>Mã KH</label></th>
+                    <th scope="col"><label>Tên KH</label></th>
+                    <th scope="col"><label>Ngày Đăt Hàng</label></th>
+                    <th scope="col"><label>Ghi chú</label></th>
+                    <th scope="col"><label>Trạng thái</label></th>
+                    <th scope="col"><label>Tổng tiền</label></th>
+                    <th scope="col"><label>Hàng động</label></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bill : ${bills4}">
+                    <th scope="col"><label th:text="${bill.getId()}"></label></th>
+                    <td><label th:text="${bill.getUser().getUsername()}"></label></td>
+                    <td><label th:text="${bill.getUser().getFullName()}"></label></td>
+                    <td><label th:text="${#calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></label></td>
+                    <td><label th:text="${bill.getNote()}"></label></td>
+                    <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
+                    <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
+                    <td>
+                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<!--        đơn hàng đã hủy-->
+        <div class="tab-pane fade" id="pills-dahuy" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><label>Mã đơn</label></th>
+                    <th scope="col"><label>Mã KH</label></th>
+                    <th scope="col"><label>Tên KH</label></th>
+                    <th scope="col"><label>Ngày Đăt Hàng</label></th>
+                    <th scope="col"><label>Ghi chú</label></th>
+                    <th scope="col"><label>Trạng thái</label></th>
+                    <th scope="col"><label>Tổng tiền</label></th>
+                    <th scope="col"><label>Hàng động</label></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bill : ${bills5}">
+                    <th scope="col"><label th:text="${bill.getId()}"></label></th>
+                    <td><label th:text="${bill.getUser().getUsername()}"></label></td>
+                    <td><label th:text="${bill.getUser().getFullName()}"></label></td>
+                    <td><label th:text="${#calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></label></td>
+                    <td><label th:text="${bill.getNote()}"></label></td>
+                    <td><label th:text="${bill.getBillStatus().getStatus()}"></label></td>
+                    <td><label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
+                    <td>
+                        <a th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
+                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+</div>
 </body>
 </html>

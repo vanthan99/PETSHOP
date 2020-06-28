@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"  layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thông tin ngươi dùng</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="jumbotron">
+            <h1 class="display-4">Thông tin tài khoản</h1>
+            <div class="row">
+                <div class="col-sm-2 col-5 lead">Tên:</div>
+                <div class="col-sm-6 col-7 lead" th:text="${user.getFullName()}"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 col-4 lead">Tên người dùng:</div>
+                <div class="col-sm-6 col-8 lead" th:text="${user.getUsername()}"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 col-4 lead">Địa chỉ:</div>
+                <div class="col-sm-6 col-8 lead" th:text="${user.getAddress()}"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 col-3 lead">Liên hệ:</div>
+                <div class="col-sm-6 col-9 lead" th:text="${'0' + #numbers.formatDecimal(user.getPhoneNumber(),0,'DEFAULT',0,'POINT')}"></div>
+            </div>
+            <hr class="my-4">
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Chỉnh sửa thông tin</a>
+                <a class="btn btn-danger btn-lg" href="#" role="button">Đổi mật khẩu</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

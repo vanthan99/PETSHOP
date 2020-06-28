@@ -31,12 +31,12 @@ public class AdminController {
     @Autowired
     private BillService billService;
 
-    @GetMapping("/accounts")
-    public String viewListAccount(Model model){
-        model.addAttribute("listUsers",roleService.findById((long) 1).getUsers());
-        model.addAttribute("listAdmins",roleService.findById((long) 2).getUsers());
-        return "Admin_AccountManager";
-    }
+//    @GetMapping("/accounts")
+//    public String viewListAccount(Model model){
+//        model.addAttribute("listUsers",roleService.findById((long) 1).getUsers());
+//        model.addAttribute("listAdmins",roleService.findById((long) 2).getUsers());
+//        return "Admin_AccountManager";
+//    }
 
 //    // Quản Lý Loại Hàng
 //    @GetMapping("/categories")
@@ -269,29 +269,29 @@ public class AdminController {
     // Quản lý đơn hàng
 
     // hiển thị danh sách đơn hàng
-    @GetMapping("/listBill")
-    public String viewBillManagerPage(Model model){
-        model.addAttribute("bills",billService.findAll());
-        return "Admin_BillManager";
-    }
+//    @GetMapping("/listBill")
+//    public String viewBillManagerPage(Model model){
+//        model.addAttribute("bills",billService.findAll());
+//        return "Admin_BillManager";
+//    }
 
     // Xóa đơn hàng
-    @GetMapping("/bill?id={id}")
-    public String deleteBillById(@PathVariable(name = "id") Long id){
-        billService.deleteById(id);
-        return "redirect:/admin/listBill";
-    }
+//    @GetMapping("/bill?id={id}")
+//    public String deleteBillById(@PathVariable(name = "id") Long id){
+//        billService.deleteById(id);
+//        return "redirect:/admin/listBill";
+//    }
 
     /*
     * CHI TIẾT ĐƠN HÀNG
     *
     */
-    @GetMapping("/listBillDetail/billId={id}")
-    public String viewListBillDetailByBillId(@PathVariable(name = "id") Long id, Model model){
-        Bill bill = billService.findById(id);
-        model.addAttribute("bill",bill);
-        model.addAttribute("listBillDetail",bill.getBillDetails());
-        return "Admin_ListBillDetailByBillId";
-    }
+//    @GetMapping("/listBillDetail/billId={id}")
+//    public String viewListBillDetailByBillId(@PathVariable(name = "id") Long id, Model model){
+//        Bill bill = billService.findById(id);
+//        model.addAttribute("bill",bill);
+//        model.addAttribute("listBillDetail",bill.getBillDetails());
+//        return "Admin_ListBillDetailByBillId";
+//    }
 
 }

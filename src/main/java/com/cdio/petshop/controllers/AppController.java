@@ -2,11 +2,15 @@ package com.cdio.petshop.controllers;
 
 import com.cdio.petshop.entities.Category;
 import com.cdio.petshop.entities.Product;
+import com.cdio.petshop.entities.User;
 import com.cdio.petshop.model.Item;
 import com.cdio.petshop.services.CategoryService;
 import com.cdio.petshop.services.ProductService;
 import com.cdio.petshop.services.SupplierService;
+import com.cdio.petshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +30,9 @@ public class AppController {
 
     @Autowired
     private SupplierService supplierService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
     public String demo(Model model, HttpSession session){
@@ -96,10 +103,21 @@ public class AppController {
         return "App_ListProductByCategoryOrSupplier";
     }
 
+    // Kiểm tra đơn hàng
+    @GetMapping("/bill")
+    public String showbill(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findById(authentication.getName());
+        model.addAttribute("bills",user.getBills());
+        model.addAttribute("billdetails",user.getBills());
+        return "App_Bill";
+    }
 
-    //demo
-    @GetMapping("/demo")
-    public String demo(){
-        return "App_Demo";
+    // thông tin user
+    @GetMapping("/user/info")
+    public String viewUserInfoPage(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",userService.findById(authentication.getName()));
+        return "App_UserInfo";
     }
 }

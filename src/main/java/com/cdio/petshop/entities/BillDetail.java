@@ -28,7 +28,4 @@ public class BillDetail {
 
     @Column
     private Integer price;
-
-    @Column
-    private Float rateDiscount;
 }

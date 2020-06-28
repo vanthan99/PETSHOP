@@ -1,54 +1,52 @@
 <!DOCTYPE html>
-<html lang="en"  layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Danh Sách Sản Phẩm</title>
+    <title>Danh Sách</title>
 </head>
 <body>
-    <div layout:fragment="content">
-        <div class="alert alert-success" role="alert">
-            <p>Danh sách Sản Phẩm Trong trong đơn hàng: <span th:text="${bill.getId()}"></span></p>
-            <p>Tên Người Dùng: <span th:text="${bill.getUser().getFullName()}"></span></p>
-            <p>Ngày Lập Hóa Đơn: <span th:text="${bill.getCreatedAt()}"></span></p>
-            <p>Trạng Thái: <span th:text="${bill.getStatus()}"></span></p>
-            <p>Ghi Chú: <span th:text="${bill.getNote()}"></span></p>
+<div layout:fragment="content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col"><label>Tên sản phẩm</label></th>
+            <th scope="col"><label>Giá</label></th>
+            <th scope="col"><label>Số lượng</label></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detail : ${billDetails}">
+            <th scope="col"><label th:text="${detail.getProduct().getName()}"></label></th>
+            <td><label th:text="${#numbers.formatDecimal(detail.getPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
+            <td><label th:text="${detail.getQuantity()}"></label></td>
+        </tr>
+        <tr>
+            <td class="text-center" colspan="3">
+                <label th:text="${#numbers.formatDecimal(total,0,'COMMA',0,'POINT') + ' đ'}"
+                       class="font-weight-bold text-danger"></label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/admin/bill}" th:object="${bill}" method="post">
+        <div class="row">
+            <input type="hidden" th:field="*{id}">
         </div>
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">
-                    <label>Tên Sản Phẩm</label>
-                </th>
-                <th scope="col">
-                    <label>Số Lượng</label>
-                </th>
-                <th scope="col" class="phone">
-                    <label>Đơn Giá</label>
-                </th>
-                <th scope="col">
-                    <label>Tỷ Lệ Khuyến Mãi</label>
-                </th>
-                <th scope="col" class="text-center"><label class="my-action">Xóa</label></th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="l : ${listBillDetail}">
-                <th scope="row">
-                    <label th:text="${l.getProduct().getName()}"></label>
-                </th>
-                <td><label th:text="${l.getQuantity()}"></label></td>
-                <td><label th:text="${l.getPrice()}"></label></td>
-                <td><label th:text="${l.getRateDiscount()}"></label></td>
-                <td class="text-center">
-                    <a href="" class="btn btn-outline-danger"><i class="fa fa-lock" aria-hidden="true"></i></a>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
+        <div class="row" th:each="status : ${billStatus}">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" th:field="*{billStatus}" th:value="${status.getId()}"
+                           th:text="${status.getStatus()}">
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary">Cập Nhật</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>

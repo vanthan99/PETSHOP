@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/main_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="jumbotron">
+            <h1 class="display-4">Thông tin tài khoản</h1>
+            <div class="row">
+                <div class="col-sm-2 col-5">
+                    <p class="lead">Tên:</p>
+                </div>
+                <div class="col-sm-6 col-7">
+                    <p class="lead" th:text="${user.getFullName()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 col-5">
+                    <p class="lead">Tên người dùng:</p>
+                </div>
+                <div class="col-sm-6 col-7">
+                    <p class="lead" th:text="${user.getUsername()}"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 col-5">
+                    <p class="lead">Loại tài khoản:</p>
+                </div>
+                <div class="col-sm-6 col-7">
+                    <p class="lead" th:text="${user.getRole().getName()}"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 col-5">
+                    <p class="lead">Địa chỉ:</p>
+                </div>
+                <div class="col-sm-6 col-7">
+                    <p class="lead" th:text="${user.getAddress()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 col-5">
+                    <p class="lead">Liên hệ:</p>
+                </div>
+                <div class="col-sm-6 col-7">
+                    <p class="lead" th:text="${'0' + #numbers.formatDecimal(user.getPhoneNumber(),0,'DEFAULT',0,'POINT')}"></p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" th:href="@{/admin/user/index}" role="button">Quay lại danh sách</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

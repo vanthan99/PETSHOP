@@ -37,14 +37,6 @@ public class UserController {
         return "Admin_InsertUser";
     }
 
-    // xem chi tiết thông tin người dùng
-    @GetMapping("/view/username={username}")
-    public String view(Model model, @PathVariable(name = "username") String username){
-        model.addAttribute("user",userService.findById(username));
-        return "Admin_ViewUserDetail";
-    }
-
-
     @PostMapping
     public String save(@ModelAttribute(name = "user") User user, Model model, RedirectAttributes redirectAttributes){
         // kiểm tra username đó có tồn tại trong hệ thống hay chưa
@@ -61,6 +53,12 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message","Thêm người dùng có tên đăng nhập: " + username + " thành công!");
         redirectAttributes.addFlashAttribute("class","alert alert-success");
         return "redirect:/admin/user/index";
+    }
+
+    @GetMapping("/view/username={username}")
+    public String viewInfoUserDetail(@PathVariable(name = "username") String username, Model model){
+        model.addAttribute("user",userService.findById(username));
+        return "Admin_UserInfo";
     }
 
     // mã hóa mật khẩu.
