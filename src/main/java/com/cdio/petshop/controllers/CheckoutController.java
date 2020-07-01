@@ -69,7 +69,19 @@ public class CheckoutController {
         // clean session khi đã checkout thành công.
         ((List<Item>) session.getAttribute("cart")).clear();
         redirectAttributes.addFlashAttribute("message","Đặt hàng thành công");
-        return "redirect:/cart/index";
+        return "redirect:/bill";
+    }
+
+    @GetMapping
+    public String viewCheckout(HttpSession session,Model model){
+        // lấu user đang đăng nhập vào hệ thống
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userService.findById(auth.getName());
+        model.addAttribute("user",user);
+        model.addAttribute("bill", new Bill());
+        model.addAttribute("total",getTotalMoney(session));
+        return "App_Checkout";
     }
 
     private int getTotalMoney(HttpSession session) {

@@ -7,21 +7,90 @@
 </head>
 <body>
     <div layout:fragment="content">
-        <form th:action="@{/cart/}" th:object="${item}" method="post">
-            <table>
-                <tr>
-                    <td>Số Lượng: </td>
-                    <td>
-                        <input type="number" class="form-control" th:field="*{quantity}">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <button type="submit" class="btn btn-success">OK</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+        <!-- News jumbotron -->
+        <div class="jumbotron text-center hoverable p-4">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-4 offset-md-1 mx-3 my-3">
+
+                    <!-- Featured image -->
+                    <div class="view overlay">
+                        <img th:src="@{'/images/' + ${item.getProduct().getImagePath()}}" class="img-fluid"
+                             alt="Sample image for first version of blog listing">
+                    </div>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-7 text-md-left ml-3 mt-3">
+                    <h4 class="h4 mb-4" th:text="${item.getProduct().getName()}"></h4>
+                    <p class="font-weight-normal"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;Mô Tả:
+                        <span class="font-weight-normal" th:text="${item.getProduct().getDescription()}"></span></p>
+                    <p class="font-weight-normal"><i class="fa fa-tag" aria-hidden="true"></i>&nbsp;&nbsp;Danh Mục: <span
+                            class="font-weight-normal" th:text="${item.getProduct().getCategory().getName()}"></span></p>
+                    <p class="font-weight-normal"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;Nhà cung cấp:
+                        <span class="font-weight-normal" th:text="${item.getProduct().getSupplier().getName()}"></span></p>
+                    <!--                    có khuyến mãi-->
+                    <div th:if="${item.getProduct().getPromotionPrice()}">
+                        <p class="font-weight-normal"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Giá cũ: <s
+                                class="text-muted"
+                                th:text="${#numbers.formatDecimal(item.getProduct().getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></s>
+                        </p>
+                        <p class="font-weight-normal"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Giá KM:
+                            <span class="text-danger"
+                                  th:text="${#numbers.formatDecimal(item.getProduct().getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
+                        </p>
+
+                    </div>
+                    <!--                    không có khuyến mãi-->
+                    <div th:unless="${item.getProduct().getPromotionPrice()}">
+                        <p class="font-weight-normal"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Giá: <span
+                                class="text-danger"
+                                th:text="${#numbers.formatDecimal(item.getProduct().getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <form class="form-inline" th:action="@{/cart/edit}" th:object="${item}" method="post">
+                            <div class="col-md-4 col-4">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                &nbsp;Chọn số lượng: </div>
+                            <div class="col-md-4 col-4">
+                                <input type="number" th:field="*{quantity}" class="form-control mr-3" value="5" min="1"
+                                       max="20" required>
+                                <input type="hidden" th:field="*{product}">
+                            </div>
+                            <button type="submit" class="btn btn-outline-danger mt-1">
+                                <i class="fa fa-cart-arrow-down mr-2" aria-hidden="true"></i> Cập nhật
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+
+
+<!--        <form class="border" style="min-height: 280px;" th:action="@{/cart/edit}" th:object="${item}" method="post">-->
+<!--            <table class="mx-auto border">-->
+<!--                <tr>-->
+<!--                    <td>Số Lượng: </td>-->
+<!--                    <td>-->
+<!--                        <input type="hidden" th:field="*{product}">-->
+<!--                        <input type="number" class="form-control" th:field="*{quantity}" min="1" max="20" title="Số lượng từ 1 sản phẩm đến 20 sản phẩm">-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td colspan="2">-->
+<!--                        <button type="submit" class="btn btn-success">OK</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </form>-->
     </div>
 </body>
 </html>

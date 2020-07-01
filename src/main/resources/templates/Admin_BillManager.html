@@ -68,6 +68,14 @@
                         </a>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="6" class=" text-right">
+                        <label class="lead">Tổng cộng</label>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(sumAll,0,'COMMA',0,'POINT') + ' đ'}"></label>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -99,6 +107,14 @@
                         <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class=" text-right">
+                        <label class="lead">Tổng cộng</label>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(sum1,0,'COMMA',0,'POINT') + ' đ'}"></label>
                     </td>
                 </tr>
                 </tbody>
@@ -134,6 +150,14 @@
                         </a>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="6" class=" text-right">
+                        <label class="lead">Tổng cộng</label>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(sum2,0,'COMMA',0,'POINT') + ' đ'}"></label>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -165,6 +189,14 @@
                         <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class=" text-right">
+                        <label class="lead">Tổng cộng</label>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(sum3,0,'COMMA',0,'POINT') + ' đ'}"></label>
                     </td>
                 </tr>
                 </tbody>
@@ -200,6 +232,14 @@
                         </a>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="6" class="text-right">
+                        <label class="lead">Tổng cộng</label>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(sum4,0,'COMMA',0,'POINT') + ' đ'}"></label>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -231,6 +271,14 @@
                         <a title="Xem thông tin chi tiết đơn hàng" th:href="@{'/admin/billDetail/index/billId=' + ${bill.getId()}}" class="btn btn-outline-primary">
                             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                         </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="text-right">
+                        <label class="lead">Tổng cộng</label>
+                    </td>
+                    <td colspan="2">
+                        <label class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(sum5,0,'COMMA',0,'POINT') + ' đ'}"></label>
                     </td>
                 </tr>
                 </tbody>

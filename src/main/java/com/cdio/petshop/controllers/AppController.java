@@ -109,7 +109,6 @@ public class AppController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findById(authentication.getName());
         model.addAttribute("bills",user.getBills());
-        model.addAttribute("billdetails",user.getBills());
         return "App_Bill";
     }
 

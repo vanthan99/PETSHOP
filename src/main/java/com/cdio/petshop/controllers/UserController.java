@@ -41,16 +41,31 @@ public class UserController {
     public String save(@ModelAttribute(name = "user") User user, Model model, RedirectAttributes redirectAttributes){
         // kiểm tra username đó có tồn tại trong hệ thống hay chưa
             user.setPassword(passwordGenerator(user.getPassword()));
+            user.setEnable(2);
             userService.save(user);
             redirectAttributes.addFlashAttribute("message","Thêm người dùng thành công!");
             redirectAttributes.addFlashAttribute("class","alert alert-success");
             return "redirect:/admin/user/index";
     }
 
-    @GetMapping("/delete/username={username}")
-    public String deleteUser(@PathVariable(name = "username") String username,RedirectAttributes redirectAttributes){
-        userService.deleteById(username);
-        redirectAttributes.addFlashAttribute("message","Thêm người dùng có tên đăng nhập: " + username + " thành công!");
+    // unlock account
+    @GetMapping("/unlock/username={username}")
+    public String unlockAccount(@PathVariable(name = "username") String username, RedirectAttributes redirectAttributes){
+        User user = userService.findById(username);
+        user.setEnable(2);
+        userService.save(user);
+        redirectAttributes.addFlashAttribute("message","Mở khóa tài khoản: " + username +"thành công");
+        redirectAttributes.addFlashAttribute("class","alert alert-success");
+        return "redirect:/admin/user/index";
+    }
+
+    // lock account
+    @GetMapping("/lock/username={username}")
+    public String lockAccount(@PathVariable(name = "username") String username, RedirectAttributes redirectAttributes){
+        User user = userService.findById(username);
+        user.setEnable(1);
+        userService.save(user);
+        redirectAttributes.addFlashAttribute("message","Khóa tài khoản: " + username +"thành công");
         redirectAttributes.addFlashAttribute("class","alert alert-success");
         return "redirect:/admin/user/index";
     }

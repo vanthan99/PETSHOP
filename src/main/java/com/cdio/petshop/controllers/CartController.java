@@ -27,7 +27,6 @@ public class CartController {
         }
         else{
             model.addAttribute("total",getTotalMoney(session));
-            model.addAttribute("bill",new Bill());
         }
         return "App_Cart";
     }
@@ -63,7 +62,7 @@ public class CartController {
             }
             else {
                 int quantity =cart.get(index).getQuantity() + 1;
-                cart.get(index).setQuantity(quantity);
+                cart.get(index).setQuantity(Math.min(quantity, 20));
             }
             session.setAttribute("cart",cart);
 
@@ -82,6 +81,17 @@ public class CartController {
         return "App_EditCart";
     }
 
+    @PostMapping("/edit")
+    public String updateQuantityCart(@ModelAttribute(name = "item") Item item, HttpSession session,RedirectAttributes redirectAttributes){
+        List<Item> cart = (List<Item>) session.getAttribute("cart");
+        int index = exists(item.getProduct().getId(),cart);
+        cart.get(index).setQuantity(item.getQuantity());
+        session.setAttribute("cart",cart);
+        redirectAttributes.addFlashAttribute("message","Cập nhập giỏ hàng thành công");
+        return "redirect:/cart/index";
+    }
+
+
     @PostMapping
     public String post(@ModelAttribute("item") Item item, HttpSession session){
         if (session.getAttribute("cart") == null){
@@ -97,7 +107,12 @@ public class CartController {
             }
             else {
                 int quantity = cart.get(index).getQuantity() + item.getQuantity();
-                cart.get(index).setQuantity(quantity);
+                if (quantity <= 20){
+                    cart.get(index).setQuantity(quantity);
+                }
+                else {
+                    cart.get(index).setQuantity(20);
+                }
             }
 
             session.setAttribute("cart",cart);

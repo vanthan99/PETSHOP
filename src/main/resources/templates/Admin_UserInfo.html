@@ -33,6 +33,15 @@
                     <p class="lead" th:text="${user.getRole().getName()}"></p>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-2 col-5">
+                    <p class="lead">Trạng thái:</p>
+                </div>
+                <div class="col-sm-6 col-7">
+                    <p class="lead" th:if="${user.getEnable()==1}">Bị Khóa</p>
+                    <p class="lead" th:if="${user.getEnable()==2}">Hoạt động</p>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-sm-2 col-5">

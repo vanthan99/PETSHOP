@@ -28,7 +28,7 @@ public class User {
     private String address;
 
     @Column
-    private String status;
+    private Integer enable;
 
     @Column(columnDefinition = "TEXT")
     private String notes;

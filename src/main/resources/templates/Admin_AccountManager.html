@@ -19,6 +19,55 @@
             </a>
         </div>
         <div th:if="${message}" th:text="${message}" th:class="${class}"></div>
+
+        <div class="lead text-danger font-weight-bold"><i class="fa fa-list" aria-hidden="true"></i>
+            Danh sách người dùng hoạt động </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">
+                    <label>Tên Đăng Nhập</label>
+                </th>
+                <th>
+                    <label>Loại Tài Khoản</label>
+                </th>
+                <th scope="col">
+                    <label>Họ Tên</label>
+                </th>
+                <th scope="col" class="phone">
+                    <label>SĐT</label>
+                </th>
+                <th scope="col">
+                    <label>Địa Chỉ</label>
+                </th>
+                <th scope="col" class="text-center"><label>Hành động</label></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" th:if="${user.getEnable()==2}">
+                <th scope="row">
+                    <label class="username" th:title="${user.getUsername()}" th:text="${user.getUsername()}"></label>
+                </th>
+                <td><label style="width: 100px;" th:text="${user.getRole().getName()}"></label></td>
+                <td><label style="width: 133px;" th:title="${user.getFullName()}"
+                           th:text="${user.getFullName()}"></label></td>
+                <td><label style="width: 100px;" th:title="${user.getPhoneNumber()}"
+                           th:text="${user.getPhoneNumber()}"></label></td>
+                <td><label style="width: 160px;" th:title="${user.getAddress()}" th:text="${user.getAddress()}"></label>
+                <td class="text-center">
+                    <a title="Xem thông tin chi tiết" th:href="@{'/admin/user/view/username=' + ${user.getUsername()}}" class="btn btn-outline-info"><i
+                            class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a title="Khóa tài khoản" onclick="return confirm('Bạn có muốn khóa tài khoản người dùng?');"
+                       th:href="@{'/admin/user/lock/username='+${user.getUsername()}}" class="btn btn-outline-danger">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="lead text-danger font-weight-bold"><i class="fa fa-list" aria-hidden="true"></i>
+            Danh sách người dùng bị khóa</div>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -37,32 +86,27 @@
                 <th scope="col">
                     <label class="address-of-delivery">Địa Chỉ</label>
                 </th>
-                <th scope="col">
-                    <label class="status">Trạng Thái</label>
-                </th>
-                <th scope="col" class="text-center"><label class="my-action">Xem | Xóa</label></th>
+                <th scope="col" class="text-center"><label class="my-action">Hành động</label></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
+            <tr th:each="user : ${users}" th:if="${user.getEnable()==1}">
                 <th scope="row">
                     <label class="username" th:title="${user.getUsername()}" th:text="${user.getUsername()}"></label>
                 </th>
                 <td><label th:text="${user.getRole().getName()}"></label></td>
-                <td><label style="width: 100px;" th:title="${user.getFullName()}"
+                <td><label style="width: 133px;" th:title="${user.getFullName()}"
                            th:text="${user.getFullName()}"></label></td>
                 <td><label style="width: 100px;" th:title="${user.getPhoneNumber()}"
                            th:text="${user.getPhoneNumber()}"></label></td>
-                <td><label style="width: 100px;" th:title="${user.getAddress()}" th:text="${user.getAddress()}"></label>
-                </td>
-                <td><label style="width: 100px;" th:title="${user.getStatus()}" th:text="${user.getStatus()}"></label>
-                </td>
+                <td><label style="width: 160px;" th:title="${user.getAddress()}" th:text="${user.getAddress()}"></label>
                 <td class="text-center">
                     <a title="Xem thông tin chi tiết" th:href="@{'/admin/user/view/username=' + ${user.getUsername()}}" class="btn btn-outline-info"><i
                             class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a title="Xóa tài khoản" onclick="return confirm('Bạn có muốn xóa?');"
-                       th:href="@{'/admin/user/delete/username='+${user.getUsername()}}" class="btn btn-outline-danger"><i
-                            class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a title="Mở khóa tài khoản" onclick="return confirm('Bạn có muốn mở khóa tài khỏa người dùng?');"
+                       th:href="@{'/admin/user/unlock/username='+${user.getUsername()}}" class="btn btn-outline-danger">
+                        <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>

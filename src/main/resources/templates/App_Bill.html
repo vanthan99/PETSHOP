@@ -5,9 +5,10 @@
     <title>Kiểm tra đơn hàng</title>
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" style="min-height: 280px;">
+    <div class="alert alert-success" th:if="${message}" th:text="${message}"></div>
     <h3 class="mona_title">Danh sách đơn hàng của bạn</h3>
-    <div class="row justify-content-center text-dark mt-3" th:each="bill : ${bills}">
+    <div class="row justify-content-center text-dark mt-3" th:if="${bills}" th:each="bill : ${bills}">
         <div class="col-sm-12">
             <div class="container">
                 <div class="alert alert-info">
@@ -15,36 +16,52 @@
                     <p class="lead"
                        th:text="${'Ngày Đặt Hàng: ' + #calendars.format(bill.getCreatedAt(),'dd/MM/yyyy HH:mm:ss')}"></p>
                     <p class="lead" th:text="${'Tình trạng đơn hàng: ' + bill.getBillStatus().getStatus()}"></p>
-                    <p class="lead">Tổng tiền: <b class="text-danger" th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></b></p>
+                    <p class="lead">Tổng tiền: <b class="text-danger"
+                                                  th:text="${#numbers.formatDecimal(bill.getTotal(),0,'COMMA',0,'POINT') + ' đ'}"></b>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="col-sm-12">
-            <div class="row" th:each="billdetail : ${bill.getBillDetails()}">
-                <div class="col-sm-1">
-                    <img class="img-fluid" style="border-radius: 10px;"
-                         th:src="@{'/images/' + ${billdetail.getProduct().getImagePath()}}" alt="">
-                </div>
-                <div class="col-sm-11">
-                    <div class="row">
-                        <div class="col-sm-12 lead" th:text="${'Tên sản phẩm: ' + billdetail.getProduct().getName()}"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 lead" th:text="${'Đơn giá: ' + #numbers.formatDecimal(billdetail.getPrice(),0,'COMMA',0,'POINT') + ' đ'}"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 lead" th:text="${'Số lượng: ' + billdetail.getQuantity()}"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 lead">Thành tiền: <b class="text-danger" th:text="${#numbers.formatDecimal(billdetail.getQuantity()*billdetail.getPrice(),0,'COMMA',0,'POINT') + ' đ'}"> </b></div>
-                    </div>
-                </div>
-
-
+            <div class="container">
+                <h3 class="lead">Chi tiết đơn hàng</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Tên Sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="billdetail : ${bill.getBillDetails()}">
+                        <td>
+                            <label th:text="${billdetail.getProduct().getName()}"></label>
+                        </td>
+                        <td>
+                            <label style="width: 100px;">
+                                <img style="border-radius: 10px;" class="img-fluid"
+                                     th:src="@{'/images/' + ${billdetail.getProduct().getImagePath()}}">
+                            </label>
+                        </td>
+                        <td>
+                            <label th:text="${billdetail.getQuantity()}"></label>
+                        </td>
+                        <td>
+                            <label th:text="${#numbers.formatDecimal(billdetail.getPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </td>
+                        <td>
+                            <label th:text="${#numbers.formatDecimal(billdetail.getQuantity()*billdetail.getPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <hr>
     </div>
+    <div class="alert alert-danger text-center" th:if="${bills.size()==0}">Đơn hàng trống !</div>
     <h3 class="lead">(*) Để biết thông tin chính xác về tình trạng đơn hàng, Quý khách vui lòng liên hệ CSKH -
         0365843463 hoặc Fanpage để được giải đáp</h3>
 </div>

@@ -6,10 +6,18 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <div class="alert alert-info mt-3">
+        <p class="" th:text="${'THÔNG TIN ĐƠN HÀNG #' + bill.getId()}"></p>
+        <p class="" th:text="${'TÊN NGƯỜI NHẬN: ' + bill.getUser().getFullName()}"></p>
+        <p class="" th:text="${'ĐỊA CHỈ GIAO HÀNG: ' + bill.getUser().getAddress()}"></p>
+        <p class="" th:text="${'SỐ ĐIỆN THOẠI: ' + bill.getUser().getPhoneNumber()}"></p>
+        <p class="" th:text="${'GHI CHÚ: ' + bill.getNote()}"></p>
+        <p class="" th:text="${'TỔNG TIỀN: ' + #numbers.formatDecimal(total,0,'COMMA',0,'POINT') + ' đ'}"></p>
+    </div>
     <table class="table table-bordered mt-3">
         <thead>
         <tr class="lead">
-            <th><label>Tên sản phẩm</label></th>
+            <th class="text-center"><label>Tên sản phẩm</label></th>
             <th><label>Giá</label></th>
             <th><label>Số lượng</label></th>
         </tr>
@@ -28,22 +36,98 @@
         </tr>
         </tbody>
     </table>
-
     <form th:action="@{/admin/bill}" th:object="${bill}" method="post">
         <div class="row">
             <input type="hidden" th:field="*{id}">
         </div>
-        <div class="row container" th:each="status : ${billStatus}">
-            <div class="form-check">
-                <label class="form-check-label lead">
-                    <input class="form-check-input" type="radio" th:field="*{billStatus}" th:value="${status.getId()}"
-                           th:text="${status.getStatus()}">
-                </label>
+        <!--        Trường hợp đơn hàng chờ xác nhận-->
+        <div th:if="${bill.getBillStatus().getId() == 1 }">
+
+            <div class="row container" th:each="status : ${billStatus}">
+                <div class="form-check">
+                    <label class="form-check-label lead">
+                        <input class="form-check-input" type="radio" th:field="*{billStatus}" th:value="${status.getId()}"
+                               th:text="${status.getStatus()}">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-danger mb-2 mt-2">Cập Nhật</button>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <button type="submit" class="btn btn-danger mb-2 mt-2">Cập Nhật</button>
+<!--        Trường hợp đơn hàng đã xác nhận-->
+        <div th:if="${bill.getBillStatus().getId() == 2 }">
+
+            <div class="row container" th:each="status : ${billStatus}" th:if="${status.getId() != 1}">
+                <div class="form-check">
+                    <label class="form-check-label lead">
+                        <input class="form-check-input" type="radio" th:field="*{billStatus}" th:value="${status.getId()}"
+                               th:text="${status.getStatus()}">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-danger mb-2 mt-2">Cập Nhật</button>
+                </div>
+            </div>
+        </div>
+        <!--        Trường hợp đơn hàng đang giao hàng-->
+        <div th:if="${bill.getBillStatus().getId() == 3 }">
+            <div class="row container" th:each="status : ${billStatus}" th:if="${status.getId() != 1 && status.getId() != 2}">
+                <div class="form-check">
+                    <label class="form-check-label lead">
+                        <input class="form-check-input" type="radio" th:field="*{billStatus}" th:value="${status.getId()}"
+                               th:text="${status.getStatus()}">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-danger mb-2 mt-2">Cập Nhật</button>
+                </div>
+            </div>
+        </div>
+
+        <!--        Trường hợp đơn hàng đã giao hàng-->
+        <div th:if="${bill.getBillStatus().getId() == 4 }">
+            <div class="row container" th:each="status : ${billStatus}" th:if="${status.getId()==4}">
+                <div class="form-check">
+                    <label class="form-check-label lead">
+                        <input class="form-check-input" type="radio" th:field="*{billStatus}" th:value="${status.getId()}"
+                               th:text="${status.getStatus()}">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <a th:href="@{/admin/bill/index}" class="btn btn-primary">
+                        <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+                        Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!--        Trường hợp đơn hàng đã bị hủy-->
+        <div th:if="${bill.getBillStatus().getId() == 5 }">
+            <div class="row container" th:each="status : ${billStatus}" th:if="${status.getId()==5}">
+                <div class="form-check">
+                    <label class="form-check-label lead">
+                        <input disabled class="form-check-input" type="radio" th:field="*{billStatus}" th:value="${status.getId()}"
+                               th:text="${status.getStatus()}">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <a th:href="@{/admin/bill/index}" class="btn btn-primary">
+                        <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+                        Quay lại
+                    </a>
+                </div>
             </div>
         </div>
     </form>

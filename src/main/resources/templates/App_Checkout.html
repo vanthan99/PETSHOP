@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt hàng</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="mona_title">Thanh toán</h3>
+    <p class="alert alert-info text-center">Xem lại giỏ hàng</p>
+
+    <div th:if="${message}" th:text="${message}" class="alert alert-info w-50 mx-auto text-center"></div>
+    <div th:if="${session.containsKey('cart')}">
+        <div th:unless="${session.cart.size()}">
+            <p class="alert alert-danger w-50 mx-auto text-center">Không có sản phẩm nào trong giỏ hàng!</p>
+        </div>
+        <div th:if="${session.cart.size()}">
+            <table class="table table-bordered">
+                <thead>
+                <tr class="text-center">
+                    <th scope="col">Sản Phẩm</th>
+                    <th scope="col">Tên Sản Phẩm</th>
+                    <th scope="col">ĐVT</th>
+                    <th scope="col">Số Lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col" class="text-center">Tạm tính</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${session.cart}" class="text-center">
+                    <th style="width: 20%;">
+                        <img class="img-fluid" th:src="@{'/images/' + ${item.getProduct().getImagePath()}}"
+                             alt="">
+                    </th>
+                    <!--tên sản phẩm-->
+                    <td style="width: 25%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"><a
+                            th:href="@{'/product/id=' + ${item.getProduct().getId()}}"
+                            class="font-weight-bold text-info" th:text="${item.getProduct().getName()}"></a>
+                    </td>
+
+                    <!--đơn vị tính-->
+                    <td style="width: 10%;"><label class="font-weight-bold text-dark"
+                                                   th:text="${item.getProduct().getUnit()}"></label></td>
+
+                    <!--số lượng-->
+                    <td style="width: 10%;"><label th:text="${item.getQuantity()}"></label></td>
+
+                    <!--đơn giá-->
+                    <td style="width: 15%;">
+                        <!--Kiểm Tra nếu sản phẩm có khuyến mãi thì lấy giá khuyến mãi-->
+                        <div th:if="${item.getProduct().getPromotionPrice()}">
+                            <label th:text="${#numbers.formatDecimal(item.getProduct().getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </div>
+                        <!--Ngược lại. nếu sản phẩm không có khuyến mãi thì lấy giá niêm yết-->
+                        <div th:unless="${item.getProduct().getPromotionPrice()}">
+                            <label th:text="${#numbers.formatDecimal(item.getProduct().getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </div>
+                    </td>
+
+                    <td style="width: 20%;">
+                        <!--Kiểm Tra nếu sản phẩm có khuyến mãi thì lấy (số lượng * giá khuyến mãi)-->
+                        <div th:if="${item.getProduct().getPromotionPrice()}">
+                            <label th:text="${#numbers.formatDecimal(item.getProduct().getPromotionPrice() * item.getQuantity(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </div>
+                        <!--Ngược lại. nếu sản phẩm không có khuyến mãi thì lấy (số lượng * giá niêm yết)-->
+                        <div th:unless="${item.getProduct().getPromotionPrice()}">
+                            <label th:text="${#numbers.formatDecimal(item.getProduct().getUnitPrice() * item.getQuantity(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="5" class="text-right">
+                        <label>Tổng tiền: </label>
+                    </th>
+                    <td>
+                        <label class="text-danger font-weight-bold"
+                               th:text="${#numbers.formatDecimal(total,0,'COMMA',0,'POINT') + ' đ'}"></label>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <form class="container-fluid" th:action="@{/checkout}" th:object="${bill}" method="post">
+            <div class="row">
+                <h4 class="lead">Thông tin nhận hàng</h4>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-muted">Họ Tên: </div>
+                <div class="col-sm-10 text-muted text-uppercase font-weight-bold" th:text="${user.getFullName()}"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-muted">Địa chỉ nhận hàng: </div>
+                <div class="col-sm-10 text-muted text-uppercase font-weight-bold" th:text="${user.getAddress()}"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-muted">Số điện thoại: </div>
+                <div class="col-sm-10 text-muted text-uppercase font-weight-bold" th:text="${user.getPhoneNumber()}"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-muted">Tổng tiền: </div>
+                <div class="col-sm-10 text-muted text-uppercase font-weight-bold" th:text="${#numbers.formatDecimal(total,0,'COMMA',0,'POINT') + ' đ'}"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-muted">Ghi chú </div>
+                <div class="col-sm-10">
+                    <textarea class="form-control text-dark" rows="3" th:field="*{note}"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-danger">Hoàn tất</button>
+        </form>
+    </div>
+
+
+</div>
+</body>
+</html>
