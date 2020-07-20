@@ -4,21 +4,27 @@ import com.cdio.petshop.entities.Category;
 import com.cdio.petshop.entities.Product;
 import com.cdio.petshop.entities.User;
 import com.cdio.petshop.model.Item;
+import com.cdio.petshop.repositories.ProductRepository;
 import com.cdio.petshop.services.CategoryService;
 import com.cdio.petshop.services.ProductService;
 import com.cdio.petshop.services.SupplierService;
 import com.cdio.petshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class AppController {
@@ -34,6 +40,8 @@ public class AppController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProductRepository productRepository;
     @GetMapping("/")
     public String demo(Model model, HttpSession session){
         //  ngay lúc người dùng vào trang web. khởi tạo giỏ hàng có tên cart ngay lập tức;
@@ -41,8 +49,8 @@ public class AppController {
             List<Item> cart = new ArrayList<>();
             session.setAttribute("cart",cart);
         }
-
-        model.addAttribute("products", productService.findAll());
+        model.addAttribute("products",productService.findAll());
+//        model.addAttribute("products", productService.findAll());
         model.addAttribute("categories",categoryService.findAll());
         return "App_index";
     }
@@ -118,5 +126,15 @@ public class AppController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user",userService.findById(authentication.getName()));
         return "App_UserInfo";
+    }
+
+    // xử lý tìm kiếm
+    @GetMapping("/search")
+    public String toSearch(@Param("keyword") String keyword,Model model){
+        keyword = keyword.replace("+"," ");
+        List<Product> products = productRepository.findAllByKeyord(keyword);
+        model.addAttribute("products",products);
+        model.addAttribute("title","Tìm kiếm theo từ khóa : '"+keyword+"'");
+        return "App_ListProductByCategoryOrSupplier";
     }
 }

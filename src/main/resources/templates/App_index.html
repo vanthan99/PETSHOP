@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{fragments/App_index_layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>PET SHOP</title>
 </head>
@@ -17,7 +17,13 @@
                             <a th:href="@{'/product/id=' + ${product.getId()}}" class="card-a-img">
                                 <img th:src="@{'/images/' + ${product.getImagePath()}}" alt="" class="card-img">
                             </a>
-                            <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
+<!--                            Quền user có thể nhìn thấy-->
+                            <a sec:authorize="hasAuthority('user')" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
+                               class="add-to-card btn btn-outline-danger" title="Thêm vào giỏ hàng">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                            </a>
+<!--                            Người dùng chưa đăng nhập vào hệ thống có thể nhìn thấy-->
+                            <a sec:authorize="isAnonymous()" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
                                class="add-to-card btn btn-outline-danger" title="Thêm vào giỏ hàng">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                             </a>
@@ -51,42 +57,32 @@
         </div>
 
         <hr>
-        <!--            <ul>-->
-        <!--                <li th:each="product : ${products}">-->
-        <!--                    <div class="card product shadow">-->
-        <!--                        <div class="head">-->
-        <!--                            <a th:href="@{'/product/id=' + ${product.getId()}}">-->
-        <!--                                <img th:src="@{'/images/' + ${product.getImagePath()}}"-->
-        <!--                                     th:alt="${product.getImagePath()}">-->
-        <!--                                <div class="dat-hang text-center">-->
-        <!--                                    <span class="card-text">Click để xem chi tiết</span>-->
-        <!--&lt;!&ndash;                                    <a class="btn btn-secondary btn-sm" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"> + </a>&ndash;&gt;-->
-        <!--                                </div>-->
-        <!--                            </a>-->
-        <!--                        </div>-->
-        <!--                        <div class="card-body cart-info">-->
 
-        <!--&lt;!&ndash;                            <h5 class="card-title text-center font-weight-light" th:text="${product.getCategory().getName()}"></h5>&ndash;&gt;-->
-        <!--                            <h5 class="card-title font-weight-light" th:text="${product.getName()}"></h5>-->
+<!--        <nav aria-label="Page navigation example">-->
+<!--            <ul class="pagination justify-content-center">-->
 
-        <!--&lt;!&ndash;                            Trường hợp sản phẩm có khuyến mãi. Hiển thị ra giá niêm yết bị gạch chân và hiển thị giá khuyến mãi&ndash;&gt;-->
-        <!--                            <div th:if="${product.getPromotionPrice()}">-->
-        <!--                                <s class="card-text font-weight-light">-->
-        <!--                                    <b th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></b>-->
-        <!--                                </s>-->
-        <!--                                <p class="cart-text font-weight-bold text-danger" th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></p>-->
-        <!--                                <p class="cart-text font-weight-bold text-danger" th:text="${' -' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + ' %'}"></p>-->
-        <!--                            </div>-->
-        <!--&lt;!&ndash;                            Trường hợp sản phẩm không có có khuyến mãi. hiển thị ra mỗi giá niêm yết không bị gạch chân&ndash;&gt;-->
-        <!--                            <div th:unless="${product.getPromotionPrice()}">-->
-        <!--                                <p class="card-text text-danger"><b-->
-        <!--                                        th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></b>-->
-        <!--                                </p>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </li>-->
-        <!--            </ul>-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" th:unless="${currentPage == 1}" th:href="@{/1}">Trang đầu tiên</a>-->
+<!--                </li>-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/' + ${currentPage - 1}}"> << </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash;                    danh sách các trang&ndash;&gt;-->
+<!--                <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">-->
+<!--                    <a class="page-link" th:href="@{'/' + ${i}}">[[${i}]]</a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash;                    tiếp theo&ndash;&gt;-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/' + ${currentPage + 1}}"> >> </a>-->
+<!--                </li>-->
+<!--                &lt;!&ndash;                    Trang cuối&ndash;&gt;-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/' + ${totalPages}}">Trang Cuối</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
     </div>
 </div>
 </body>

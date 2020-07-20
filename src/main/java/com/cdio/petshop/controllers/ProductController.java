@@ -5,10 +5,14 @@ import com.cdio.petshop.services.CategoryService;
 import com.cdio.petshop.services.ProductService;
 import com.cdio.petshop.services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/product")
@@ -25,9 +29,14 @@ public class ProductController {
 
     // Quản Lý Sản Phẩm
     // Hiển thị giao diện danh sách sản phẩm
-    @GetMapping("/index")
-    public String viewListProduct(Model model){
-        model.addAttribute("products",productService.findAll());
+    @GetMapping("/index/{pageNum}")
+    public String viewListProduct(Model model, @Param("keyword") String keyword,@PathVariable("pageNum") int pageNum){
+        Page<Product> page = productService.listAll(pageNum);
+        List<Product> products = page.getContent();
+        model.addAttribute("products",products);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "Admin_ProductManager";
     }
 

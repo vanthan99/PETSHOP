@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{fragments/App_Main_Layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Danh Sách Sản Phẩm Theo Loại</title>
@@ -26,7 +26,14 @@
                                 <a th:href="@{'/product/id=' + ${product.getId()}}" class="card-a-img">
                                     <img th:src="@{'/images/' + ${product.getImagePath()}}" alt="" class="card-img">
                                 </a>
-                                <a th:href="@{'/cart/buy/productId=' + ${product.getId()}}" class="add-to-card btn btn-outline-danger"   title="Thêm vào giỏ hàng">
+                                <!--                            Quền user có thể nhìn thấy-->
+                                <a sec:authorize="hasAuthority('user')" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
+                                   class="add-to-card btn btn-outline-danger" title="Thêm vào giỏ hàng">
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                </a>
+                                <!--                            Người dùng chưa đăng nhập vào hệ thống có thể nhìn thấy-->
+                                <a sec:authorize="isAnonymous()" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
+                                   class="add-to-card btn btn-outline-danger" title="Thêm vào giỏ hàng">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                 </a>
                             </div>

@@ -12,12 +12,15 @@
             </a>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <form class="form-inline my-2 my-lg-0">
-                    <input id="txtSearch" class="form-control mr-sm-2" type="search" placeholder="Nhập Từ Khóa ..."
-                           aria-label="Search">
-                    <button id="btnSearch" class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>
+                <form class="form-inline form-group my-2 my-lg-0 col" th:action="@{/search}">
+                    <div class="btn-group col">
+                        <input id="txtSearch" name="keyword" class="form-control col" type="search" placeholder="Nhập Từ Khóa ..."
+                               aria-label="Search">
+                        <button id="btnSearch" class="btn btn-outline-danger my-2 my-sm-0" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
                 </form>
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item">
@@ -63,7 +66,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('user')">
                         <!-- Kiểm tra đơn hàng -->
                         <a class="nav-link text-dark font-weight-bold" th:href="@{/bill}">
                             <div class="items">
@@ -72,7 +75,8 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+
+                    <li class="nav-item" sec:authorize="hasAuthority('user')">
                         <!-- Giỏ Hàng -->
                         <a class="nav-link text-dark font-weight-bold" th:href="@{/cart/index}" style="position: relative;">
                             <div class="items">
@@ -88,10 +92,20 @@
 <!--                            </span>-->
                         </a>
                     </li>
+
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <!-- Giỏ Hàng -->
+                        <a class="nav-link text-dark font-weight-bold" th:href="@{/cart/index}" style="position: relative;">
+                            <div class="items">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <span class="">Giỏ hàng</span>
+                            </div>
+                        </a>
+                    </li>
                     <li class="nav-item" sec:authorize="hasAuthority('admin')">
 <!--                                            <li class="nav-item">-->
                         <!-- ADMIN -->
-                        <a class="nav-link text-dark font-weight-bold" th:href="@{/admin/product/index}">
+                        <a class="nav-link text-dark font-weight-bold" th:href="@{/admin/product/index/1}">
                             <div class="items">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                                 <span class="">ADMIN</span>
