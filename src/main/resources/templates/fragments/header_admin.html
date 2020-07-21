@@ -10,8 +10,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
+
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/product/index/1}">Sản phẩm</a>
+                        <form th:action="@{/admin/product/index}" method="get">
+                            <input type="hidden" name="keyword">
+                            <button type="submit" class="nav-link" style="border: none;background: none; outline:none;">Sản phẩm</button>
+                        </form>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/category/index}">Loại hàng</a>

@@ -105,7 +105,8 @@
                     <li class="nav-item" sec:authorize="hasAuthority('admin')">
 <!--                                            <li class="nav-item">-->
                         <!-- ADMIN -->
-                        <a class="nav-link text-dark font-weight-bold" th:href="@{/admin/product/index/1}">
+
+                        <a class="nav-link text-dark font-weight-bold" th:href="@{'/admin/product/index?keyword='}">
                             <div class="items">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                                 <span class="">ADMIN</span>

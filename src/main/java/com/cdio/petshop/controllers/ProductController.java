@@ -29,14 +29,18 @@ public class ProductController {
 
     // Quản Lý Sản Phẩm
     // Hiển thị giao diện danh sách sản phẩm
-    @GetMapping("/index/{pageNum}")
-    public String viewListProduct(Model model, @Param("keyword") String keyword,@PathVariable("pageNum") int pageNum){
-        Page<Product> page = productService.listAll(pageNum);
-        List<Product> products = page.getContent();
-        model.addAttribute("products",products);
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
+    @GetMapping("/index")
+    public String viewListProduct(Model model, @Param("keyword") String keyword){
+//
+//        Page<Product> page = productService.findByProductName(pageNum,keyword);
+//        List<Product> products = page.getContent();
+//        model.addAttribute("products",products);
+//        model.addAttribute("currentPage", pageNum);
+//        model.addAttribute("totalPages", page.getTotalPages());
+//        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("products",productService.findByProductName(keyword));
+        model.addAttribute("producrsIsActive",productService.finAllProductIsActive());
+        model.addAttribute("producrsNotActive",productService.finAllProductNotActive());
         return "Admin_ProductManager";
     }
 
@@ -52,6 +56,7 @@ public class ProductController {
     //Lưu Sản Phẩm
     @PostMapping
     public String saveProduct(@ModelAttribute(name = "product") Product product, RedirectAttributes redirectAttributes){
+        product.setEnable(2);
         productService.save(product);
         redirectAttributes.addFlashAttribute("message","Thông Báo: Lưu sản phẩm thành công");
         return "redirect:/admin/product/index";
@@ -67,11 +72,20 @@ public class ProductController {
     }
 
     // Chức năng xóa sản phẩm
-    @GetMapping("/delete/productId={id}")
+    @GetMapping("/hidden/productId={id}")
     public String deleteProduct(@PathVariable(name = "id") Long id,RedirectAttributes redirectAttributes){
-        productService.deleteById(id);
-        redirectAttributes.addFlashAttribute("message","Thông Báo: Xóa sản phẩm thành công!");
+        // Kiểm tra. Thay đôi trạng thái hoạt động.
+        Product product = productService.findById(id);
+        if (productService.findById(id).getEnable()==2){
+            product.setEnable(1);
+            productService.save(product);
+            redirectAttributes.addFlashAttribute("message","Thông Báo: Ẩn sản phẩm thành công!");
+        }
+        else {
+            product.setEnable(2);
+            productService.save(product);
+            redirectAttributes.addFlashAttribute("message","Thông Báo: Mở khóa sản phẩm thành công!");
+        }
         return "redirect:/admin/product/index";
     }
-
 }

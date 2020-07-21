@@ -35,6 +35,9 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column
+    private Integer enable;
+
     // map ManyToOne to table supplier
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplierId",nullable = false,foreignKey = @ForeignKey(name = "fk_product_supplier"))

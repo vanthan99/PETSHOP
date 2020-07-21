@@ -27,13 +27,12 @@ public class ProductService{
         return productRepository.findAll(pageable);
     }
 
-
-    public List<Product> findAll(){
-            return productRepository.findAll();
+    public List<Product> finAllProductIsActive(){
+            return productRepository.finAllProductActive();
     }
 
-    public void deleteById(Long id){
-        productRepository.deleteById(id);
+    public List<Product> finAllProductNotActive(){
+        return productRepository.finAllProductNotActive();
     }
 
     public void save(Product product){
@@ -46,8 +45,13 @@ public class ProductService{
         if (productName == null){
             return productRepository.findAll();
         }
-        else {
-            return productRepository.findByProductName(productName);
+        else return productRepository.findByProductName(productName);
+    }
+
+    public List<Product> findAllByKeyword(String keyword){
+        if (keyword == null){
+            return productRepository.findAll();
         }
+        else return productRepository.findAllByKeyword(keyword);
     }
 }

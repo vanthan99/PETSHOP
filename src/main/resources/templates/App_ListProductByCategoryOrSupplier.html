@@ -38,23 +38,41 @@
                                 </a>
                             </div>
                             <div class="body text-center">
-                                <p class="text-muted category pt-2" th:text="${product.getCategory().getName()}"></p>
-                                <a th:href="@{'/product/id=' + ${product.getId()}}" class="font-weight-light name" th:text="${product.getName()}"></a>
-                                <!-- kiểm tra khuyến mãi -->
+                                <p class="text-muted category pt-2"
+                                   th:text="${product.getCategory().getName()}"
+                                ></p>
+                                <a th:href="@{'/product/id=' + ${product.getId()}}"
+                                   class="font-weight-light name"
+                                   th:text="${product.getName()}"
+                                ></a>
 
-                                <!--                        Trường hợp sản phẩm có khuyến mãi-->
-                                <div th:if="${product.getPromotionPrice()}">
-                                    <small><s class="unitPrice" th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></s></small>
-                                    <span class="promotionPrice text-danger" th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
-                                    <div class="saleoff">
-                                        <span th:text="${'-' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + '%'}"></span>
+                                <!--Trường hợp sản phẩm ngừng kinh doanh-->
+                                <div th:if="${product.getEnable() == 1}">
+                                    <span class="text-danger">Liên hệ</span>
+                                </div>
+                                <!-- Trường hợp sản phẩm đó vẫn còn kinh doanh -->
+                                <th:block th:if="${product.getEnable() == 2}">
+                                    <!-- kiểm tra khuyến mãi -->
+                                    <!--Trường hợp sản phẩm có khuyến mãi-->
+                                    <div th:if="${product.getPromotionPrice()}">
+                                        <small>
+                                            <s class="unitPrice"
+                                               th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"
+                                            >
+                                            </s>
+                                        </small>
+                                        <span class="promotionPrice text-danger"
+                                              th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
+                                        <div class="saleoff" th:if="${product.getEnable() == 2}">
+                                            <span th:text="${'-' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + '%'}"></span>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <!--                         Trường hợp sản phẩm không có khuyến mãi-->
-                                <div th:unless="${product.getPromotionPrice()}">
-                                    <span class="unitPrice text-danger" th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
-                                </div>
+                                    <!--Trường hợp sản phẩm không có khuyến mãi-->
+                                    <div th:unless="${product.getPromotionPrice()}">
+                                <span class="unitPrice text-danger"
+                                      th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>

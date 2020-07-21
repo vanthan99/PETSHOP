@@ -10,16 +10,48 @@
 <body>
 <div layout:fragment="content">
     <div id="product_manager">
-            <h3 class="mona_title mt-3">Quản Lý Sản Phẩm</h3>
+        <h3 class="mona_title mt-3">Quản Lý Sản Phẩm</h3>
 
 
         <!--    Button Thêm mới Sản Phẩm-->
         <div class="row">
             <form class="col form-group form-inline" th:action="@{/admin/product/index}">
-                    <input type="search" class="col form-control" placeholder="Nhập tên sản phẩm ..." name="keyword">
-                    <button type="submit" class="btn btn-info">Tìm Kiếm</button>
+                <input type="search" class="col form-control" placeholder="Nhập tên sản phẩm ..." name="keyword">
+                <button type="submit" class="btn btn-info">Tìm Kiếm</button>
             </form>
-            <div class="col text-right mb-2">
+            <ul class="nav nav-pills mb-3 col justify-content-center" id="pills-tab" role="tablist">
+                <li class="nav-item mr-2">
+                    <a class="btn btn-outline-danger active"
+                       id="pills-all-tab"
+                       data-toggle="pill"
+                       href="#pills-all"
+                       role="tab"
+                       aria-controls="pills-all"
+                       aria-selected="true"
+                    >Tất cả</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-success"
+                       id="pills-home-tab"
+                       data-toggle="pill"
+                       href="#pills-home"
+                       role="tab"
+                       aria-controls="pills-home"
+                       aria-selected="false"
+                    >Hoạt động</a>
+                </li>
+                <li class="ml-2 mr-2 nav-item">
+                    <a class="btn btn-outline-secondary"
+                       id="pills-profile-tab"
+                       data-toggle="pill"
+                       href="#pills-profile"
+                       role="tab"
+                       aria-controls="pills-profile"
+                       aria-selected="false"
+                    >Ngừng Kinh Doanh</a>
+                </li>
+            </ul>
+            <div class="text-right mb-2 col-2">
                 <a th:href="@{/admin/product/new}" class="btn btn-success">
                     <span>Thêm Sản Phẩm</span>
                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -28,95 +60,265 @@
         </div>
 
         <div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col"><label>STT</label></th>
-                <th scope="col"><label>Tên</label></th>
-                <th scope="col"><label>Hình Ảnh</label></th>
-                <th scope="col"><label>Nhà Cung Cấp</label></th>
-                <th scope="col"><label>Danh Mục</label></th>
-                <th scope="col"><label>Giá Niêm Yết</label></th>
-                <th scope="col"><label>Giá KM</label></th>
-                <th scope="col"><label>Đơn Vị</label></th>
-                <th scope="col" class="text-center"><label>Sửa|Xóa</label></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="product, stt : ${products}">
-<!--                số thứ tự-->
-                <th scope="row"><label th:text="${stt.index+1}"></label></th>
-<!--                tên sản phẩm-->
-                <td><a th:href="@{'/product/id=' + ${product.getId()}}" class="text-dark" style="width: 160px;" th:text="${product.getName()}" th:title="${product.getName()}"></a></td>
-<!--                hình ảnh-->
-                <td>
-                    <img style="width:132px;height: 153px;border-radius: 5px" th:src="@{'/images/'+${product.getImagePath()}}">
-                </td>
-<!--                nhà cung cấp-->
-                <td><label style="width: 100px;" th:text="${product.getSupplier().getName()}" th:title="${product.getSupplier().getName()}"></label></td>
-<!--                danh mục-->
-                <td><label th:text="${product.getCategory().getName()}"></label></td>
-<!--                giá niêm yết-->
-                <td><label class="text-danger font-weight-bold"  th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label></td>
-<!--                giá khuyến mãi-->
-                <td>
-<!--                    kiểm tra nếu sản phẩm có khuyến mãi thì hiển thị ra-->
-                    <div th:if="${product.getPromotionPrice()}">
-                        <label class="text-danger font-weight-bold"  th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}">
-                        </label>
-                    </div>
-<!--                    Trường hợp sản phẩm không có khuyến mãi thì hiển thị "Không khuyến mãi"-->
-                    <div th:unless="${product.getPromotionPrice()}">
-                        <label class="text-danger font-weight-bold">Không</label>
-                    </div>
-                </td>
-<!--                đơn vị tính-->
-                <td><label th:text="${product.getUnit()}"></label></td>
-                <td class="text-center">
-                    <a th:href="@{'/admin/product/edit/productId='+ ${product.getId()}}" class="btn btn-outline-info" title="Chỉnh sửa"><i
-                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <a th:href="@{'/admin/product/delete/productId='+ ${product.getId()}}"
-                       onclick="return confirm('Bạn Có Chắc Chắn Muốn Xóa?');" class="btn btn-outline-danger" title="Xóa"><i
-                            class="fa fa-trash-o" aria-hidden="true"></i></a>
-                </td>
-            </tr>
 
-            </tbody>
-        </table>
-<!--        <div class="row">-->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
 
-                    <li class="page-item">
-                        <a class="page-link" th:unless="${currentPage == 1}" th:href="@{/admin/product/index/1}">Trang đầu tiên</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/product/index/' + ${currentPage - 1}}"> << </a>
-                    </li>
+        <div class="tab-content" id="pills-tabContent">
+            <!--            tất cả-->
+            <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+                <!--        tất cả sản phẩm-->
+                <table class="table table-striped tab-pane fade show" role="tabpanel">
+                    <thead>
+                    <tr>
+                        <th scope="col"><label>STT</label></th>
+                        <th scope="col"><label>Tên</label></th>
+                        <th scope="col"><label>Hình Ảnh</label></th>
+                        <th scope="col"><label>Nhà Cung Cấp</label></th>
+                        <th scope="col"><label>Danh Mục</label></th>
+                        <th scope="col"><label>Giá Niêm Yết</label></th>
+                        <th scope="col"><label>Giá KM</label></th>
+                        <th scope="col"><label>Đơn Vị</label></th>
+                        <th scope="col" class="text-center"><label>Chức năng</label></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product, stt : ${products}">
+                        <!--                số thứ tự-->
+                        <th scope="row"><label th:text="${stt.index+1}"></label></th>
+                        <!--                tên sản phẩm-->
+                        <td><a th:href="@{'/product/id=' + ${product.getId()}}" class="text-dark" style="width: 160px;"
+                               th:text="${product.getName()}" th:title="${product.getName()}"></a></td>
+                        <!--                hình ảnh-->
+                        <td>
+                            <img style="width:132px;height: 153px;border-radius: 5px"
+                                 th:src="@{'/images/'+${product.getImagePath()}}">
+                        </td>
+                        <!--                nhà cung cấp-->
+                        <td><label style="width: 100px;" th:text="${product.getSupplier().getName()}"
+                                   th:title="${product.getSupplier().getName()}"></label></td>
+                        <!--                danh mục-->
+                        <td><label th:text="${product.getCategory().getName()}"></label></td>
+                        <!--                giá niêm yết-->
+                        <td><label class="text-danger font-weight-bold"
+                                   th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </td>
+                        <!--                giá khuyến mãi-->
+                        <td>
+                            <!--                    kiểm tra nếu sản phẩm có khuyến mãi thì hiển thị ra-->
+                            <div th:if="${product.getPromotionPrice()}">
+                                <label class="text-danger font-weight-bold"
+                                       th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}">
+                                </label>
+                            </div>
+                            <!--                    Trường hợp sản phẩm không có khuyến mãi thì hiển thị "Không khuyến mãi"-->
+                            <div th:unless="${product.getPromotionPrice()}">
+                                <label class="text-danger font-weight-bold">Không</label>
+                            </div>
+                        </td>
+                        <!--                đơn vị tính-->
+                        <td><label th:text="${product.getUnit()}"></label></td>
+                        <td class="text-center">
+                            <a th:href="@{'/admin/product/edit/productId='+ ${product.getId()}}"
+                               class="btn btn-outline-info" title="Chỉnh sửa">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
 
-<!--                    danh sách các trang-->
-                    <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
-                        <li th:if="${i == currentPage}" class="page-item active">
-                            <a class="page-link" th:href="@{'/admin/product/index/' + ${i}}">[[${i}]]</a>
-                        </li>
-                        <li th:unless="${i == currentPage}" class="page-item">
-                            <a class="page-link" th:href="@{'/admin/product/index/' + ${i}}">[[${i}]]</a>
-                        </li>
+                            <a th:if="${product.getEnable() == 2}"
+                               th:href="@{'/admin/product/hidden/productId='+ ${product.getId()}}"
+                               onclick="return confirm('Bạn Có Chắc Chắn Muốn Khóa sản phẩm?');"
+                               class="btn btn-outline-danger" title="Ẩn">
+                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                            </a>
 
-                    </th:block>
+                            <a th:if="${product.getEnable() == 1}"
+                               th:href="@{'/admin/product/hidden/productId='+ ${product.getId()}}"
+                               onclick="return confirm('Bạn Có Chắc Chắn Muốn Mở Khóa sản phẩm?');"
+                               class="btn btn-outline-secondary" title="Mở khóa">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
 
-<!--                    tiếp theo-->
-                    <li class="page-item">
-                        <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/product/index/' + ${currentPage + 1}}"> >> </a>
-                    </li>
+                    </tbody>
+                </table>
+            </div>
 
-<!--                    Trang cuối-->
-                    <li class="page-item">
-                        <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/product/index/' + ${totalPages}}">Trang Cuối</a>
-                    </li>
-                </ul>
-            </nav>
-<!--        </div>-->
+            <!--            danh sách sản phẩm đang hoạt động-->
+            <div class="tab-pane fade show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"><label>STT</label></th>
+                        <th scope="col"><label>Tên</label></th>
+                        <th scope="col"><label>Hình Ảnh</label></th>
+                        <th scope="col"><label>Nhà Cung Cấp</label></th>
+                        <th scope="col"><label>Danh Mục</label></th>
+                        <th scope="col"><label>Giá Niêm Yết</label></th>
+                        <th scope="col"><label>Giá KM</label></th>
+                        <th scope="col"><label>Đơn Vị</label></th>
+                        <th scope="col" class="text-center"><label>Chức năng</label></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product, stt : ${producrsIsActive}">
+                        <!--                số thứ tự-->
+                        <th scope="row"><label th:text="${stt.index+1}"></label></th>
+                        <!--                tên sản phẩm-->
+                        <td><a th:href="@{'/product/id=' + ${product.getId()}}" class="text-dark" style="width: 160px;"
+                               th:text="${product.getName()}" th:title="${product.getName()}"></a></td>
+                        <!--                hình ảnh-->
+                        <td>
+                            <img style="width:132px;height: 153px;border-radius: 5px"
+                                 th:src="@{'/images/'+${product.getImagePath()}}">
+                        </td>
+                        <!--                nhà cung cấp-->
+                        <td><label style="width: 100px;" th:text="${product.getSupplier().getName()}"
+                                   th:title="${product.getSupplier().getName()}"></label></td>
+                        <!--                danh mục-->
+                        <td><label th:text="${product.getCategory().getName()}"></label></td>
+                        <!--                giá niêm yết-->
+                        <td><label class="text-danger font-weight-bold"
+                                   th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </td>
+                        <!--                giá khuyến mãi-->
+                        <td>
+                            <!--                    kiểm tra nếu sản phẩm có khuyến mãi thì hiển thị ra-->
+                            <div th:if="${product.getPromotionPrice()}">
+                                <label class="text-danger font-weight-bold"
+                                       th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}">
+                                </label>
+                            </div>
+                            <!--                    Trường hợp sản phẩm không có khuyến mãi thì hiển thị "Không khuyến mãi"-->
+                            <div th:unless="${product.getPromotionPrice()}">
+                                <label class="text-danger font-weight-bold">Không</label>
+                            </div>
+                        </td>
+                        <!--                đơn vị tính-->
+                        <td><label th:text="${product.getUnit()}"></label></td>
+                        <td class="text-center">
+                            <a th:href="@{'/admin/product/edit/productId='+ ${product.getId()}}"
+                               class="btn btn-outline-info" title="Chỉnh sửa">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+
+                            <a th:href="@{'/admin/product/hidden/productId='+ ${product.getId()}}"
+                               onclick="return confirm('Bạn Có Chắc Chắn Muốn Khóa sản phẩm?');"
+                               class="btn btn-outline-danger" title="Ẩn">
+                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <!--            danh sách sản phẩm đã ngừng kinh doanh-->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"><label>STT</label></th>
+                        <th scope="col"><label>Tên</label></th>
+                        <th scope="col"><label>Hình Ảnh</label></th>
+                        <th scope="col"><label>Nhà Cung Cấp</label></th>
+                        <th scope="col"><label>Danh Mục</label></th>
+                        <th scope="col"><label>Giá Niêm Yết</label></th>
+                        <th scope="col"><label>Giá KM</label></th>
+                        <th scope="col"><label>Đơn Vị</label></th>
+                        <th scope="col" class="text-center"><label>Chức năng</label></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product, stt : ${producrsNotActive}">
+                        <!--                số thứ tự-->
+                        <th scope="row"><label th:text="${stt.index+1}"></label></th>
+                        <!--                tên sản phẩm-->
+                        <td><a th:href="@{'/product/id=' + ${product.getId()}}" class="text-dark" style="width: 160px;"
+                               th:text="${product.getName()}" th:title="${product.getName()}"></a></td>
+                        <!--                hình ảnh-->
+                        <td>
+                            <img style="width:132px;height: 153px;border-radius: 5px"
+                                 th:src="@{'/images/'+${product.getImagePath()}}">
+                        </td>
+                        <!--                nhà cung cấp-->
+                        <td><label style="width: 100px;" th:text="${product.getSupplier().getName()}"
+                                   th:title="${product.getSupplier().getName()}"></label></td>
+                        <!--                danh mục-->
+                        <td><label th:text="${product.getCategory().getName()}"></label></td>
+                        <!--                giá niêm yết-->
+                        <td><label class="text-danger font-weight-bold"
+                                   th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></label>
+                        </td>
+                        <!--                giá khuyến mãi-->
+                        <td>
+                            <!--                    kiểm tra nếu sản phẩm có khuyến mãi thì hiển thị ra-->
+                            <div th:if="${product.getPromotionPrice()}">
+                                <label class="text-danger font-weight-bold"
+                                       th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}">
+                                </label>
+                            </div>
+                            <!--                    Trường hợp sản phẩm không có khuyến mãi thì hiển thị "Không khuyến mãi"-->
+                            <div th:unless="${product.getPromotionPrice()}">
+                                <label class="text-danger font-weight-bold">Không</label>
+                            </div>
+                        </td>
+                        <!--                đơn vị tính-->
+                        <td><label th:text="${product.getUnit()}"></label></td>
+                        <td class="text-center">
+                            <a th:href="@{'/admin/product/edit/productId='+ ${product.getId()}}"
+                               class="btn btn-outline-info" title="Chỉnh sửa">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                            <a th:href="@{'/admin/product/hidden/productId='+ ${product.getId()}}"
+                               onclick="return confirm('Bạn Có Chắc Chắn Muốn Mở Khóa sản phẩm?');"
+                               class="btn btn-outline-secondary" title="Mở khóa">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+        <!--            <nav aria-label="Page navigation example">-->
+        <!--                <ul class="pagination justify-content-center">-->
+
+        <!--                    <li class="page-item">-->
+        <!--                        <a class="page-link" th:unless="${currentPage == 1}" th:href="@{/admin/product/index/1}">Trang đầu tiên</a>-->
+        <!--                    </li>-->
+        <!--                    <li class="page-item">-->
+        <!--                        <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/product/index/' + ${currentPage - 1}}"> << </a>-->
+        <!--                    </li>-->
+
+        <!--&lt;!&ndash;                    danh sách các trang&ndash;&gt;-->
+        <!--                    <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">-->
+        <!--                        <li th:if="${i == currentPage}" class="page-item active">-->
+        <!--                            <a class="page-link" th:href="@{'/admin/product/index/' + ${i}}">[[${i}]]</a>-->
+        <!--                        </li>-->
+        <!--                        <li th:unless="${i == currentPage}" class="page-item">-->
+        <!--                            <a class="page-link" th:href="@{'/admin/product/index/' + ${i}}">[[${i}]]</a>-->
+        <!--                        </li>-->
+
+        <!--                    </th:block>-->
+
+        <!--&lt;!&ndash;                    tiếp theo&ndash;&gt;-->
+        <!--                    <li class="page-item">-->
+        <!--                        <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/product/index/' + ${currentPage + 1}}"> >> </a>-->
+        <!--                    </li>-->
+
+        <!--&lt;!&ndash;                    Trang cuối&ndash;&gt;-->
+        <!--                    <li class="page-item">-->
+        <!--                        <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/product/index/' + ${totalPages}}">Trang Cuối</a>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </nav>-->
+
     </div>
 </div>
 </body>

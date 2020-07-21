@@ -40,8 +40,6 @@ public class AppController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ProductRepository productRepository;
     @GetMapping("/")
     public String demo(Model model, HttpSession session){
         //  ngay lúc người dùng vào trang web. khởi tạo giỏ hàng có tên cart ngay lập tức;
@@ -49,8 +47,8 @@ public class AppController {
             List<Item> cart = new ArrayList<>();
             session.setAttribute("cart",cart);
         }
-        model.addAttribute("products",productService.findAll());
-//        model.addAttribute("products", productService.findAll());
+        //danh sách sản phẩm đang kinh doanh tại shop
+        model.addAttribute("products",productService.finAllProductIsActive());
         model.addAttribute("categories",categoryService.findAll());
         return "App_index";
     }
@@ -60,7 +58,6 @@ public class AppController {
     public String viewProductDetailByIdPage(Model model, @PathVariable(name = "id") Long id){
         model.addAttribute("product", productService.findById(id));
 
-        // danh sách sản phẩm tương tự
         Product product = productService.findById(id);
         Item item = new Item();
         item.setProduct(product);
@@ -69,6 +66,7 @@ public class AppController {
 
         Category category = product.getCategory();
         model.addAttribute("products", category.getProducts());
+        System.out.println(product.getEnable());
         return "App_ProductDetailById";
     }
 
@@ -76,8 +74,16 @@ public class AppController {
     @GetMapping("/products/catId={id}")
     public String viewListProductByCategoryIdPage(Model model,@PathVariable(name = "id") Long id){
         model.addAttribute("title", categoryService.findById(id).getName());
-        model.addAttribute("products", categoryService.findById(id).getProducts());
-//        model.addAttribute("category",categoryService.findById(id));
+
+        // lấy ra danh sách sản phẩm đang hoạt động thuộc mỗi loại hàng cụ thể tùy thuộc vào category id.
+        List<Product> products = new ArrayList<>();
+        for (Product product: categoryService.findById(id).getProducts()){
+            if (product.getEnable() == 2){
+                products.add(product);
+            }
+        }
+        model.addAttribute("products",products);
+
         return "App_ListProductByCategoryOrSupplier";
     }
 
@@ -92,7 +98,14 @@ public class AppController {
     @GetMapping("/products/supId={id}")
     public String viewListProductBySupplierPage(Model model,@PathVariable(name = "id") Long id){
         model.addAttribute("title","Danh Sách Sản Phẩm Thuộc Danh Mục " + supplierService.findById(id).getName());
-        model.addAttribute("products",supplierService.findById(id).getProducts());
+        // lấy ra danh sách sản phẩm đang hoạt động thuộc mỗi loại hàng cụ thể tùy thuộc vào category id.
+        List<Product> products = new ArrayList<>();
+        for (Product product: supplierService.findById(id).getProducts()){
+            if (product.getEnable() == 2){
+                products.add(product);
+            }
+        }
+        model.addAttribute("products",products);
         return "App_ListProductByCategoryOrSupplier";
     }
 
@@ -101,8 +114,8 @@ public class AppController {
     public String viewListDiscountProduct(Model model){
 //        tìm kiếm những sản phẩm có khuyến mãi rồi đưa vào danh sách products
         ArrayList<Product> products = new ArrayList<>();
-        for (Product product : productService.findAll()){
-            if (product.getPromotionPrice() != null){
+        for (Product product : productService.finAllProductIsActive()){
+            if (product.getPromotionPrice() != null && product.getEnable()==2){
                 products.add(product);
             }
         }
@@ -132,7 +145,7 @@ public class AppController {
     @GetMapping("/search")
     public String toSearch(@Param("keyword") String keyword,Model model){
         keyword = keyword.replace("+"," ");
-        List<Product> products = productRepository.findAllByKeyord(keyword);
+        List<Product> products = productService.findAllByKeyword(keyword);
         model.addAttribute("products",products);
         model.addAttribute("title","Tìm kiếm theo từ khóa : '"+keyword+"'");
         return "App_ListProductByCategoryOrSupplier";

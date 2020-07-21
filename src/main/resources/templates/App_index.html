@@ -17,12 +17,18 @@
                             <a th:href="@{'/product/id=' + ${product.getId()}}" class="card-a-img">
                                 <img th:src="@{'/images/' + ${product.getImagePath()}}" alt="" class="card-img">
                             </a>
-<!--                            Quền user có thể nhìn thấy-->
-                            <a sec:authorize="hasAuthority('user')" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
+                            <!--                            <form th:action="@{'/cart/buy/productId=' + ${product.getId()}}" method="get">-->
+                            <!--                                <button type="submit" class="add-to-card btn btn-outline-danger">-->
+                            <!--                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
+                            <!--                                </button>-->
+                            <!--                            </form>-->
+                            <!--                            Quền user có thể nhìn thấy-->
+                            <a sec:authorize="hasAuthority('user')"
+                               th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
                                class="add-to-card btn btn-outline-danger" title="Thêm vào giỏ hàng">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                             </a>
-<!--                            Người dùng chưa đăng nhập vào hệ thống có thể nhìn thấy-->
+                            <!--                            Người dùng chưa đăng nhập vào hệ thống có thể nhìn thấy-->
                             <a sec:authorize="isAnonymous()" th:href="@{'/cart/buy/productId=' + ${product.getId()}}"
                                class="add-to-card btn btn-outline-danger" title="Thêm vào giỏ hàng">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -32,24 +38,33 @@
                             <p class="text-muted category pt-2" th:text="${product.getCategory().getName()}"></p>
                             <a th:href="@{'/product/id=' + ${product.getId()}}" class="font-weight-light name"
                                th:text="${product.getName()}"></a>
-                            <!-- kiểm tra khuyến mãi -->
 
-                            <!--                        Trường hợp sản phẩm có khuyến mãi-->
-                            <div th:if="${product.getPromotionPrice()}">
-                                <small><s class="unitPrice"
-                                          th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></s></small>
-                                <span class="promotionPrice text-danger"
-                                      th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
-                                <div class="saleoff">
-                                    <span th:text="${'-' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + '%'}"></span>
-                                </div>
+
+                            <!--Trường hợp sản phẩm ngừng kinh doanh-->
+                            <div th:if="${product.getEnable() == 1}">
+                                <span class="text-danger">Liên hệ</span>
                             </div>
 
-                            <!--                         Trường hợp sản phẩm không có khuyến mãi-->
-                            <div th:unless="${product.getPromotionPrice()}">
+
+                            <!-- Trường hợp sản phẩm đó vẫn còn kinh doanh -->
+                            <th:block th:if="${product.getEnable() == 2}">
+                                <!-- kiểm tra khuyến mãi -->
+                                <!--Trường hợp sản phẩm có khuyến mãi-->
+                                <div th:if="${product.getPromotionPrice()}">
+                                    <small><s class="unitPrice"
+                                              th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></s></small>
+                                    <span class="promotionPrice text-danger"
+                                          th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
+                                    <div class="saleoff">
+                                        <span th:text="${'-' + #numbers.formatDecimal((1 - (product.getPromotionPrice()*1.0 / product.getUnitPrice())) * 100,0,'COMMA',0,'POINT') + '%'}"></span>
+                                    </div>
+                                </div>
+                                <!--Trường hợp sản phẩm không có khuyến mãi-->
+                                <div th:unless="${product.getPromotionPrice()}">
                                 <span class="unitPrice text-danger"
                                       th:text="${#numbers.formatDecimal(product.getUnitPrice(),0,'COMMA',0,'POINT') + ' đ'}"></span>
-                            </div>
+                                </div>
+                            </th:block>
                         </div>
                     </div>
                 </div>
@@ -58,31 +73,31 @@
 
         <hr>
 
-<!--        <nav aria-label="Page navigation example">-->
-<!--            <ul class="pagination justify-content-center">-->
+        <!--        <nav aria-label="Page navigation example">-->
+        <!--            <ul class="pagination justify-content-center">-->
 
-<!--                <li class="page-item">-->
-<!--                    <a class="page-link" th:unless="${currentPage == 1}" th:href="@{/1}">Trang đầu tiên</a>-->
-<!--                </li>-->
-<!--                <li class="page-item">-->
-<!--                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/' + ${currentPage - 1}}"> << </a>-->
-<!--                </li>-->
+        <!--                <li class="page-item">-->
+        <!--                    <a class="page-link" th:unless="${currentPage == 1}" th:href="@{/1}">Trang đầu tiên</a>-->
+        <!--                </li>-->
+        <!--                <li class="page-item">-->
+        <!--                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/' + ${currentPage - 1}}"> << </a>-->
+        <!--                </li>-->
 
-<!--                &lt;!&ndash;                    danh sách các trang&ndash;&gt;-->
-<!--                <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">-->
-<!--                    <a class="page-link" th:href="@{'/' + ${i}}">[[${i}]]</a>-->
-<!--                </li>-->
+        <!--                &lt;!&ndash;                    danh sách các trang&ndash;&gt;-->
+        <!--                <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">-->
+        <!--                    <a class="page-link" th:href="@{'/' + ${i}}">[[${i}]]</a>-->
+        <!--                </li>-->
 
-<!--                &lt;!&ndash;                    tiếp theo&ndash;&gt;-->
-<!--                <li class="page-item">-->
-<!--                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/' + ${currentPage + 1}}"> >> </a>-->
-<!--                </li>-->
-<!--                &lt;!&ndash;                    Trang cuối&ndash;&gt;-->
-<!--                <li class="page-item">-->
-<!--                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/' + ${totalPages}}">Trang Cuối</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </nav>-->
+        <!--                &lt;!&ndash;                    tiếp theo&ndash;&gt;-->
+        <!--                <li class="page-item">-->
+        <!--                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/' + ${currentPage + 1}}"> >> </a>-->
+        <!--                </li>-->
+        <!--                &lt;!&ndash;                    Trang cuối&ndash;&gt;-->
+        <!--                <li class="page-item">-->
+        <!--                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/' + ${totalPages}}">Trang Cuối</a>-->
+        <!--                </li>-->
+        <!--            </ul>-->
+        <!--        </nav>-->
     </div>
 </div>
 </body>
