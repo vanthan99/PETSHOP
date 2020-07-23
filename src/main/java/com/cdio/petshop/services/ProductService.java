@@ -35,8 +35,8 @@ public class ProductService{
         return productRepository.finAllProductNotActive();
     }
 
-    public void save(Product product){
-         productRepository.save(product);
+    public Product save(Product product){
+        return productRepository.save(product);
     }
 
     // nếu có tham số truyền vào thì trả về danh sách các sản phẩm có liên quan tới từ khóa "keyquoc"

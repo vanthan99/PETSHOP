@@ -3,11 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thêm Sản Phẩm</title>
-<!--    <style>-->
-<!--        body{-->
-<!--            background-image: -webkit-linear-gradient(left,#86B8C1,#D6BED8);-->
-<!--        }-->
-<!--    </style>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 </head>
 <body>
 <div layout:fragment="content">
@@ -15,7 +11,12 @@
         <div class="row justify-content-center mb-2 pt-1">
             <div id="block" class="col-sm-6 col-11">
                 <h3 class="mona_title text-white mt-2">Thêm sản phẩm</h3>
-                <form th:action="@{/admin/product}" th:object="${product}" method="post">
+                <form th:action="@{/admin/product}"
+                      th:object="${product}"
+                      method="post"
+                      enctype="multipart/form-data"
+
+                >
                     <!--tên sản phẩm-->
                     <div class="row mt-2">
                         <div class="col-sm-4 lead  text-white">Tên sản phẩm</div>
@@ -51,10 +52,18 @@
                         <div class="col-sm-4 lead text-white">Hình ảnh
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" th:field="*{imagePath}">
+                            <input class="form-control"
+                                   type="file"
+                                   name="fileImage"
+                                   id="fileImage"
+                                   accept="image/png,image/jpeg">
                         </div>
                     </div>
-
+                    <div class="row mt-2 justify-content-center">
+                        <div class="col-sm-4">
+                            <img class="img-fluid" id="thumbnail" alt="Picture Preview">
+                        </div>
+                    </div>
                     <!--mô tả-->
                     <div class="row mt-2">
                         <div class="col-sm-4 lead text-white">Mô tả</div>
@@ -113,5 +122,21 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#fileImage').change(function () {
+           showImageThumbnail(this);
+        });
+    });
+    function showImageThumbnail(fileInput) {
+        file = fileInput.files[0];
+        reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#thumbnail').attr('/images/',e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+</script>
 </body>
 </html>

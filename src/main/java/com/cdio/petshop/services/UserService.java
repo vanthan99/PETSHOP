@@ -1,6 +1,5 @@
 package com.cdio.petshop.services;
 
-import com.cdio.petshop.entities.Role;
 import com.cdio.petshop.entities.User;
 import com.cdio.petshop.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,11 +21,11 @@ public class UserService {
         return userRepository.findAll(Sort.by("role"));
     }
 
-    public void deleteById(String username){
-        userRepository.deleteById(username);
-    }
-
     public void save(User user){
         userRepository.save(user);
+    }
+
+    public void changePassword(String username, String password){
+        userRepository.changePassword(username,password);
     }
 }

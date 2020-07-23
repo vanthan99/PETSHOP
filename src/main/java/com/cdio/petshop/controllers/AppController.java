@@ -4,21 +4,23 @@ import com.cdio.petshop.entities.Category;
 import com.cdio.petshop.entities.Product;
 import com.cdio.petshop.entities.User;
 import com.cdio.petshop.model.Item;
+import com.cdio.petshop.model.UserTemp;
 import com.cdio.petshop.repositories.ProductRepository;
-import com.cdio.petshop.services.CategoryService;
-import com.cdio.petshop.services.ProductService;
-import com.cdio.petshop.services.SupplierService;
-import com.cdio.petshop.services.UserService;
+import com.cdio.petshop.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.text.Normalizer;
@@ -40,6 +42,8 @@ public class AppController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
     @GetMapping("/")
     public String demo(Model model, HttpSession session){
         //  ngay lúc người dùng vào trang web. khởi tạo giỏ hàng có tên cart ngay lập tức;
@@ -66,7 +70,6 @@ public class AppController {
 
         Category category = product.getCategory();
         model.addAttribute("products", category.getProducts());
-        System.out.println(product.getEnable());
         return "App_ProductDetailById";
     }
 
@@ -135,10 +138,59 @@ public class AppController {
 
     // thông tin user
     @GetMapping("/user/info")
-    public String viewUserInfoPage(Model model){
+    public String viewUserInfoPage(Model model,@Param("action") String action){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user",userService.findById(authentication.getName()));
+        model.addAttribute("action",action);
+        UserTemp temp = new UserTemp();
+        model.addAttribute("userTemp",temp);
         return "App_UserInfo";
+    }
+
+    // Thay đổi thông tin user
+    @PostMapping("/user/info")
+    public String editInfoUser(@ModelAttribute("user") User user,@ModelAttribute("userTemp") UserTemp userTemp,RedirectAttributes redirectAttributes,@Param("action") String action){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userAuthen = userService.findById(authentication.getName());
+        // Trường hợp thay đổi tên, số điện thoại và địa chỉ người dùng
+        if (action.equalsIgnoreCase("edit")){
+            if (BCrypt.checkpw(user.getPassword(), userAuthen.getPassword())){
+                // đồng ý thay đổi
+                /*
+                 * chỉ thay đổi tên, số điện thoại và địa chỉ của người dùng
+                 */
+                User userFinal = userService.findById(user.getUsername());
+                userFinal.setAddress(user.getAddress());
+                userFinal.setPhoneNumber(user.getPhoneNumber());
+                userFinal.setFullName(user.getFullName());
+                userService.save(userFinal);
+                redirectAttributes.addFlashAttribute("message","Cập nhật thông tin thành công");
+                redirectAttributes.addFlashAttribute("class","alert alert-success");
+                return "redirect:/user/info?action=view";
+            }
+            else {
+                //thông báo sai mật khẩu xác nhận
+                redirectAttributes.addFlashAttribute("message","Mật khẩu không chính xác, vui lòng thực hiện lại");
+                redirectAttributes.addFlashAttribute("class","alert alert-danger");
+                return "redirect:/user/info?action=edit";
+            }
+        }
+        else {
+            // trường hợp thay đổi mật khẩu.
+            if (BCrypt.checkpw(userTemp.getPresentPassword(),userAuthen.getPassword())){
+                userService.changePassword(userAuthen.getUsername(),passwordGenerator(userTemp.getNewPasswordConfirm()));
+                redirectAttributes.addFlashAttribute("message","Cập nhật mật khẩu thành công");
+                redirectAttributes.addFlashAttribute("class","alert alert-success");
+                return "redirect:/user/info?action=view";
+            }
+            else {
+                //thông báo sai mật khẩu hiện tại.
+                redirectAttributes.addFlashAttribute("message","Mật khẩu hiện tại không chính xác, vui lòng thực hiện lại");
+                redirectAttributes.addFlashAttribute("class","alert alert-danger");
+                return "redirect:/user/info?action=changePassword";
+            }
+        }
+
     }
 
     // xử lý tìm kiếm
@@ -149,5 +201,10 @@ public class AppController {
         model.addAttribute("products",products);
         model.addAttribute("title","Tìm kiếm theo từ khóa : '"+keyword+"'");
         return "App_ListProductByCategoryOrSupplier";
+    }
+
+    private String passwordGenerator(String password){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder.encode(password);
     }
 }

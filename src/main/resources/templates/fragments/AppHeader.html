@@ -48,7 +48,6 @@
                         <a class="nav-link text-dark font-weight-bold" href="#">
                             <div class="items">
                                 <i class="fa fa-user-circle" aria-hidden="true"></i>
-<!--                                <span class="">Xin Chào [[${#httpServletRequest.remoteUser}]]</span>-->
                                 <span class="">Xin Chào <span th:text="${#authentication.getName()}"></span></span>
                             </div>
                         </a>
@@ -56,7 +55,7 @@
                         <div id="action-more">
                             <ul>
                                 <li>
-                                    <a th:href="@{/user/info}" class="nav-link text-dark">Thông tin cá nhân</a>
+                                    <a th:href="@{'/user/info?action=view'}" class="nav-link text-dark">Thông tin cá nhân</a>
                                 </li>
                                 <li>
                                     <form th:action="@{/logout}" method="POST" class="nav-link">
