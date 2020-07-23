@@ -72,25 +72,35 @@ public class ProductController {
             RedirectAttributes redirectAttributes,
             @RequestParam("fileImage") MultipartFile multipartFile
     ) throws IOException {
-        Product p = productService.save(product);
-        p.setEnable(2);
-        String fileName = p.getId() + "-" + StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        p.setImagePath(fileName);
-        productRepository.save(p);
-        String uploadDir = "./src/main/resources/static/images/";
-        Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
+        // Trường hợp  có thay đổi về hình ảnh của sản phẩm
 
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileName);
-            System.out.println(filePath.toFile().getAbsolutePath());
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new IOException("Không thể lưu file: " + fileName);
-        }
 
+        if (!multipartFile.isEmpty()){
+            Product p = productService.save(product);
+            p.setEnable(2);
+            String fileName = p.getId() + "-" + StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            p.setImagePath(fileName);
+            productRepository.save(p);
+            String uploadDir = "./src/main/resources/static/images/";
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            try (InputStream inputStream = multipartFile.getInputStream()) {
+                Path filePath = uploadPath.resolve(fileName);
+//                System.out.println(filePath.toFile().getAbsolutePath());
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new IOException("Không thể lưu file: " + fileName);
+            }
+        }
+        // Trường hợp không có thay đổi gì đến hình ảnh.
+        // Sẽ không tác động gì đến file hết
+        else{
+            product.setEnable(2);
+            productService.save(product);
+        }
         redirectAttributes.addFlashAttribute("message", "Thông Báo: Lưu sản phẩm thành công");
         return "redirect:/admin/product/index";
     }

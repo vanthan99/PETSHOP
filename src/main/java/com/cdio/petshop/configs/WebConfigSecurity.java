@@ -50,7 +50,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/admin/**").hasAuthority("admin")
-            .antMatchers("/checkout").hasAnyAuthority("admin","user")
+            .antMatchers("/checkout","/user/**").hasAuthority("user")
             .antMatchers("/cart/**").permitAll()
             .antMatchers("/","/product/*","/products/*","/supplier/*").permitAll()
             .and()

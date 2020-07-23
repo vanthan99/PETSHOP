@@ -11,8 +11,14 @@
         <div class="row justify-content-center mb-2 pt-1">
             <div id="block" class="col-sm-6 col-11">
                 <h3 class="mona_title text-white mt-2">Chỉnh sửa sản phẩm</h3>
-                <form th:action="@{/admin/product}" th:object="${product}" method="post">
+                <form
+                        th:action="@{/admin/product}"
+                        th:object="${product}"
+                        method="post"
+                        enctype="multipart/form-data"
+                >
                     <input type="hidden" readonly th:field="*{id}">
+                    <input type="hidden" readonly th:field="*{imagePath}">
                     <!--tên sản phẩm-->
                     <div class="row mt-2">
                         <div class="col-sm-4 lead  text-white">Tên sản phẩm</div>
@@ -42,13 +48,15 @@
                             </select>
                         </div>
                     </div>
-
-                    <!--hình ảnh-->
                     <div class="row mt-2">
                         <div class="col-sm-4 lead text-white">Hình ảnh
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" th:field="*{imagePath}">
+                            <input class="form-control"
+                                   type="file"
+                                   name="fileImage"
+                                   id="fileImage"
+                                   accept="image/png,image/jpeg">
                         </div>
                     </div>
 
@@ -67,7 +75,12 @@
                         <div class="col-sm-4 lead text-white">Giá niêm yết
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control" type="number" placeholder="VNĐ" th:field="*{unitPrice}"
+                            <input class="form-control"
+                                   type="number"
+                                   placeholder="VNĐ"
+                                   th:field="*{unitPrice}"
+                                   maxlength="8"
+                                   title="Giá tối đa là hàng chục triệu!"
                                    required>
                         </div>
                     </div>

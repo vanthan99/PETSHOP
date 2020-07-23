@@ -15,7 +15,6 @@
                       th:object="${product}"
                       method="post"
                       enctype="multipart/form-data"
-
                 >
                     <!--tên sản phẩm-->
                     <div class="row mt-2">
@@ -59,11 +58,11 @@
                                    accept="image/png,image/jpeg">
                         </div>
                     </div>
-                    <div class="row mt-2 justify-content-center">
-                        <div class="col-sm-4">
-                            <img class="img-fluid" id="thumbnail" alt="Picture Preview">
-                        </div>
-                    </div>
+<!--                    <div class="row mt-2 justify-content-center">-->
+<!--                        <div class="col-sm-4">-->
+<!--                            <img class="img-fluid" id="thumbnail" alt="Picture Preview">-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <!--mô tả-->
                     <div class="row mt-2">
                         <div class="col-sm-4 lead text-white">Mô tả</div>
@@ -79,7 +78,12 @@
                         <div class="col-sm-4 lead text-white">Giá niêm yết
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control" type="number" placeholder="VNĐ" th:field="*{unitPrice}"
+                            <input class="form-control"
+                                   type="number"
+                                   placeholder="VNĐ"
+                                   th:field="*{unitPrice}"
+                                   maxlength="8"
+                                   title="Giá tối đa là hàng chục triệu!"
                                    required>
                         </div>
                     </div>
@@ -122,21 +126,21 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#fileImage').change(function () {
-           showImageThumbnail(this);
-        });
-    });
-    function showImageThumbnail(fileInput) {
-        file = fileInput.files[0];
-        reader = new FileReader();
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function () {-->
+<!--        $('#fileImage').change(function () {-->
+<!--           showImageThumbnail(this);-->
+<!--        });-->
+<!--    });-->
+<!--    function showImageThumbnail(fileInput) {-->
+<!--        file = fileInput.files[0];-->
+<!--        reader = new FileReader();-->
 
-        reader.onload = function(e) {
-            $('#thumbnail').attr('/images/',e.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-</script>
+<!--        reader.onload = function(e) {-->
+<!--            $('#thumbnail').attr('/images/',e.target.result);-->
+<!--        };-->
+<!--        reader.readAsDataURL(file);-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>
