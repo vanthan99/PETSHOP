@@ -15,7 +15,7 @@
 
         <!--    Button Thêm mới Sản Phẩm-->
         <div class="row">
-            <form class="col form-group form-inline" th:action="@{/admin/product/index}">
+            <form class="col form-group form-inline" th:action="@{/admin/product/index}" method="get">
                 <input type="search" class="col form-control" placeholder="Nhập tên sản phẩm ..." name="keyword">
                 <button type="submit" class="btn btn-info">Tìm Kiếm</button>
             </form>
@@ -108,6 +108,7 @@
                                 <label class="text-danger font-weight-bold"
                                        th:text="${#numbers.formatDecimal(product.getPromotionPrice(),0,'COMMA',0,'POINT') + ' đ'}">
                                 </label>
+
                             </div>
                             <!--                    Trường hợp sản phẩm không có khuyến mãi thì hiển thị "Không khuyến mãi"-->
                             <div th:unless="${product.getPromotionPrice()}">

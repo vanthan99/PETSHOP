@@ -21,7 +21,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/images/**");
-    }
+     }
 
     @Bean
     public UserDetailsService userDetailsService(){
